@@ -12,11 +12,22 @@ struct LibrarianDashboard: View {
     
     var body: some View {
         NavigationStack {
-            VStack{
-                Text("Hello")
-                    .font(.system(size: 40, weight: .heavy, design: .default ))
-                    
+            ZStack{
+                VStack{
+                    Text("Hello, Ankit!")
+                      .font(
+                        Font.custom("DM Sans", size: 48)
+                          .weight(.medium)
+                      )
+                      .foregroundColor(.black)
+                      .frame(maxWidth: .infinity, alignment: .topLeading)
+                
             }
+                
+                sideMenuBar(isShowing: $showMenu)
+        }
+            .toolbar(showMenu ? .hidden : .visible,
+                     for: .navigationBar)
             .navigationTitle("Khvaab Library")
             .navigationBarTitleDisplayMode(.inline)
             .padding()
@@ -30,6 +41,7 @@ struct LibrarianDashboard: View {
                 }
             }
         }
+        .background(ignoresSafeAreaEdges: .all)
     }
 }
 

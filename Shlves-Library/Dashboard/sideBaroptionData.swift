@@ -20,13 +20,3 @@ struct sideBarOptions: Identifiable, Equatable {
 }
 
 
-//struct SideMenuBarOptions : View {
-//    
-//    var optionName : String
-//    
-//    var body: some View {
-//        Text("\(optionName)")
-//            .font(.system(size: 17, weight: .regular, design: .default))
-//            .padding(.vertical, 10)
-//    }
-//}
