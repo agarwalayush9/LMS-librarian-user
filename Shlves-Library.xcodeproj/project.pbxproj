@@ -54,7 +54,6 @@
 			isa = PBXGroup;
 			children = (
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
-				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				FD87DC842C356BFC00553DC0 /* Shlves-Library */,
 				FD87DC832C356BFC00553DC0 /* Products */,
 			);
@@ -73,6 +72,7 @@
 			children = (
 				FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */,
 				C4358B742C358168006824DC /* LoginPageView.swift */,
+				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				FD87DC892C356BFD00553DC0 /* Assets.xcassets */,
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
 			);
