@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct SideBarOptions: View {
+    let sideBarOptionList = sideBarOptions.sideBaroptionList
     var body: some View {
         VStack{
             Text("Librarian")
                 .font(.system(size: 34, weight: .bold, design: .default))
             
-            SideMenuBarOptions(optionName: "Overview")
-            SideMenuBarOptions(optionName: "Books Inventory")
+            ForEach(sideBarOptionList){ option in
+                    Text(option.optionName)
+                            .font(.system(size: 17, weight: .regular, design: .default))
+                            .padding(.vertical, 10)
+                    
+            }
+            
             LineSeparator()
             Spacer()
             ContactAdminButton()
@@ -29,16 +35,7 @@ struct SideBarOptions: View {
 #Preview {
     SideBarOptions()
 }
-struct SideMenuBarOptions : View {
-    
-    var optionName : String
-    
-    var body: some View {
-        Text("\(optionName)")
-            .font(.system(size: 17, weight: .regular, design: .default))
-            .padding(.vertical, 10)
-    }
-}
+
 
 struct ContactAdminButton : View {
     var body: some View {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */; };
 		B1BEB40F2C359FB300ED5C01 /* LibrarianDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40B2C359FB300ED5C01 /* LibrarianDashboard.swift */; };
 		B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */; };
 		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideBaroptionData.swift; sourceTree = "<group>"; };
 		B1BEB40B2C359FB300ED5C01 /* LibrarianDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibrarianDashboard.swift; sourceTree = "<group>"; };
 		B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarOptions.swift; sourceTree = "<group>"; };
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 			children = (
 				B1BEB40B2C359FB300ED5C01 /* LibrarianDashboard.swift */,
 				B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */,
+				B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */,
 				B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */,
 			);
 			path = Dashboard;
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
+				B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */,
 				B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 				B1BEB40F2C359FB300ED5C01 /* LibrarianDashboard.swift in Sources */,
