@@ -11,7 +11,7 @@ import SwiftUI
 struct Shlves_LibraryApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginPageView()
         }
     }
 }

@@ -7,17 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
 		FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */; };
-		FD87DC882C356BFC00553DC0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD87DC872C356BFC00553DC0 /* ContentView.swift */; };
 		FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC892C356BFD00553DC0 /* Assets.xcassets */; };
 		FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */; };
 		FD87DC942C356C2A00553DC0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC932C356C2A00553DC0 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		FD87DC822C356BFC00553DC0 /* Shlves-Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shlves-Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shlves_LibraryApp.swift; sourceTree = "<group>"; };
-		FD87DC872C356BFC00553DC0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FD87DC892C356BFD00553DC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FD87DC932C356C2A00553DC0 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */,
-				FD87DC872C356BFC00553DC0 /* ContentView.swift */,
+				C4358B742C358168006824DC /* LoginPageView.swift */,
 				FD87DC892C356BFD00553DC0 /* Assets.xcassets */,
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
 			);
@@ -141,8 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD87DC882C356BFC00553DC0 /* ContentView.swift in Sources */,
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
+				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
