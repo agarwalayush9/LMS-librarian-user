@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import FirebaseAuth
 
 struct LoginPageView: View {
     @State private var email: String = ""
@@ -75,6 +76,7 @@ struct LoginPageView: View {
                         // Forgot password action
                         // Implement what happens when forgot password is clicked
                         print("Ask Admin for another login credentials")
+                        register()
                     }) {
                         Text("Forgot password")
                             .foregroundColor(Color.blue)
@@ -101,7 +103,36 @@ struct LoginPageView: View {
         }
         .padding()
     }
+    
+    func login()
+    {
+        Auth.auth().signIn(withEmail: email, password: password){
+            firebaseResult, error in
+            if let e = error {
+                print("Invalid Password")
+               
+            }
+            else {
+                
+            }
+        }
+    }
+    
+    func register()
+    {
+        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+            if let error = error {
+                print("Error signing up: \(error.localizedDescription)")
+            }
+            else {
+                print("User signed up successfully")
+            }
+        }
+    }
+    
 }
+
+
 
 struct CheckboxToggleStyle: ToggleStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
