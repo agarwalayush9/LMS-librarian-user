@@ -78,13 +78,16 @@ struct RegisterPage: View {
                 
                 
                 Button(action: {
+                    phoneNumber = ""
+                    email = ""
+                    name = ""
                     
                     guard !name.isEmpty, !email.isEmpty, let phoneNumber = Int(phoneNumber) else {
                     alertMessage = "Please fill in all fields correctly."
                     showAlert = true
                         return
                     }
-                                        
+                                
                     let user = User(name: name, email: email, phoneNumber: phoneNumber)
                     DataController.shared.addUser(user) { result in
                         switch result {
@@ -94,6 +97,7 @@ struct RegisterPage: View {
                                 alertMessage = error.localizedDescription
                             }
                                 showAlert = true
+                                
                 }
                     
                 }) {
