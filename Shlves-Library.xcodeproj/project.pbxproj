@@ -11,6 +11,8 @@
 		B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */; };
 		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
+		D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */; };
+		D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */; };
 		FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */; };
 		FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC892C356BFD00553DC0 /* Assets.xcassets */; };
 		FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */; };
@@ -22,6 +24,7 @@
 		B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarOptions.swift; sourceTree = "<group>"; };
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
+		D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FD87DC822C356BFC00553DC0 /* Shlves-Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shlves-Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shlves_LibraryApp.swift; sourceTree = "<group>"; };
 		FD87DC892C356BFD00553DC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -34,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,12 +54,22 @@
 			path = Dashboard;
 			sourceTree = "<group>";
 		};
+		D0B9B10E2C35AB3B009521D5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FD87DC792C356BFC00553DC0 = {
 			isa = PBXGroup;
 			children = (
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
+				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
+				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				FD87DC842C356BFC00553DC0 /* Shlves-Library */,
 				FD87DC832C356BFC00553DC0 /* Products */,
+				D0B9B10E2C35AB3B009521D5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +117,9 @@
 			dependencies = (
 			);
 			name = "Shlves-Library";
+			packageProductDependencies = (
+				D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */,
+			);
 			productName = "Shlves-Library";
 			productReference = FD87DC822C356BFC00553DC0 /* Shlves-Library.app */;
 			productType = "com.apple.product-type.application";
@@ -131,6 +148,9 @@
 				Base,
 			);
 			mainGroup = FD87DC792C356BFC00553DC0;
+			packageReferences = (
+				D0B9B10D2C35A5E9009521D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = FD87DC832C356BFC00553DC0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -148,6 +168,7 @@
 				FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */,
 				FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */,
 				FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */,
+				D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +387,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D0B9B10D2C35A5E9009521D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0B9B10D2C35A5E9009521D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FD87DC7A2C356BFC00553DC0 /* Project object */;
 }
