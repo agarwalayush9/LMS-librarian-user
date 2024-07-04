@@ -38,7 +38,7 @@ struct LibrarianDashboard: View {
             }
             .padding(.leading,64)
         }
-        .padding(.bottom, 13)
+        //.padding(.bo)
             VStack(alignment: .leading, spacing: 20){
                 AnalyticHeader(title: "Main Analtics Below")
                 HStack{
@@ -75,7 +75,7 @@ struct card : View {
     var salesDifferencePercentage : Double
     var body: some View {
         Rectangle()
-            .foregroundStyle(Color("dashboardbg"))
+            .foregroundStyle(.white)
             .frame(width: 258, height: 160)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(
@@ -86,6 +86,17 @@ struct card : View {
     }
 }
 
+
+struct DashboardAnalytics : View {
+    let data = Analytics.analytics
+    var body: some View {
+        ForEach(data){ datunm in
+            card(title: datunm.title,
+                 value: datunm.value,
+                 salesDifferencePercentage: datunm.salesDifferencePercentage)
+        }
+    }
+}
 
 struct cardData : View {
     
