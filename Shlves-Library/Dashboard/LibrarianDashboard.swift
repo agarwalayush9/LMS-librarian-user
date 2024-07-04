@@ -57,7 +57,13 @@ struct LibrarianDashboard: View {
                     }
                 }
                 
+                Rectangle()
+                    .frame(width: .infinity,height: 98,alignment: .bottom).ignoresSafeArea()
+                    .foregroundStyle(Color("librarianDashboardTabBar"))
+                    
             }
+            
+            .ignoresSafeArea(edges: .bottom )
         }
             .navigationTitle("LMS")
             .navigationBarTitleDisplayMode(.inline)
@@ -104,12 +110,7 @@ struct BookCirculationCard: View {
             }
             .padding()
             
-            BookCirculationCarData()
-            BookCirculationCarData()
-            BookCirculationCarData()
-            BookCirculationCarData()
-                
-            
+            BookCirculationCardData(bookTitle: "Soul", authorName: "zek")
             Spacer()
         }
         .padding()
@@ -119,26 +120,92 @@ struct BookCirculationCard: View {
     }
 }
 
-struct BookCirculationCarData : View {
+
+
+struct BookCirculationCardData : View {
+    
+    var bookTitle : String
+    var authorName : String
+    
     var body: some View {
-        HStack{
-            Image("BookCover")
-                .padding(.bottom, 16)
-            VStack{
-                Rectangle()
-                    .frame(width: 90, height: 25)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-                    .foregroundStyle(Color("ISBNContainerColor"))
-                    .overlay(
-                        Text("#4235532")
-                        .font(
-                        Font.custom("DM Sans", size: 14)
-                        .weight(.medium)
-                        )
-                        .foregroundColor(.black)                    )
+        VStack (spacing : 30){
+            HStack{
+                bookInfo(bookTitle: "soul", authorName: "zek")
+                    .padding(.leading, 128)
+                Spacer()
+                    
             }
         }
         
+    }
+}
+
+struct bookInfo : View {
+    
+    var bookTitle : String
+    var authorName : String
+    
+    var body: some View {
+        HStack(spacing : 20){
+        Rectangle()
+            .foregroundColor(.clear)
+            .frame(width: 79, height: 125)
+            .background(
+                Image("BookCover")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 79, height: 125)
+                    .clipped()
+            )
+            .padding(.bottom, 12)
+        VStack{
+            Rectangle()
+                .frame(width: 90, height: 25)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .foregroundStyle(Color("ISBNContainerColor"))
+                .overlay(
+                    Text("#4235532")
+                        .font(
+                            Font.custom("DM Sans", size: 14)
+                                .weight(.medium)
+                        )
+                        .foregroundColor(.black)
+                )
+            
+            Text(bookTitle)
+                .font(
+                    Font.custom("DM Sans", size: 25)
+                        .weight(.medium)
+                )
+                .foregroundColor(.black)
+            Text(authorName)
+            Text("by Shshank")
+                .font(
+                    Font.custom("DM Sans", size: 17)
+                        .weight(.medium)
+                )
+                .foregroundColor(Color("AuthorNameColor"))
+            
+        }
+        
+        // user Details go here
+        
+    }
+    }
+}
+
+struct memberData : View {
+    var body: some View {
+        Rectangle()
+          .foregroundColor(.clear)
+          .frame(width: 90.64484, height: 64.45855)
+          .background(
+            Image("PATH_TO_IMAGE")
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+              .frame(width: 90.64483642578125, height: 64.45854949951172)
+              .clipped()
+          )
     }
 }
 
