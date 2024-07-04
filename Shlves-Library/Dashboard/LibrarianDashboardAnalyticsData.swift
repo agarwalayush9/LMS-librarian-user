@@ -20,6 +20,10 @@ struct Analytics : Identifiable, Equatable{
             Analytics(title: "New Members", value: 221, salesDifferencePercentage: 2.5),
             Analytics(title: "Books Issued", value: 221, salesDifferencePercentage: 2.5),
             Analytics(title: "Lost or Damaged Books", value: 221, salesDifferencePercentage: 2.5),
+            Analytics(title: "Today's Revenue", value: 221, salesDifferencePercentage: 2.5),
+            Analytics(title: "New Members", value: 221, salesDifferencePercentage: 2.5),
+            Analytics(title: "Books Issued", value: 221, salesDifferencePercentage: 2.5),
+            Analytics(title: "Lost or Damaged Books", value: 221, salesDifferencePercentage: 2.5),
         ]
     }
 }

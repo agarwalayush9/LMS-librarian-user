@@ -30,7 +30,7 @@ struct LibrarianDashboard: View {
                         //inside this write BookCircilation
                         VStack(alignment: .leading,spacing: 20){
                             AnalyticHeader(title: "Main Analytics Below")
-                            ScrollView{
+                            ScrollView(.horizontal,showsIndicators: false){
                                 HStack(spacing: 20){
                                     DashboardAnalytics()
                                 }
@@ -38,7 +38,7 @@ struct LibrarianDashboard: View {
                             }
                             VStack(alignment: .leading, spacing: 20){
                                 AnalyticHeader(title: "Main Analytics Below")
-                                ScrollView{
+                                ScrollView(.horizontal, showsIndicators: false){
                                     HStack(spacing: 20){
                                         DashboardAnalytics()
                                     }
@@ -52,6 +52,8 @@ struct LibrarianDashboard: View {
                         .padding([.top,.bottom], 16)
                         Spacer()
                         BookCirculationCard()
+                            .padding([.leading, .trailing], 64)
+                            
                     }
                 }
                 
@@ -68,6 +70,15 @@ struct LibrarianDashboard: View {
                         Image(systemName: "sidebar.left")
                             .foregroundStyle(Color.black)
                     })
+                    
+                }
+                ToolbarItem(placement: .topBarTrailing){
+                    Button(action: {
+                        
+                    }, label: {
+                        Image(systemName: "books.vertical")
+                            .foregroundColor(Color.black)
+                    })
                 }
             }
     }
@@ -81,15 +92,55 @@ struct backgroundView : View {
     }
 }
 
-struct BookCirculationCard : View {
+
+
+struct BookCirculationCard: View {
     var body: some View {
-        Rectangle()
-            .foregroundStyle(.white)
-            .frame(width: .infinity, height: 160)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+        VStack {
+            HStack {
+                Text("Book Circulation")
+                Spacer()
+                Image(systemName: "chevron.right")
+            }
+            .padding()
+            
+            BookCirculationCarData()
+            BookCirculationCarData()
+            BookCirculationCarData()
+            BookCirculationCarData()
+                
+            
+            Spacer()
+        }
+        .padding()
+        .background(Color.white).frame(minHeight: 160)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+
     }
 }
 
+struct BookCirculationCarData : View {
+    var body: some View {
+        HStack{
+            Image("BookCover")
+                .padding(.bottom, 16)
+            VStack{
+                Rectangle()
+                    .frame(width: 90, height: 25)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .foregroundStyle(Color("ISBNContainerColor"))
+                    .overlay(
+                        Text("#4235532")
+                        .font(
+                        Font.custom("DM Sans", size: 14)
+                        .weight(.medium)
+                        )
+                        .foregroundColor(.black)                    )
+            }
+        }
+        
+    }
+}
 
 #Preview {
     LibrarianDashboard()
