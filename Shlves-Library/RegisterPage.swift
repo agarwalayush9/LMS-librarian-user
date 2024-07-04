@@ -11,8 +11,8 @@ import FirebaseAuth
 
 struct RegisterPage: View {
     @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var rememberMe: Bool = false
+    @State private var name: String = ""
+    @State private var phoneNumber: String = ""
 
     var body: some View {
         HStack {
@@ -47,7 +47,7 @@ struct RegisterPage: View {
                 
                 Text("Name")
                     .foregroundColor(Color.gray)
-                TextField("Enter your name", text: $email)
+                TextField("Enter your name", text: $name)
                     .padding()
                     .background(Color(UIColor.systemGray6))
                     .cornerRadius(8)
@@ -66,7 +66,7 @@ struct RegisterPage: View {
                 
                     Text("Phone Number")
                         .foregroundColor(Color.gray)
-                    SecureField("Enter your number", text: $password)
+                    TextField("Enter your number", text: $phoneNumber)
                         .padding()
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8).padding(.bottom, 15)
