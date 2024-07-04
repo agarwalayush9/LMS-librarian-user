@@ -23,9 +23,9 @@ struct Shlves_LibraryApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            LoginPageView()
-            RegisterPage()
-//            test()
+
+            //LoginPageView()
+            LibrarianDashboard()
         }
     }
 }
