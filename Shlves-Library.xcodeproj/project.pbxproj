@@ -16,6 +16,9 @@
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
 		D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */; };
 		D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */; };
+		D0EDBE782C36A31400EC06AB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D0EDBE772C36A31400EC06AB /* FirebaseDatabase */; };
+		D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EDBE792C36A38500EC06AB /* DataController.swift */; };
+		D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */; };
 		FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */; };
 		FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC892C356BFD00553DC0 /* Assets.xcassets */; };
 		FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */; };
@@ -32,6 +35,9 @@
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D0EDBE762C36A30100EC06AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D0EDBE792C36A38500EC06AB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		FD87DC822C356BFC00553DC0 /* Shlves-Library.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shlves-Library.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shlves_LibraryApp.swift; sourceTree = "<group>"; };
 		FD87DC892C356BFD00553DC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -45,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0EDBE782C36A31400EC06AB /* FirebaseDatabase in Frameworks */,
 				D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,11 +103,14 @@
 		FD87DC842C356BFC00553DC0 /* Shlves-Library */ = {
 			isa = PBXGroup;
 			children = (
+				D0EDBE762C36A30100EC06AB /* Info.plist */,
 				FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */,
 				C4358B742C358168006824DC /* LoginPageView.swift */,
 				FDEA9C9D2C36818E0042367B /* RegisterPage.swift */,
 				FD87DC892C356BFD00553DC0 /* Assets.xcassets */,
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
+				D0EDBE792C36A38500EC06AB /* DataController.swift */,
+				D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */,
 			);
 			path = "Shlves-Library";
 			sourceTree = "<group>";
@@ -131,6 +141,7 @@
 			name = "Shlves-Library";
 			packageProductDependencies = (
 				D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */,
+				D0EDBE772C36A31400EC06AB /* FirebaseDatabase */,
 			);
 			productName = "Shlves-Library";
 			productReference = FD87DC822C356BFC00553DC0 /* Shlves-Library.app */;
@@ -193,9 +204,11 @@
 			files = (
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
 				B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */,
+				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
 				B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
+				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
 				B174F3502C3655E5003D1ABD /* test.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				B16B8DED2C35EA9F0025DBFC /* LibrarianDashboard.swift in Sources */,
@@ -335,6 +348,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shlves-Library/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -363,6 +377,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Shlves-Library/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -420,6 +435,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D0B9B10D2C35A5E9009521D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		D0EDBE772C36A31400EC06AB /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0B9B10D2C35A5E9009521D5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

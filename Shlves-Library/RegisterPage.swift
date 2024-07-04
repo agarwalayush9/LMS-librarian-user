@@ -8,11 +8,16 @@
 import Foundation
 import SwiftUI
 import FirebaseAuth
+import FirebaseDatabase
+
+
 
 struct RegisterPage: View {
     @State private var email: String = ""
     @State private var name: String = ""
     @State private var phoneNumber: String = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
 
     var body: some View {
         HStack {
@@ -74,6 +79,23 @@ struct RegisterPage: View {
                 
                 Button(action: {
                     
+                    guard !name.isEmpty, !email.isEmpty, let phoneNumber = Int(phoneNumber) else {
+                    alertMessage = "Please fill in all fields correctly."
+                    showAlert = true
+                        return
+                    }
+                                        
+                    let user = User(name: name, email: email, phoneNumber: phoneNumber)
+                    DataController.shared.addUser(user) { result in
+                        switch result {
+                            case .success:
+                                alertMessage = "Registration successful!"
+                            case .failure(let error):
+                                alertMessage = error.localizedDescription
+                            }
+                                showAlert = true
+                }
+                    
                 }) {
                     Text("Register")
                         .foregroundColor(.white)
@@ -82,6 +104,11 @@ struct RegisterPage: View {
                         .background(Color(red:0.4,green:0.2,blue:0.1)) // Assuming ButtonColor is defined in Assets
                         .cornerRadius(8)
                 }
+                
+                .alert(isPresented: $showAlert) {
+                Alert(title: Text("Registration"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
+
                 
                 
                 
@@ -92,7 +119,7 @@ struct RegisterPage: View {
         .padding()
     }
     
-    
+
     
 }
 
