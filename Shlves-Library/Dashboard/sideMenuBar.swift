@@ -16,6 +16,7 @@ struct sideMenuBar: View {
                 Rectangle()
                     .opacity(0.3)
                     .ignoresSafeArea()
+                    .background(ignoresSafeAreaEdges: .all)
                     .onTapGesture {
                         isShowing.toggle()
                     }
@@ -25,10 +26,17 @@ struct sideMenuBar: View {
                                 
                                 Spacer()
                             }
-                            .background(.white)
+                            .background(Color.white)
+                            .frame(width: 400)
+                            .offset(x: isShowing ? 0 : -300)
+                            .animation(.easeInOut(duration: 0.3),
+                                       value: isShowing)
+                            Spacer()
                         }
             }
         }
+        .transition(.move(edge: .leading))
+        .animation(.easeInOut, value: isShowing)
     }}
 
 #Preview {
