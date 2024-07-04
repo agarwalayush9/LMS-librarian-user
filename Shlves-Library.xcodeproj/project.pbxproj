@@ -60,7 +60,8 @@
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,
 				B174F34F2C3655E5003D1ABD /* test.swift */,
 			);
-			path = Dashboard;
+			name = Dashboard;
+			path = "Shlves-Library/Dashboard";
 			sourceTree = "<group>";
 		};
 		D0B9B10E2C35AB3B009521D5 /* Frameworks */ = {
@@ -95,7 +96,6 @@
 			children = (
 				FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */,
 				C4358B742C358168006824DC /* LoginPageView.swift */,
-				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				FD87DC892C356BFD00553DC0 /* Assets.xcassets */,
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
 			);
