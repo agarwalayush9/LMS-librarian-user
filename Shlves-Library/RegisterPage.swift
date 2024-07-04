@@ -78,17 +78,15 @@ struct RegisterPage: View {
                 
                 
                 Button(action: {
-                    phoneNumber = ""
-                    email = ""
-                    name = ""
+                   
                     
-                    guard !name.isEmpty, !email.isEmpty, let phoneNumber = Int(phoneNumber) else {
+                    guard !name.isEmpty, !email.isEmpty, let phoneNumber1 = Int(phoneNumber) else {
                     alertMessage = "Please fill in all fields correctly."
                     showAlert = true
                         return
                     }
                                 
-                    let user = User(name: name, email: email, phoneNumber: phoneNumber)
+                    let user = User(name: name, email: email, phoneNumber: phoneNumber1)
                     DataController.shared.addUser(user) { result in
                         switch result {
                             case .success:
@@ -99,7 +97,9 @@ struct RegisterPage: View {
                                 showAlert = true
                                 
                 }
-                    
+                    phoneNumber = ""
+                    email = ""
+                    name = ""
                 }) {
                     Text("Register")
                         .foregroundColor(.white)
@@ -111,6 +111,7 @@ struct RegisterPage: View {
                 
                 .alert(isPresented: $showAlert) {
                 Alert(title: Text("Registration"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+
                 }
 
                 

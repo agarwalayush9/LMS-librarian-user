@@ -26,5 +26,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:195770134910:ios:00d74cad9ecfc5dc8ec32f</string>
+	<key>DATABASE_URL</key>
+	<string>https://shelves-lms-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>
