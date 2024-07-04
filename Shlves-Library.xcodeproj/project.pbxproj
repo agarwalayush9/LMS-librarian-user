@@ -20,6 +20,7 @@
 		FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC892C356BFD00553DC0 /* Assets.xcassets */; };
 		FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */; };
 		FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC932C356C2A00553DC0 /* gitignore.txt */; };
+		FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEA9C9D2C36818E0042367B /* RegisterPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		FD87DC892C356BFD00553DC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FD87DC932C356C2A00553DC0 /* gitignore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gitignore.txt; sourceTree = "<group>"; };
+		FDEA9C9D2C36818E0042367B /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */,
 				C4358B742C358168006824DC /* LoginPageView.swift */,
+				FDEA9C9D2C36818E0042367B /* RegisterPage.swift */,
 				FD87DC892C356BFD00553DC0 /* Assets.xcassets */,
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
 			);
@@ -194,6 +197,7 @@
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				B174F3502C3655E5003D1ABD /* test.swift in Sources */,
+				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				B16B8DED2C35EA9F0025DBFC /* LibrarianDashboard.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
 			);

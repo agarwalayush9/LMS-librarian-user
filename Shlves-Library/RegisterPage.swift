@@ -1,15 +1,15 @@
 //
-//  LoginPageView.swift
+//  RegisterPage.swift
 //  Shlves-Library
 //
-//  Created by Jhanvi Jindal on 03/07/24.
+//  Created by Ayush Agarwal on 04/07/24.
 //
 
 import Foundation
 import SwiftUI
 import FirebaseAuth
 
-struct LoginPageView: View {
+struct RegisterPage: View {
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var rememberMe: Bool = false
@@ -35,13 +35,22 @@ struct LoginPageView: View {
                         .foregroundColor(Color(red:0.4,green:0.2,blue:0.1)) // Assuming LogoColor is defined in Assets
                 }
                 
-                Text("Librarian Log in")
+                Text("Librarian Registration")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(Color(red:0.4,green:0.2,blue:0.1)) // Assuming TitleColor is defined in Assets
                 
-                Text("Welcome back Librarian! Please enter your details.")
+                Text("Please enter your details.")
                     .foregroundColor(Color(red:0.4,green:0.2,blue:0.1))
+                
+                // Name field
+                
+                Text("Name")
+                    .foregroundColor(Color.gray)
+                TextField("Enter your name", text: $email)
+                    .padding()
+                    .background(Color(UIColor.systemGray6))
+                    .cornerRadius(8)
                 
                 // Email field
                 
@@ -55,36 +64,18 @@ struct LoginPageView: View {
                 
                 // Password field
                 
-                    Text("Password")
+                    Text("Phone Number")
                         .foregroundColor(Color.gray)
-                    SecureField("Enter your password", text: $password)
+                    SecureField("Enter your number", text: $password)
                         .padding()
                         .background(Color(UIColor.systemGray6))
-                        .cornerRadius(8)
+                        .cornerRadius(8).padding(.bottom, 15)
                 
                 
-                // Remember me and forgot password
-               
-                HStack {
-                
-                    Button(action: {
-                        // Forgot password action
-                        // Implement what happens when forgot password is clicked
-                    }) {
-                        Text("Forgot password ?")
-                            .foregroundColor(Color.blue)
-                    }
-                }
-                
-                // Sign in button
                 Button(action: {
-                    // Sign in action
-                    print("Ask Admin for another login credentials")
-                    register()
-                    // Implement sign in functionality here
-                    print("Sign in with email: \(email), password: \(password)")
+                    
                 }) {
-                    Text("Sign in")
+                    Text("Register")
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -101,31 +92,7 @@ struct LoginPageView: View {
         .padding()
     }
     
-    func login()
-    {
-        Auth.auth().signIn(withEmail: email, password: password){
-            firebaseResult, error in
-            if error != nil {
-                print("Invalid Password")
-               
-            }
-            else {
-                
-            }
-        }
-    }
     
-    func register()
-    {
-        Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
-            if let error = error {
-                print("Error signing up: \(error.localizedDescription)")
-            }
-            else {
-                print("User signed up successfully")
-            }
-        }
-    }
     
 }
 
@@ -133,8 +100,6 @@ struct LoginPageView: View {
 
 
 
-struct LoginPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginPageView()
-    }
+#Preview {
+    RegisterPage()
 }
