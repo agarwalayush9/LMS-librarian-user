@@ -106,11 +106,11 @@ struct LoginPageView: View {
         Auth.auth().signIn(withEmail: email, password: password){
             firebaseResult, error in
             if error != nil {
-                print("Invalid Password")
+                print(error ?? "Invalid Password")
                
             }
             else {
-                
+                print("Login successfully")
             }
         }
     }

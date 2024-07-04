@@ -23,8 +23,8 @@ struct Shlves_LibraryApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            LoginPageView()
-            RegisterPage()
+            LoginPageView()
+            //RegisterPage()
 //            test()
         }
     }
