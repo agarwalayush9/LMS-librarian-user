@@ -51,6 +51,7 @@ struct LibrarianDashboard: View {
                         }
                         .padding([.top,.bottom], 16)
                         Spacer()
+                        BookCirculationCard()
                     }
                 }
                 
@@ -66,7 +67,6 @@ struct LibrarianDashboard: View {
                     }, label: {
                         Image(systemName: "sidebar.left")
                             .foregroundStyle(Color.black)
-                            
                     })
                 }
             }
@@ -78,6 +78,15 @@ struct backgroundView : View {
     var body: some View {
         Color("dashboardbg").ignoresSafeArea()
         
+    }
+}
+
+struct BookCirculationCard : View {
+    var body: some View {
+        Rectangle()
+            .foregroundStyle(.white)
+            .frame(width: .infinity, height: 160)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 

@@ -124,6 +124,7 @@ struct todayDateAndTime : View {
     }
 }
 
+
 struct AnalyticHeader : View {
     var title : String
     var body: some View {
