@@ -43,43 +43,33 @@ struct LoginPageView: View {
                     .foregroundColor(Color(red:0.4,green:0.2,blue:0.1))
                 
                 // Email field
-                VStack(alignment: .leading) {
+                
                     Text("Email")
                         .foregroundColor(Color.gray)
                     TextField("Enter your email", text: $email)
                         .padding()
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
-                }
+                
                 
                 // Password field
-                VStack(alignment: .leading) {
+                
                     Text("Password")
                         .foregroundColor(Color.gray)
                     SecureField("Enter your password", text: $password)
                         .padding()
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
-                }
+                
                 
                 // Remember me and forgot password
-                HStack {
-                    Toggle(isOn: $rememberMe) {
-                        Text("Remember for 30 days")
-                    }
-                    .toggleStyle(CheckboxToggleStyle())
+                
                     
-                    Spacer()
                     
-                    Button(action: {
-                        // Forgot password action
-                        // Implement what happens when forgot password is clicked
-                        print("Ask Admin for another login credentials")
-                    }) {
-                        Text("Forgot password")
-                            .foregroundColor(Color.blue)
-                    }
-                }
+                    
+                    
+                    
+                
                 
                 // Sign in button
                 Button(action: {
@@ -91,10 +81,22 @@ struct LoginPageView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color("ButtonColor")) // Assuming ButtonColor is defined in Assets
+                        .background(Color(red:0.4,green:0.2,blue:0.1)) // Assuming ButtonColor is defined in Assets
                         .cornerRadius(8)
                 }
-                .padding(.top)
+                
+                Button(action: {
+                    // Forgot password action
+                    // Implement what happens when forgot password is clicked
+                    print("Ask Admin for another login credentials")
+                    
+                        
+                }) {
+                    Text("Forgot password")
+                        .foregroundColor(Color.blue)
+                        
+                }
+                
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
