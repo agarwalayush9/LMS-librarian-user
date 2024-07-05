@@ -21,6 +21,9 @@ struct userName : View {
     }
 }
 
+
+
+
 struct card : View {
     var title : String
     var value : Double

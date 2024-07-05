@@ -27,3 +27,47 @@ struct Analytics : Identifiable, Equatable{
         ]
     }
 }
+
+struct BookDetails : Identifiable, Equatable{
+    
+    var id : String{ISBN}
+    var ISBN : String
+    var imageName : String
+    var BookTitle : String
+    var AuthorName : String
+    var userName : String
+    var OverDuePeriod : String
+    var Fine : Double
+    
+    static var bookDetail : [BookDetails]{
+       [ BookDetails(ISBN: "#4235532",
+                    imageName: "BookCover",
+                    BookTitle: "Soul",
+                    AuthorName: "Zek",
+                    userName: "ash",
+                    OverDuePeriod: "2 Days",
+                    Fine: 40),
+         BookDetails(ISBN: "#4235532",
+                      imageName: "BookCover",
+                      BookTitle: "Soul",
+                      AuthorName: "Zek",
+                      userName: "ash",
+                      OverDuePeriod: "2 Days",
+                      Fine: 40),
+         BookDetails(ISBN: "#4235532",
+                      imageName: "BookCover",
+                      BookTitle: "Soul",
+                      AuthorName: "Zek",
+                      userName: "ash",
+                      OverDuePeriod: "2 Days",
+                      Fine: 40),
+         BookDetails(ISBN: "#4235532",
+                      imageName: "BookCover",
+                      BookTitle: "Soul",
+                      AuthorName: "Zek",
+                      userName: "ash",
+                      OverDuePeriod: "2 Days",
+                      Fine: 40),
+       ]
+    }
+}

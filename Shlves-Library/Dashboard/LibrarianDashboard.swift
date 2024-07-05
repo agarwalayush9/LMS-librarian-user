@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct LibrarianDashboard: View {
+    var data = BookDetails.bookDetail
+    
     var body: some View {
-        
         NavigationStack{
-            ZStack{
+            ZStack(alignment: .bottom){
             backgroundView()
+                    .ignoresSafeArea(.all)
             VStack{
                 HStack(spacing : 0){
                     VStack(alignment: .leading, spacing: 16){
@@ -44,26 +46,46 @@ struct LibrarianDashboard: View {
                                     }
                                     .padding(.leading,64)
                                 }
-                                //here
+                                
                             }
                             .padding([.bottom], 16)
                             Spacer()
                         }
                         .padding([.top,.bottom], 16)
                         Spacer()
-                        BookCirculationCard()
-                            .padding([.leading, .trailing], 64)
+                        BookCirculationCard(minHeight: 160,
+                                            title: "Book Circulation")
+                        .padding([.leading, .trailing], 64)
                             
+                        HStack(){
+                            BookCirculationCard(minHeight: 160,
+                                                title: "Overdue Book Details")
+                            Spacer()
+                            BookCirculationCard(minHeight: 160,
+                                                title: "Online Book Requests")
+//                            ForEach(data){ datum in
+//                                showingDetails(ISBN: datum.ISBN, 
+//                                               imageName: datum.imageName,
+//                                               BookTitle: datum.BookTitle, 
+//                                               AuthorName: datum.AuthorName,
+//                                               userName: datum.userName,
+//                                               OverDuePeriod: datum.OverDuePeriod,
+//                                               Fine: datum.Fine)
+//                            }
+                        }.padding([.leading, .trailing],64)
+                        
                     }
                 }
                 
-                Rectangle()
-                    .frame(width: .infinity,height: 98,alignment: .bottom).ignoresSafeArea()
-                    .foregroundStyle(Color("librarianDashboardTabBar"))
-                    
             }
             
-            .ignoresSafeArea(edges: .bottom )
+                Rectangle()
+                    .ignoresSafeArea()
+                    .frame(width: .infinity,
+                           height: 98)
+                    .foregroundColor(Color("librarianDashboardTabBar"))
+                
+                
         }
             .navigationTitle("LMS")
             .navigationBarTitleDisplayMode(.inline)
@@ -99,12 +121,15 @@ struct backgroundView : View {
 }
 
 
-
 struct BookCirculationCard: View {
+    
+    var minHeight : CGFloat
+    var title : String
+    
     var body: some View {
         VStack {
             HStack {
-                Text("Book Circulation")
+                Text(title)
                 Spacer()
                 Image(systemName: "chevron.right")
             }
@@ -114,13 +139,38 @@ struct BookCirculationCard: View {
             Spacer()
         }
         .padding()
-        .background(Color.white).frame(minHeight: 160)
+        .background(Color.white).frame(minHeight: minHeight)
         .clipShape(RoundedRectangle(cornerRadius: 12))
 
     }
 }
 
-
+struct showingDetails : View {
+    
+    var ISBN : String
+    var imageName : String
+    var BookTitle : String
+    var AuthorName : String
+    var userName : String
+    var OverDuePeriod : String
+    var Fine : Double
+    
+    var body: some View {
+        VStack {
+            HStack{
+    //            BookCirculationCardData(bookTitle: bookTitle,
+    //                                    authorName: authorName)
+                bookInfo(bookTitle: BookTitle,
+                         authorName: AuthorName, 
+                         ISBN: ISBN,
+                         imageName: imageName)
+                .padding()
+                userInfo(userName: userName,
+                         OverDuePeriod: OverDuePeriod, Fine: Fine)
+            }
+        }
+    }
+}
 
 struct BookCirculationCardData : View {
     
@@ -130,8 +180,8 @@ struct BookCirculationCardData : View {
     var body: some View {
         VStack (spacing : 30){
             HStack{
-                bookInfo(bookTitle: "soul", authorName: "zek")
-                    .padding(.leading, 128)
+//                bookInfo(bookTitle: "soul", authorName: "zek")
+                    //.padding(.leading, 128)
                 Spacer()
                     
             }
@@ -140,18 +190,42 @@ struct BookCirculationCardData : View {
     }
 }
 
+struct userInfo : View {
+    var userName : String
+    var OverDuePeriod: String
+    var Fine : Double
+    var body: some View {
+        HStack{
+            Text(userName)
+            Spacer()
+            VStack{
+                Text("Overdue")
+                    .padding()
+                Text("\(OverDuePeriod) days")
+            }
+            Spacer()
+            VStack{
+                Text("Fine")
+                    .padding()
+                Text("\(Fine)")
+            }
+        }
+    }
+}
+
 struct bookInfo : View {
     
     var bookTitle : String
     var authorName : String
-    
+    var ISBN : String
+    var imageName : String
     var body: some View {
         HStack(spacing : 20){
         Rectangle()
             .foregroundColor(.clear)
             .frame(width: 79, height: 125)
             .background(
-                Image("BookCover")
+                Image(imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 79, height: 125)
@@ -164,7 +238,7 @@ struct bookInfo : View {
                 .clipShape(RoundedRectangle(cornerRadius: 14))
                 .foregroundStyle(Color("ISBNContainerColor"))
                 .overlay(
-                    Text("#4235532")
+                    Text(ISBN)
                         .font(
                             Font.custom("DM Sans", size: 14)
                                 .weight(.medium)
@@ -179,7 +253,7 @@ struct bookInfo : View {
                 )
                 .foregroundColor(.black)
             Text(authorName)
-            Text("by Shshank")
+            //Text("by Shshank")
                 .font(
                     Font.custom("DM Sans", size: 17)
                         .weight(.medium)
@@ -200,7 +274,7 @@ struct memberData : View {
           .foregroundColor(.clear)
           .frame(width: 90.64484, height: 64.45855)
           .background(
-            Image("PATH_TO_IMAGE")
+            Image(systemName: "person.3")
               .resizable()
               .aspectRatio(contentMode: .fill)
               .frame(width: 90.64483642578125, height: 64.45854949951172)
