@@ -21,6 +21,9 @@ struct userName : View {
     }
 }
 
+
+
+
 struct card : View {
     var title : String
     var value : Double
@@ -155,6 +158,44 @@ func currentDateAndTime() -> String {
         
         return "\(dateString), \(timeString)"
     }
+
+struct overDueBooksDetailData : View {
+    var data = OverDueBookDetails.overDueBookDetail
+
+    var body: some View {
+        VStack{
+            ForEach(data){ datum in
+                showingDetailsForOverDueDetails(ISBN: datum.ISBN,
+                               imageName: datum.imageName,
+                               BookTitle: datum.BookTitle,
+                               AuthorName: datum.AuthorName,
+                               userName: datum.userName,
+                               OverDuePeriod: datum.OverDuePeriod,
+                               Fine: datum.Fine)
+            }
+                .padding(.top, 8)
+        }
+
+    }
+}
+
+struct NewlyArrivedBooksDetailData : View {
+    let data = NewlyArrivedBooks.newlyArrivedBook
+    var body: some View {
+        VStack{
+            ForEach(data){ datum in
+                showingDetailsForNewlyArrivedBooks(
+                                ISBN: datum.ISBN,
+                               imageName: datum.imageName,
+                               BookTitle: datum.BookTitle,
+                               AuthorName: datum.AuthorName,
+                                Quantity: datum.Quantity,
+                                ArivedDate: datum.ArivedDate
+                                           )}
+                .padding(.top, 8)
+        }
+    }
+}
 
 #Preview {
     LibrarianDashboard()
