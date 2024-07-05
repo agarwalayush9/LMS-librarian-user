@@ -25,8 +25,8 @@ struct Shlves_LibraryApp: App {
         WindowGroup {
 
             //LoginPageView()
-            RegisterPage()
-            //LibrarianDashboard()
+            //RegisterPage()
+            LibrarianDashboard()
         }
     }
 }

@@ -38,8 +38,28 @@ struct AddBookDetailsView: View {
                 }
 
                 Button(action: {
-                    let newBook = Book(id: Int.random(in: 1...1000), bookCode: "#\(Int.random(in: 1000000...9999999))", bookCover: "book_cover", bookTitle: bookTitle, author: author, genre: genre, issuedDate: "", returnDate: "", status: "Available")
-                    addBook(newBook)
+                    let newBook = Book(
+                        bookCode: "978-\(Int.random(in: 1000000...9999999))", // Generate random ISBN
+                        bookCover: "book_cover",
+                        bookTitle: bookTitle.isEmpty ? "Unknown Title" : bookTitle,
+                        author: author.isEmpty ? "Unknown Author" : author,
+                        genre: [Genre(rawValue: genre.capitalized) ?? .Fiction], // Default to Fiction if genre is not recognized
+                        issuedDate: "2024-05-01",
+                        returnDate: "2024-06-01",
+                        status: "Available"
+                )
+                                        
+                                        // Call the addBook function
+                    DataController.shared.addBook(newBook) { result in
+                        switch result {
+                            case .success:
+                                addBook(newBook) // Add to local state if successful
+                                presentationMode.wrappedValue.dismiss()
+                            case .failure(let error):
+                                print("Failed to add book: \(error.localizedDescription)")
+                                                // Handle failure case as needed
+                                            }
+                                        }
                 }) {
                     Text("Save")
                         .font(.headline)
@@ -54,8 +74,6 @@ struct AddBookDetailsView: View {
         .frame(maxWidth: 500) // Limit the width of the pop-up
     }
 }
-
-
 
 struct AddBookOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -107,7 +125,7 @@ struct AddBookOptionsView: View {
                         Text("Enter Details Manually")
                             .font(.headline)
                     }
-                    .padding(.all , 40)
+                    .padding(.all, 40)
                     .frame(maxWidth: .infinity)
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 2))
                 }
@@ -137,21 +155,6 @@ struct AddBookOptionsView: View {
     }
 }
 
-
-
-
-struct Book: Identifiable {
-    let id: Int
-    let bookCode: String
-    let bookCover: String
-    let bookTitle: String
-    let author: String
-    let genre: String
-    let issuedDate: String
-    let returnDate: String
-    let status: String
-}
-
 struct CheckBoxView: View {
     @Binding var isChecked: Bool
     
@@ -177,184 +180,193 @@ struct CheckBoxView: View {
 }
 
 struct BooksCatalogue: View {
-    
-    
-    
-    @State private var selectedBooks = Set<Int>()
+    @State private var selectedBooks = Set<UUID>()
     @State private var showingAddBookOptions = false
+    @State private var books: [Book] = [] // Use @State to hold fetched books
     
-    @State private var  books = [
-        Book(id: 1, bookCode: "#4235532", bookCover: "book_cover", bookTitle: "Harry Potter And The Cursed Child", author: "J.K. Rowling", genre: "Fantasy Literature", issuedDate: "May 5, 2023", returnDate: "May 5, 2023", status: "Issued"),
-        Book(id: 2, bookCode: "#4235533", bookCover: "book_cover", bookTitle: "Harry Potter And The Philosopher's Stone", author: "J.K. Rowling", genre: "Fantasy Literature", issuedDate: "May 6, 2023", returnDate: "May 6, 2023", status: "Returned"),
-        Book(id: 3, bookCode: "#4235533", bookCover: "book_cover", bookTitle: "Harry Potter And The Philosopher's Stone", author: "J.K. Rowling", genre: "Fantasy Literature", issuedDate: "May 6, 2023", returnDate: "May 6, 2023", status: "Returned"),
-        Book(id: 4, bookCode: "#4235533", bookCover: "book_cover", bookTitle: "Harry Potter And The Philosopher's Stone", author: "J.K. Rowling", genre: "Fantasy Literature", issuedDate: "May 6, 2023", returnDate: "May 6, 2023", status: "Returned"),
-        // Add more books here
-    ]
-
     var body: some View {
-            NavigationView {
-                List {
-                    NavigationLink(destination: BooksCatalogue()) {
-                        Label("Khvaab Library", systemImage: "books.vertical")
-                            .font(.title)
-                            .foregroundColor(.brown)
-                    }
-                    NavigationLink(destination: BooksCatalogue()) {
-                        Label("Book Catalogues", systemImage: "book")
-                            .font(.title2)
-                            .foregroundColor(.brown)
-                    }
+        NavigationView {
+            List {
+                NavigationLink(destination: BooksCatalogue()) {
+                    Label("Khvaab Library", systemImage: "books.vertical")
+                        .font(.title)
+                        .foregroundColor(.brown)
                 }
-                .listStyle(SidebarListStyle())
-                .navigationTitle("Khvaab Library")
-                
-                ZStack {
-                    VStack {
-                        ScrollView {
-                            LazyVStack(alignment: .leading) {
+                NavigationLink(destination: BooksCatalogue()) {
+                    Label("Book Catalogues", systemImage: "book")
+                        .font(.title2)
+                        .foregroundColor(.brown)
+                }
+            }
+            .listStyle(SidebarListStyle())
+            .navigationTitle("Khvaab Library")
+            
+            ZStack {
+                VStack {
+                    ScrollView {
+                        LazyVStack(alignment: .leading) {
+                            HStack {
+                                CheckBoxView(
+                                    isChecked: Binding<Bool>(
+                                        get: { selectedBooks.count == books.count },
+                                        set: { isSelected in
+                                            if isSelected {
+                                                selectedBooks = Set(books.map { $0.id })
+                                            } else {
+                                                selectedBooks.removeAll()
+                                            }
+                                        }
+                                    )
+                                )
+                                .frame(width: 50, alignment: .center)
+                                
+                                Text("Book Code")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Book Cover")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Book Title")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Author")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Genre/Category")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Issued Date")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Return Date")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Book Status")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text("Actions")
+                                    .frame(maxWidth: 80, alignment: .leading)
+                            }
+                            .font(.headline)
+                            .padding(.horizontal)
+                            
+                            Divider()
+                            
+                            ForEach(books) { book in
                                 HStack {
                                     CheckBoxView(
                                         isChecked: Binding<Bool>(
-                                            get: { selectedBooks.count == books.count },
+                                            get: { selectedBooks.contains(book.id) },
                                             set: { isSelected in
                                                 if isSelected {
-                                                    selectedBooks = Set(books.map { $0.id })
+                                                    selectedBooks.insert(book.id)
                                                 } else {
-                                                    selectedBooks.removeAll()
+                                                    selectedBooks.remove(book.id)
                                                 }
                                             }
                                         )
                                     )
                                     .frame(width: 50, alignment: .center)
                                     
-                                    Text("Book Code")
+                                    Text(book.bookCode)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Book Cover")
+                                    Image(book.bookCover)
+                                        .resizable()
+                                        .frame(width: 60, height: 80)
+                                        .cornerRadius(5)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Book Title")
+                                    Text(book.bookTitle)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Author")
+                                    Text(book.author)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Genre/Category")
+                                    Text(book.genre.map { $0.rawValue }.joined(separator: ", "))
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Issued Date")
+                                    Text(book.issuedDate)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Return Date")
+                                    Text(book.returnDate)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Book Status")
+                                    Text(book.status)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    Text("Actions")
-                                        .frame(maxWidth: 80, alignment: .leading)
-                                }
-                                .font(.headline)
-                                .padding(.horizontal)
-                                
-                                Divider()
-                                
-                                ForEach(books) { book in
+                                        .foregroundColor(book.status == "Issued" ? .red : .green)
+                                    
                                     HStack {
-                                        CheckBoxView(
-                                            isChecked: Binding<Bool>(
-                                                get: { selectedBooks.contains(book.id) },
-                                                set: { isSelected in
-                                                    if isSelected {
-                                                        selectedBooks.insert(book.id)
-                                                    } else {
-                                                        selectedBooks.remove(book.id)
-                                                    }
-                                                }
-                                            )
-                                        )
-                                        .frame(width: 50, alignment: .center)
-                                        
-                                        Text(book.bookCode)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Image(book.bookCover)
-                                            .resizable()
-                                            .frame(width: 60, height: 80)
-                                            .cornerRadius(5)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Text(book.bookTitle)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Text(book.author)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Text(book.genre)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Text(book.issuedDate)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Text(book.returnDate)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Text(book.status)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundColor(book.status == "Issued" ? .red : .green)
-                                        
-                                        HStack {
-                                            Button(action: {
-                                                // Action for edit button
-                                            }) {
-                                                Image(systemName: "pencil")
-                                                    .foregroundColor(.blue)
-                                            }
-                                            
-                                            Button(action: {
-                                                // Action for more options
-                                            }) {
-                                                Image(systemName: "ellipsis")
-                                                    .foregroundColor(.blue)
-                                            }
+                                        Button(action: {
+                                            // Action for edit button
+                                        }) {
+                                            Image(systemName: "pencil")
+                                                .foregroundColor(.blue)
                                         }
-                                        .frame(maxWidth: 80, alignment: .leading)
+                                        
+                                        Button(action: {
+                                            // Action for more options
+                                        }) {
+                                            Image(systemName: "ellipsis")
+                                                .foregroundColor(.blue)
+                                        }
                                     }
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal)
-                                    .background(selectedBooks.contains(book.id) ? Color(red: 255/255, green: 246/255, blue: 227/255) : Color.clear)
-                                    .border(Color(red: 0.32, green: 0.23, blue: 0.06), width: selectedBooks.contains(book.id) ? 2 : 0)
+                                    .frame(maxWidth: 80, alignment: .leading)
                                 }
+                                .padding(.vertical, 8)
+                                .padding(.horizontal)
+                                .background(selectedBooks.contains(book.id) ? Color(red: 255/255, green: 246/255, blue: 227/255) : Color.clear)
+                                .border(Color(red: 0.32, green: 0.23, blue: 0.06), width: selectedBooks.contains(book.id) ? 2 : 0)
                             }
-                            .frame(maxWidth: .infinity, alignment: .center) // Center the table
                         }
+                        .frame(maxWidth: .infinity, alignment: .center) // Center the table
                     }
-                    
-                    // Floating Button
-                    VStack {
+                }
+                
+                // Floating Button
+                VStack {
+                    Spacer()
+                    HStack {
                         Spacer()
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                showingAddBookOptions.toggle()
-                            }) {
-                                HStack {
-                                    Image(systemName: "book.fill")
-                                        .foregroundColor(.white)
-                                    Text("Add a Book")
-                                        .foregroundColor(.white)
-                                }
-                                .padding()
-                                .background(
-                                    RoundedRectangle(cornerRadius: 14)
-                                        .fill(Color(red: 0.32, green: 0.23, blue: 0.06))
-                                        .stroke(Color(red: 1, green: 0.74, blue: 0.28),lineWidth: 4)
-                                        .shadow(color: .gray, radius: 5, x: 0, y: 2)
-                                )
+                        Button(action: {
+                            showingAddBookOptions.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "book.fill")
+                                    .foregroundColor(.white)
+                                Text("Add a Book")
+                                    .foregroundColor(.white)
                             }
-                            .padding(.trailing, 20)
-                            .padding(.bottom, 20)
-                            .sheet(isPresented: $showingAddBookOptions) {
-                                AddBookOptionsView { newBook in
-                                    books.append(newBook)
-                                }
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .fill(Color(red: 0.32, green: 0.23, blue: 0.06))
+                                    .stroke(Color(red: 1, green: 0.74, blue: 0.28), lineWidth: 4)
+                                    .shadow(color: .gray, radius: 5, x: 0, y: 2)
+                            )
+                        }
+                        .padding(.trailing, 20)
+                        .padding(.bottom, 20)
+                        .sheet(isPresented: $showingAddBookOptions) {
+                            AddBookOptionsView { newBook in
+                                // Append new book locally and update UI
+                                books.append(newBook)
                             }
                         }
                     }
                 }
-                .navigationTitle("Books Catalogues")
             }
-            .navigationViewStyle(DoubleColumnNavigationViewStyle())
+            .onAppear {
+                // Fetch books from DataController
+                fetchBooks()
+            }
+            .navigationTitle("Books Catalogues")
+        }
+        .navigationViewStyle(DoubleColumnNavigationViewStyle())
+    }
+    
+    private func fetchBooks() {
+        // Call DataController to fetch books asynchronously
+        DataController.shared.fetchBooks { result in
+            switch result {
+            case .success(let fetchedBooks):
+                // Update local state with fetched books
+                self.books = fetchedBooks
+            case .failure(let error):
+                print("Failed to fetch books: \(error.localizedDescription)")
+                // Handle error as needed
+            }
         }
     }
+}
 
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            BooksCatalogue()
-        }
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        BooksCatalogue()
     }
+}
