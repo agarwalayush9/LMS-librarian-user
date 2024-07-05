@@ -85,7 +85,7 @@ struct LibrarianDashboard: View {
                 // Tab bar
                 Rectangle()
                     .ignoresSafeArea()
-                    .frame(maxWidth:.infinity,maxHeight: UIScreen.main.bounds.height*0.07)
+                    .frame(maxWidth:.infinity,maxHeight: UIScreen.main.bounds.height * 0.07)
                     .foregroundColor(Color("librarianDashboardTabBar"))
                     .overlay(
                         HStack(alignment: .center){
