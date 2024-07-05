@@ -22,9 +22,8 @@ struct LibrarianDashboard: View {
                         todayDateAndTime()
                         
                     }
-                    .padding(.all, 64)
-                    card(title: "Today’s Revenue",
-                         value: 221, salesDifferencePercentage: 2.5)
+                   .padding(.all, 64)
+
                 }
                 .padding(.trailing, 462)
                 ScrollView{
@@ -72,7 +71,9 @@ struct LibrarianDashboard: View {
 //                                               OverDuePeriod: datum.OverDuePeriod,
 //                                               Fine: datum.Fine)
 //                            }
-                        }.padding([.leading, .trailing],64)
+                        }
+                        .padding([.leading, .trailing],64)
+                        .padding(.bottom, 85)
                         
                     }
                 }
@@ -82,7 +83,7 @@ struct LibrarianDashboard: View {
                 Rectangle()
                     .ignoresSafeArea()
                     .frame(width: .infinity,
-                           height: 98)
+                           height: 80)
                     .foregroundColor(Color("librarianDashboardTabBar"))
                 
                 
