@@ -159,6 +159,26 @@ func currentDateAndTime() -> String {
         return "\(dateString), \(timeString)"
     }
 
+struct BookCirculationCardDataShow : View {
+    var data = BookDetails.bookDetail
+
+    var body: some View {
+        VStack{
+            ForEach(data){ datum in
+                showingDetails(ISBN: datum.ISBN,
+                               imageName: datum.imageName,
+                               BookTitle: datum.BookTitle,
+                               AuthorName: datum.AuthorName,
+                               userName: datum.userName,
+                               OverDuePeriod: datum.OverDuePeriod,
+                               Fine: datum.Fine)
+            }
+                .padding(.top, 8)
+        }
+
+    }
+}
+
 #Preview {
     LibrarianDashboard()
 }

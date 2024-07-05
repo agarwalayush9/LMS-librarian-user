@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LibrarianDashboard: View {
-    var data = BookDetails.bookDetail
     
     var body: some View {
         NavigationStack{
@@ -56,28 +55,20 @@ struct LibrarianDashboard: View {
                                             title: "Book Circulation")
                         .padding([.leading, .trailing], 64)
                             
-                        HStack(){
-                            BookCirculationCard(minHeight: 160,
-                                                title: "Overdue Book Details")
-                            .overlay(
-                                ForEach(data){ datum in
-                                    showingDetails(ISBN: datum.ISBN,
-                                                   imageName: datum.imageName,
-                                                   BookTitle: datum.BookTitle,
-                                                   AuthorName: datum.AuthorName,
-                                                   userName: datum.userName,
-                                                   OverDuePeriod: datum.OverDuePeriod,
-                                                   Fine: datum.Fine)
-                                }
-                                    .padding(.top, 64)
-                            )
-                           
+                    HStack(){
+                        VStack{
+                            BookCirculationCardDataShow()
+                            .padding(.top,80)
+                       
+                        }
+                        .background(
+                            BookCirculationCard(minHeight: 160, title: "Overdue Book Details")
+                            .padding(.bottom, 16))
                             Spacer()
                             BookCirculationCard(minHeight: 160,
                                                 title: "Online Book Requests")
-                           
                         }
-                        .background(Color.brown)
+                        //.background()
                         .padding([.leading, .trailing],64)
                         .padding(.bottom, 85)
                         
@@ -87,7 +78,7 @@ struct LibrarianDashboard: View {
                 
             }
             
-                //
+                // Tab bar
                 Rectangle()
                     .ignoresSafeArea()
                     .frame(width: .infinity,
@@ -167,8 +158,7 @@ struct showingDetails : View {
     var body: some View {
         VStack {
             HStack{
-    //            BookCirculationCardData(bookTitle: bookTitle,
-    //                                    authorName: authorName)
+
                 bookInfo(bookTitle: BookTitle,
                          authorName: AuthorName, 
                          ISBN: ISBN,
@@ -216,7 +206,7 @@ struct userInfo : View {
             VStack{
                 Text("Fine")
                     .padding()
-                Text("\(Fine)")
+                Text("$\(String(format: "%.2f", Fine))")
             }
         }
     }

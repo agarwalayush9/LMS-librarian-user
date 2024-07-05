@@ -14,7 +14,9 @@ struct sideBarOptions: Identifiable, Equatable {
     static var sideBaroptionList : [sideBarOptions]{
     [
         sideBarOptions(optionName: "Overview"),
-        sideBarOptions(optionName: "Books Inventory")
+        sideBarOptions(optionName: "Books Inventory"),
+        sideBarOptions(optionName: "Books"),
+        
     ]
     }
 }
