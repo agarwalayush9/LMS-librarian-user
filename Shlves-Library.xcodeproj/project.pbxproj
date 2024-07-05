@@ -14,7 +14,6 @@
 		B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */; };
 		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
-		D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */; };
 		D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */; };
 		D0EDBE782C36A31400EC06AB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D0EDBE772C36A31400EC06AB /* FirebaseDatabase */; };
 		D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EDBE792C36A38500EC06AB /* DataController.swift */; };
@@ -24,6 +23,7 @@
 		FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */; };
 		FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC932C356C2A00553DC0 /* gitignore.txt */; };
 		FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEA9C9D2C36818E0042367B /* RegisterPage.swift */; };
+		FDEA9CA22C372DBD0042367B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDEA9CA12C372DBD0042367B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,6 @@
 		B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarOptions.swift; sourceTree = "<group>"; };
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
-		D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0EDBE762C36A30100EC06AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0EDBE792C36A38500EC06AB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -44,6 +43,7 @@
 		FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FD87DC932C356C2A00553DC0 /* gitignore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gitignore.txt; sourceTree = "<group>"; };
 		FDEA9C9D2C36818E0042367B /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
+		FDEA9CA12C372DBD0042367B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +83,8 @@
 		FD87DC792C356BFC00553DC0 = {
 			isa = PBXGroup;
 			children = (
+				FDEA9CA12C372DBD0042367B /* GoogleService-Info.plist */,
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
-				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				FD87DC842C356BFC00553DC0 /* Shlves-Library */,
 				FD87DC832C356BFC00553DC0 /* Products */,
@@ -189,9 +189,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */,
+				FDEA9CA22C372DBD0042367B /* GoogleService-Info.plist in Resources */,
 				FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */,
 				FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */,
-				D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,10 +211,7 @@
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
-				B174F3502C3655E5003D1ABD /* test.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
-				B16B8DED2C35EA9F0025DBFC /* LibrarianDashboard.swift in Sources */,
-
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
