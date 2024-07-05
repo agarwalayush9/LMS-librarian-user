@@ -14,80 +14,78 @@ struct LibrarianDashboard: View {
             ZStack(alignment: .bottom){
             backgroundView()
                     .ignoresSafeArea(.all)
-            VStack{
-                HStack(spacing : 0){
-                    VStack(alignment: .leading, spacing: 16){
-                        userName(userName: "User")
-                        todayDateAndTime()
-                        
-                    }
-                   .padding(.all, 64)
-
-                }
-                .padding(.trailing, 462)
-                ScrollView{
+                ScrollView {
                     VStack{
-                        //inside this write BookCircilation
-                        VStack(alignment: .leading,spacing: 20){
-                            AnalyticHeader(title: "Main Analytics Below")
-                            ScrollView(.horizontal,showsIndicators: false){
-                                HStack(spacing: 20){
-                                    DashboardAnalytics()
-                                }
-                                .padding(.leading,64)
-                            }
-                            VStack(alignment: .leading, spacing: 20){
+                    HStack(spacing : 0){
+                        VStack(alignment: .leading, spacing: 16){
+                            userName(userName: "User")
+                            todayDateAndTime()
+                            
+                        }
+                       .padding(.all, 64)
+
+                    }
+                    .padding(.trailing, 462)
+                        VStack{
+                            //inside this write BookCircilation
+                            VStack(alignment: .leading,spacing: 20){
                                 AnalyticHeader(title: "Main Analytics Below")
-                                ScrollView(.horizontal, showsIndicators: false){
+                                ScrollView(.horizontal,showsIndicators: false){
                                     HStack(spacing: 20){
                                         DashboardAnalytics()
                                     }
                                     .padding(.leading,64)
                                 }
-                                
+                                VStack(alignment: .leading, spacing: 20){
+                                    AnalyticHeader(title: "Main Analytics Below")
+                                    ScrollView(.horizontal, showsIndicators: false){
+                                        HStack(spacing: 20){
+                                            DashboardAnalytics()
+                                        }
+                                        .padding(.leading,64)
+                                    }
+                                    
+                                }
+                                .padding([.bottom], 16)
+                                Spacer()
                             }
-                            .padding([.bottom], 16)
+                            .padding([.top,.bottom], 16)
                             Spacer()
-                        }
-                        .padding([.top,.bottom], 16)
-                        Spacer()
-                        BookCirculationCard(minHeight: 160,
-                                            title: "Book Circulation")
-                        .padding([.leading, .trailing], 64)
+                            BookCirculationCard(minHeight: 160,
+                                                title: "Book Circulation")
+                            .padding([.leading, .trailing], 64)
+                                
+                        HStack(){
+                            VStack{
+                                overDueBooksDetailData()
+                                .padding(.top,80)
+                           
+                            }
+                            .background(
+                                BookCirculationCard(minHeight: 160, title: "Overdue Book Details")
+                                .padding(.bottom, 16))
+                                
+                                Spacer()
+                            VStack{
+                                NewlyArrivedBooksDetailData()
+                                .padding(.top,80)
+                            }
+                            .background(
+                                BookCirculationCard(minHeight: 160, title: "Newly Arrived Books")
+                                .padding(.bottom, 16))
+                            }
+                            .padding([.leading, .trailing],64)
+                            .padding(.bottom, 85)
                             
-                    HStack(){
-                        VStack{
-                            overDueBooksDetailData()
-                            .padding(.top,80)
-                       
                         }
-                        .background(
-                            BookCirculationCard(minHeight: 160, title: "Overdue Book Details")
-                            .padding(.bottom, 16))
-                            
-                            Spacer()
-                        VStack{
-                            NewlyArrivedBooksDetailData()
-                            .padding(.top,80)
-                        }
-                        .background(
-                            BookCirculationCard(minHeight: 160, title: "Newly Arrived Books")
-                            .padding(.bottom, 16))
-                        }
-                        .padding([.leading, .trailing],64)
-                        .padding(.bottom, 85)
-                        
-                    }
                     
+                    }
                 }
-                
-            }
             
                 // Tab bar
                 Rectangle()
                     .ignoresSafeArea()
-                    .frame(width: .infinity,
-                           height: 80)
+                    .frame(maxWidth:.infinity,maxHeight: UIScreen.main.bounds.height*0.07)
                     .foregroundColor(Color("librarianDashboardTabBar"))
                     .overlay(
                         HStack(alignment: .center){
@@ -99,6 +97,7 @@ struct LibrarianDashboard: View {
                                          colorName: "CustomButtonColor")
                             .padding()
                             Spacer()
+                                
                             CustomButton(systemImage: "",
                                          width: 150,
                                          height: 39,
@@ -116,8 +115,9 @@ struct LibrarianDashboard: View {
                     .ignoresSafeArea()
                 
                 
-        }
-            .navigationTitle("LMS")
+            }
+            
+            .navigationTitle("lms".capitalized)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar{
