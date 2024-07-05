@@ -59,27 +59,35 @@ struct LibrarianDashboard: View {
                         HStack(){
                             BookCirculationCard(minHeight: 160,
                                                 title: "Overdue Book Details")
+                            .overlay(
+                                ForEach(data){ datum in
+                                    showingDetails(ISBN: datum.ISBN,
+                                                   imageName: datum.imageName,
+                                                   BookTitle: datum.BookTitle,
+                                                   AuthorName: datum.AuthorName,
+                                                   userName: datum.userName,
+                                                   OverDuePeriod: datum.OverDuePeriod,
+                                                   Fine: datum.Fine)
+                                }
+                                    .padding(.top, 64)
+                            )
+                           
                             Spacer()
                             BookCirculationCard(minHeight: 160,
                                                 title: "Online Book Requests")
-//                            ForEach(data){ datum in
-//                                showingDetails(ISBN: datum.ISBN, 
-//                                               imageName: datum.imageName,
-//                                               BookTitle: datum.BookTitle, 
-//                                               AuthorName: datum.AuthorName,
-//                                               userName: datum.userName,
-//                                               OverDuePeriod: datum.OverDuePeriod,
-//                                               Fine: datum.Fine)
-//                            }
+                           
                         }
+                        .background(Color.brown)
                         .padding([.leading, .trailing],64)
                         .padding(.bottom, 85)
                         
                     }
+                    
                 }
                 
             }
             
+                //
                 Rectangle()
                     .ignoresSafeArea()
                     .frame(width: .infinity,
