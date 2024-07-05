@@ -177,6 +177,9 @@ struct CheckBoxView: View {
 }
 
 struct BooksCatalogue: View {
+    
+    
+    
     @State private var selectedBooks = Set<Int>()
     @State private var showingAddBookOptions = false
     
@@ -204,7 +207,7 @@ struct BooksCatalogue: View {
                 }
                 .listStyle(SidebarListStyle())
                 .navigationTitle("Khvaab Library")
-               
+                
                 ZStack {
                     VStack {
                         ScrollView {

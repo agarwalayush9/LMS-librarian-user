@@ -120,6 +120,7 @@ struct LibrarianDashboard: View {
                 
                 
         }
+            .navigationBarBackButtonHidden()
             .navigationTitle("LMS")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)

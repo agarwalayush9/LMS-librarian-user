@@ -18,7 +18,7 @@ struct RegisterPage: View {
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var isRegistrationSuccessful = false
-
+    @State private var showDashboard = false
     var body: some View {
         NavigationStack {
             HStack {
@@ -98,6 +98,8 @@ struct RegisterPage: View {
                             }
                             
                         }
+                        
+                        self.showDashboard = true
                     }) {
                         Text("Register")
                             .foregroundColor(.white)
@@ -112,6 +114,9 @@ struct RegisterPage: View {
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .fullScreenCover(isPresented: $showDashboard) {
+                    LibrarianDashboard()
+                }
             }
             .padding()
         }
