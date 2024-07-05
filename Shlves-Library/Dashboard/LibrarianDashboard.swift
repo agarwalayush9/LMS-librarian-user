@@ -57,18 +57,23 @@ struct LibrarianDashboard: View {
                             
                     HStack(){
                         VStack{
-                            BookCirculationCardDataShow()
+                            overDueBooksDetailData()
                             .padding(.top,80)
                        
                         }
                         .background(
                             BookCirculationCard(minHeight: 160, title: "Overdue Book Details")
                             .padding(.bottom, 16))
+                            
                             Spacer()
-                            BookCirculationCard(minHeight: 160,
-                                                title: "Online Book Requests")
+                        VStack{
+                            NewlyArrivedBooksDetailData()
+                            .padding(.top,80)
                         }
-                        //.background()
+                        .background(
+                            BookCirculationCard(minHeight: 160, title: "Newly Arrived Books")
+                            .padding(.bottom, 16))
+                        }
                         .padding([.leading, .trailing],64)
                         .padding(.bottom, 85)
                         
@@ -84,6 +89,31 @@ struct LibrarianDashboard: View {
                     .frame(width: .infinity,
                            height: 80)
                     .foregroundColor(Color("librarianDashboardTabBar"))
+                    .overlay(
+                        HStack(alignment: .center){
+                            
+                            CustomButton(systemImage: "plus",
+                                         width: 98, 
+                                         height: 39,
+                                         title: "Add",
+                                         colorName: "CustomButtonColor")
+                            .padding()
+                            Spacer()
+                            CustomButton(systemImage: "",
+                                         width: 150,
+                                         height: 39,
+                                         title: "Lend Book",
+                                         colorName: "CustomButtonColor")
+                            CustomButton(systemImage: "",
+                                         width: 180,
+                                         height: 39,
+                                         title: "Return Book",
+                                         colorName: "CustomButtonColor")
+                            .padding()
+                                                    }.padding([.top, .leading])
+                        
+                    )
+                    .ignoresSafeArea()
                 
                 
         }
@@ -111,6 +141,33 @@ struct LibrarianDashboard: View {
             }
     }
  }
+}
+
+
+struct CustomButton : View {
+    
+    var systemImage : String
+    var width : CGFloat
+    var height : CGFloat
+    var title : String
+    var colorName : String
+    
+    var body: some View {
+        HStack{
+            Image(systemName: systemImage)
+                .foregroundStyle(Color.white)
+            Text(title)
+                .font(
+                Font.custom("DM Sans", size: 20)
+                .weight(.bold)
+                )
+                .foregroundColor(.white)
+        }
+        .padding(.all)
+        .frame(width: width, height: height)
+        .background(Color(colorName))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
 }
 
 struct backgroundView : View {
@@ -145,7 +202,7 @@ struct BookCirculationCard: View {
     }
 }
 
-struct showingDetails : View {
+struct showingDetailsForOverDueDetails : View {
     
     var ISBN : String
     var imageName : String
@@ -171,6 +228,31 @@ struct showingDetails : View {
     }
 }
 
+struct showingDetailsForNewlyArrivedBooks : View {
+    
+    var ISBN : String
+    var imageName : String
+    var BookTitle : String
+    var AuthorName : String
+    var Quantity : Int
+    var ArivedDate : String
+    
+    var body: some View {
+        VStack {
+            HStack{
+
+                bookInfo(bookTitle: BookTitle,
+                         authorName: AuthorName,
+                         ISBN: ISBN,
+                         imageName: imageName)
+                .padding()
+                NewlyArrivedBooksQuantityInfo(ArrivedDate: ArivedDate, Quantity: Quantity)
+            }
+        }
+    }
+}
+
+
 struct BookCirculationCardData : View {
     
     var bookTitle : String
@@ -179,8 +261,7 @@ struct BookCirculationCardData : View {
     var body: some View {
         VStack (spacing : 30){
             HStack{
-//                bookInfo(bookTitle: "soul", authorName: "zek")
-                    //.padding(.leading, 128)
+             
                 Spacer()
                     
             }
@@ -207,6 +288,29 @@ struct userInfo : View {
                 Text("Fine")
                     .padding()
                 Text("$\(String(format: "%.2f", Fine))")
+            }
+        }
+    }
+}
+
+struct NewlyArrivedBooksQuantityInfo : View {
+    
+    var ArrivedDate : String
+    var Quantity : Int
+    
+    var body: some View {
+        HStack{
+            Spacer()
+            VStack{
+                Text("Arrived Date")
+                    .padding()
+                Text("\(ArrivedDate) ")
+            }
+            Spacer()
+            VStack{
+                Text("Quantity")
+                    .padding()
+                Text("\(Quantity) units")
             }
         }
     }
@@ -260,9 +364,6 @@ struct bookInfo : View {
                 .foregroundColor(Color("AuthorNameColor"))
             
         }
-        
-        // user Details go here
-        
     }
     }
 }
@@ -276,7 +377,7 @@ struct memberData : View {
             Image(systemName: "person.3")
               .resizable()
               .aspectRatio(contentMode: .fill)
-              .frame(width: 90.64483642578125, height: 64.45854949951172)
+              .frame(width: 91, height: 65)
               .clipped()
           )
     }

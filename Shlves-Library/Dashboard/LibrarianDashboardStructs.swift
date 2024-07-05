@@ -159,13 +159,13 @@ func currentDateAndTime() -> String {
         return "\(dateString), \(timeString)"
     }
 
-struct BookCirculationCardDataShow : View {
-    var data = BookDetails.bookDetail
+struct overDueBooksDetailData : View {
+    var data = OverDueBookDetails.overDueBookDetail
 
     var body: some View {
         VStack{
             ForEach(data){ datum in
-                showingDetails(ISBN: datum.ISBN,
+                showingDetailsForOverDueDetails(ISBN: datum.ISBN,
                                imageName: datum.imageName,
                                BookTitle: datum.BookTitle,
                                AuthorName: datum.AuthorName,
@@ -176,6 +176,24 @@ struct BookCirculationCardDataShow : View {
                 .padding(.top, 8)
         }
 
+    }
+}
+
+struct NewlyArrivedBooksDetailData : View {
+    let data = NewlyArrivedBooks.newlyArrivedBook
+    var body: some View {
+        VStack{
+            ForEach(data){ datum in
+                showingDetailsForNewlyArrivedBooks(
+                                ISBN: datum.ISBN,
+                               imageName: datum.imageName,
+                               BookTitle: datum.BookTitle,
+                               AuthorName: datum.AuthorName,
+                                Quantity: datum.Quantity,
+                                ArivedDate: datum.ArivedDate
+                                           )}
+                .padding(.top, 8)
+        }
     }
 }
 

@@ -28,7 +28,7 @@ struct Analytics : Identifiable, Equatable{
     }
 }
 
-struct BookDetails : Identifiable, Equatable{
+struct OverDueBookDetails : Identifiable, Equatable{
     
     var id : String{ISBN}
     var ISBN : String
@@ -39,29 +39,29 @@ struct BookDetails : Identifiable, Equatable{
     var OverDuePeriod : String
     var Fine : Double
     
-    static var bookDetail : [BookDetails]{
-       [ BookDetails(ISBN: "#4235532",
+    static var overDueBookDetail : [OverDueBookDetails]{
+       [ OverDueBookDetails(ISBN: "#4235532",
                     imageName: "BookCover",
                     BookTitle: "Soul",
                     AuthorName: "Zek",
                     userName: "ash",
                     OverDuePeriod: "2 Days",
                     Fine: 40),
-         BookDetails(ISBN: "#4235532",
+         OverDueBookDetails(ISBN: "#4235532",
                       imageName: "BookCover",
                       BookTitle: "Soul",
                       AuthorName: "Zek",
                       userName: "ash",
                       OverDuePeriod: "2 Days",
                       Fine: 40),
-         BookDetails(ISBN: "#4235532",
+         OverDueBookDetails(ISBN: "#4235532",
                       imageName: "BookCover",
                       BookTitle: "Soul",
                       AuthorName: "Zek",
                       userName: "ash",
                       OverDuePeriod: "2 Days",
                       Fine: 40),
-         BookDetails(ISBN: "#4235532",
+         OverDueBookDetails(ISBN: "#4235532",
                       imageName: "BookCover",
                       BookTitle: "Soul",
                       AuthorName: "Zek",
@@ -69,5 +69,45 @@ struct BookDetails : Identifiable, Equatable{
                       OverDuePeriod: "2 Days",
                       Fine: 40),
        ]
+    }
+}
+
+struct NewlyArrivedBooks : Identifiable, Equatable{
+    
+    var id : String{ISBN}
+    var ISBN : String
+    var imageName : String
+    var BookTitle : String
+    var AuthorName : String
+    var Quantity : Int
+    var ArivedDate : String
+    
+    static var newlyArrivedBook : [NewlyArrivedBooks]{
+        [
+            NewlyArrivedBooks(ISBN: "#4235532",
+                              imageName: "BookCover",
+                              BookTitle: "Soul", 
+                              AuthorName: "Zek",
+                              Quantity: 60,
+                              ArivedDate: "23 Jun 2024"),
+            NewlyArrivedBooks(ISBN: "#4235532",
+                              imageName: "BookCover",
+                              BookTitle: "Soul",
+                              AuthorName: "Zek",
+                              Quantity: 60,
+                              ArivedDate: "23 Jun 2024"),
+            NewlyArrivedBooks(ISBN: "#4235532",
+                              imageName: "BookCover",
+                              BookTitle: "Soul",
+                              AuthorName: "Zek",
+                              Quantity: 60,
+                              ArivedDate: "23 Jun 2024"),
+            NewlyArrivedBooks(ISBN: "#4235532",
+                              imageName: "BookCover",
+                              BookTitle: "Soul",
+                              AuthorName: "Zek",
+                              Quantity: 60,
+                              ArivedDate: "23 Jun 2024"),
+        ]
     }
 }
