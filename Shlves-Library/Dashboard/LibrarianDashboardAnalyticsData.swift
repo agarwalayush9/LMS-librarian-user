@@ -72,6 +72,8 @@ struct OverDueBookDetails : Identifiable, Equatable{
     }
 }
 
+var SideBarOptionList = [""]
+
 struct NewlyArrivedBooks : Identifiable, Equatable{
     
     var id : String{ISBN}

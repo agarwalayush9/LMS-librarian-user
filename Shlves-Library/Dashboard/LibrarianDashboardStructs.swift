@@ -22,8 +22,6 @@ struct userName : View {
 }
 
 
-
-
 struct card : View {
     var title : String
     var value : Double
@@ -196,7 +194,244 @@ struct NewlyArrivedBooksDetailData : View {
         }
     }
 }
+struct CustomButton : View {
+    
+    var systemImage : String
+    var width : CGFloat
+    var height : CGFloat
+    var title : String
+    var colorName : String
+    
+    var body: some View {
+        HStack{
+            Image(systemName: systemImage)
+                .foregroundStyle(Color.white)
+            Text(title)
+                .font(
+                Font.custom("DM Sans", size: 20)
+                .weight(.bold)
+                )
+                .foregroundColor(.white)
+        }
+        .padding(.all)
+        .frame(width: width, height: height)
+        .background(Color(colorName))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
 
+struct backgroundView : View {
+    var body: some View {
+        Color("dashboardbg").ignoresSafeArea()
+        
+    }
+}
+
+
+struct BookCirculationCard: View {
+    
+    var minHeight : CGFloat
+    var title : String
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text(title)
+                Spacer()
+                Image(systemName: "chevron.right")
+            }
+            .padding()
+            
+            BookCirculationCardData(bookTitle: "Soul", authorName: "zek")
+            Spacer()
+        }
+        .padding()
+        .background(Color.white).frame(minHeight: minHeight)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+
+    }
+}
+
+struct showingDetailsForOverDueDetails : View {
+    
+    var ISBN : String
+    var imageName : String
+    var BookTitle : String
+    var AuthorName : String
+    var userName : String
+    var OverDuePeriod : String
+    var Fine : Double
+    
+    var body: some View {
+        VStack {
+            HStack{
+
+                bookInfo(bookTitle: BookTitle,
+                         authorName: AuthorName,
+                         ISBN: ISBN,
+                         imageName: imageName)
+                .padding()
+                userInfo(userName: userName,
+                         OverDuePeriod: OverDuePeriod, Fine: Fine)
+            }
+        }
+    }
+}
+
+struct showingDetailsForNewlyArrivedBooks : View {
+    
+    var ISBN : String
+    var imageName : String
+    var BookTitle : String
+    var AuthorName : String
+    var Quantity : Int
+    var ArivedDate : String
+    
+    var body: some View {
+        VStack {
+            HStack{
+
+                bookInfo(bookTitle: BookTitle,
+                         authorName: AuthorName,
+                         ISBN: ISBN,
+                         imageName: imageName)
+                .padding()
+                NewlyArrivedBooksQuantityInfo(ArrivedDate: ArivedDate, Quantity: Quantity)
+            }
+        }
+    }
+}
+
+
+struct BookCirculationCardData : View {
+    
+    var bookTitle : String
+    var authorName : String
+    
+    var body: some View {
+        VStack (spacing : 30){
+            HStack{
+             
+                Spacer()
+                    
+            }
+        }
+        
+    }
+}
+
+struct userInfo : View {
+    var userName : String
+    var OverDuePeriod: String
+    var Fine : Double
+    var body: some View {
+        HStack{
+            Text(userName)
+            Spacer()
+            VStack{
+                Text("Overdue")
+                    .padding()
+                Text("\(OverDuePeriod) days")
+            }
+            Spacer()
+            VStack{
+                Text("Fine")
+                    .padding()
+                Text("$\(String(format: "%.2f", Fine))")
+            }
+        }
+    }
+}
+
+struct NewlyArrivedBooksQuantityInfo : View {
+    
+    var ArrivedDate : String
+    var Quantity : Int
+    
+    var body: some View {
+        HStack{
+            Spacer()
+            VStack{
+                Text("Arrived Date")
+                    .padding()
+                Text("\(ArrivedDate) ")
+            }
+            Spacer()
+            VStack{
+                Text("Quantity")
+                    .padding()
+                Text("\(Quantity) units")
+            }
+        }
+    }
+}
+
+struct bookInfo : View {
+    
+    var bookTitle : String
+    var authorName : String
+    var ISBN : String
+    var imageName : String
+    var body: some View {
+        HStack(spacing : 20){
+        Rectangle()
+            .foregroundColor(.clear)
+            .frame(width: 79, height: 125)
+            .background(
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 79, height: 125)
+                    .clipped()
+            )
+            .padding(.bottom, 12)
+        VStack{
+            Rectangle()
+                .frame(width: 90, height: 25)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
+                .foregroundStyle(Color("ISBNContainerColor"))
+                .overlay(
+                    Text(ISBN)
+                        .font(
+                            Font.custom("DM Sans", size: 14)
+                                .weight(.medium)
+                        )
+                        .foregroundColor(.black)
+                )
+            
+            Text(bookTitle)
+                .font(
+                    Font.custom("DM Sans", size: 25)
+                        .weight(.medium)
+                )
+                .foregroundColor(.black)
+            Text(authorName)
+            //Text("by Shshank")
+                .font(
+                    Font.custom("DM Sans", size: 17)
+                        .weight(.medium)
+                )
+                .foregroundColor(Color("AuthorNameColor"))
+            
+        }
+    }
+    }
+}
+
+struct memberData : View {
+    var body: some View {
+        Rectangle()
+          .foregroundColor(.clear)
+          .frame(width: 90.64484, height: 64.45855)
+          .background(
+            Image(systemName: "person.3")
+              .resizable()
+              .aspectRatio(contentMode: .fill)
+              .frame(width: 91, height: 65)
+              .clipped()
+          )
+    }
+}
 #Preview {
     LibrarianDashboard()
 }
