@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */; };
 		B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */; };
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
 		B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */; };
-		B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */; };
-		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
+		B1EEBD932C3941F20096E0D2 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1EEBD922C3941F20096E0D2 /* test.swift */; };
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
 		D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */; };
 		D0EDBE782C36A31400EC06AB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D0EDBE772C36A31400EC06AB /* FirebaseDatabase */; };
@@ -27,12 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideBaroptionData.swift; sourceTree = "<group>"; };
 		B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardAnalyticsData.swift; sourceTree = "<group>"; };
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
 		B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboard.swift; sourceTree = "<group>"; };
-		B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarOptions.swift; sourceTree = "<group>"; };
-		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
+		B1EEBD922C3941F20096E0D2 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		D0EDBE762C36A30100EC06AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0EDBE792C36A38500EC06AB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -62,12 +58,10 @@
 		B1BEB40E2C359FB300ED5C01 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */,
-				B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */,
-				B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */,
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,
 				B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */,
 				B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */,
+				B1EEBD922C3941F20096E0D2 /* test.swift */,
 			);
 			name = Dashboard;
 			path = "Shlves-Library/Dashboard";
@@ -203,13 +197,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
+				B1EEBD932C3941F20096E0D2 /* test.swift in Sources */,
 				B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */,
-				B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */,
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
-				B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
-				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
