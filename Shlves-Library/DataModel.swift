@@ -23,7 +23,10 @@ struct User
             return [
                 "name": name,
                 "email": email,
-                "phoneNumber": phoneNumber
+                "phoneNumber": phoneNumber,
+                "status": "Approval Pending",
+                "userId": "********",
+                "password": "********"
             ]
         }
 }
