@@ -12,6 +12,7 @@ import FirebaseDatabase
 
 
 struct RegisterPage: View {
+    
     @State private var email: String = ""
     @State private var name: String = ""
     @State private var phoneNumber: String = ""
@@ -19,6 +20,8 @@ struct RegisterPage: View {
     @State private var alertMessage = ""
     @State private var isRegistrationSuccessful = false
     @State private var showDashboard = false
+    
+    
     var body: some View {
         NavigationStack {
             HStack {
@@ -50,9 +53,16 @@ struct RegisterPage: View {
                         .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
                     
                     // Name field
-                    Text("Name")
+                    Text("First Name")
                         .foregroundColor(Color.gray)
-                    TextField("Enter your name", text: $name)
+                    TextField("Enter your First Name", text: $name)
+                        .padding()
+                        .background(Color(UIColor.systemGray6))
+                        .cornerRadius(8)
+                    
+                    Text("Last Name")
+                        .foregroundColor(Color.gray)
+                    TextField("Enter your Last Name", text: $name)
                         .padding()
                         .background(Color(UIColor.systemGray6))
                         .cornerRadius(8)
