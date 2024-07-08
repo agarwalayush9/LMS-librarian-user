@@ -19,7 +19,7 @@
 		FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */; };
 		FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC892C356BFD00553DC0 /* Assets.xcassets */; };
 		FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */; };
-		FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC932C356C2A00553DC0 /* gitignore.txt */; };
+		FD87DC942C356C2A00553DC0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC932C356C2A00553DC0 /* .gitignore */; };
 		FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEA9C9D2C36818E0042367B /* RegisterPage.swift */; };
 		FDEA9CA22C372DBD0042367B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FDEA9CA12C372DBD0042367B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
@@ -37,7 +37,7 @@
 		FD87DC852C356BFC00553DC0 /* Shlves_LibraryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shlves_LibraryApp.swift; sourceTree = "<group>"; };
 		FD87DC892C356BFD00553DC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FD87DC932C356C2A00553DC0 /* gitignore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gitignore.txt; sourceTree = "<group>"; };
+		FD87DC932C356C2A00553DC0 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		FDEA9C9D2C36818E0042367B /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
 		FDEA9CA12C372DBD0042367B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,7 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				FDEA9CA12C372DBD0042367B /* GoogleService-Info.plist */,
-				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
+				FD87DC932C356C2A00553DC0 /* .gitignore */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				FD87DC842C356BFC00553DC0 /* Shlves-Library */,
 				FD87DC832C356BFC00553DC0 /* Products */,
@@ -184,7 +184,7 @@
 			files = (
 				FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */,
 				FDEA9CA22C372DBD0042367B /* GoogleService-Info.plist in Resources */,
-				FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */,
+				FD87DC942C356C2A00553DC0 /* .gitignore in Resources */,
 				FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

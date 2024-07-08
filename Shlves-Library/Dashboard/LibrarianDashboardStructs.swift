@@ -194,6 +194,10 @@ struct NewlyArrivedBooksDetailData : View {
         }
     }
 }
+
+
+
+
 struct CustomButton : View {
     
     var systemImage : String
