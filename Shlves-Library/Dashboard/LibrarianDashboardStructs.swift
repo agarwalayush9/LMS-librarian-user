@@ -433,5 +433,5 @@ struct memberData : View {
     }
 }
 #Preview {
-    LibrarianDashboard()
+    LibrarianDashboard(isLoggedIn: .constant(true))
 }

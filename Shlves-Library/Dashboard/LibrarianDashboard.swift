@@ -9,8 +9,10 @@ import SwiftUI
 
 struct LibrarianDashboard: View {
     @State private var navigateToBookCatalogue = false
+    @State private var navigateToUserRecord = false
     @State private var menuOpened = false
-
+    @Binding var isLoggedIn: Bool
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
@@ -115,11 +117,11 @@ struct LibrarianDashboard: View {
                     .ignoresSafeArea()
 
                 if menuOpened {
-                    sideMenu(width: UIScreen.main.bounds.width * 0.30,
+                    sideMenu(isLoggedIn: $isLoggedIn, width: UIScreen.main.bounds.width * 0.30,
                              menuOpened: menuOpened,
                              toggleMenu: toggleMenu)
                     .ignoresSafeArea()
-                    .toolbar(.hidden, for: .navigationBar)
+                   // .toolbar(.hidden, for: .navigationBar)
                 }
             }
             .navigationTitle("lms".capitalized)
@@ -135,19 +137,34 @@ struct LibrarianDashboard: View {
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        // Add action for books vertical button
-                        navigateToBookCatalogue = true
-
-                    }, label: {
-                        Image(systemName: "books.vertical")
-                            .foregroundColor(Color.black)
-                                            })
+                    HStack{
+                        Button(action: {
+                            // Add action for books vertical button
+                            navigateToBookCatalogue = true
+                            
+                        }, label: {
+                            Image(systemName: "books.vertical")
+                                .foregroundColor(Color.black)
+                        })
+                        Button(action: {
+                            // Add action for books vertical button
+                            //navigateToBookCatalogue = true
+                            navigateToUserRecord = true
+                            
+                        }, label: {
+                            Image(systemName: "person.3.fill")
+                                .foregroundColor(Color.black)
+                        })
+                    }
+                    
                 }
             }
             .navigationDestination(isPresented: $navigateToBookCatalogue) {
                             BooksCatalogue()
                         }
+            .navigationDestination(isPresented: $navigateToUserRecord){
+                UsersCatalogue()
+            }
         }
         
     }
@@ -159,7 +176,3 @@ struct LibrarianDashboard: View {
 
 
 
-
-#Preview {
-    LibrarianDashboard()
-}

@@ -1,15 +1,9 @@
-//
-//  DataModel.swift
-//  Shlves-Library
-//
-//  Created by Sahil Raj on 04/07/24.
-//
-
 import Foundation
 
 struct User
 {
     var name: String
+    var lastName: String
     var email: String
     var phoneNumber: Int
     
@@ -22,8 +16,12 @@ struct User
     func toDictionary() -> [String: Any] {
             return [
                 "name": name,
+                "lastName": lastName,
                 "email": email,
-                "phoneNumber": phoneNumber
+                "phoneNumber": phoneNumber,
+                "status": "Approval Pending",
+                "userId": "********",
+                "password": "********",
             ]
         }
 }
@@ -38,6 +36,7 @@ struct Book: Identifiable, Codable {
     let issuedDate: String
     let returnDate: String
     let status: String
+    var quantity: Int?
     
     func toDictionary() -> [String: Any] {
             return [

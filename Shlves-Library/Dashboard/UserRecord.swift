@@ -13,10 +13,13 @@ struct EditUserDetailsView: View {
     @State private var emailID: String
     @State private var membership: String
     @State private var phoneNumber: String
-    
+
     var user: LibraryUser
     var updateUser: (LibraryUser) -> Void
-    
+
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+
     init(user: LibraryUser, updateUser: @escaping (LibraryUser) -> Void) {
         self.user = user
         self._username = State(initialValue: user.username)
@@ -25,7 +28,7 @@ struct EditUserDetailsView: View {
         self._phoneNumber = State(initialValue: user.phoneNumber)
         self.updateUser = updateUser
     }
-    
+
     var body: some View {
         VStack {
             Text("Edit User Details")
@@ -35,8 +38,13 @@ struct EditUserDetailsView: View {
             Form {
                 TextField("Username", text: $username)
                 TextField("Email ID", text: $emailID)
-                TextField("Membership", text: $membership)
+                Picker("Membership", selection: $membership) {
+                    Text("Silver").tag("Silver")
+                    Text("Gold").tag("Gold")
+                    Text("Platinum").tag("Platinum")
+                }
                 TextField("Phone Number", text: $phoneNumber)
+                    .keyboardType(.numberPad)
             }
 
             HStack {
@@ -50,13 +58,15 @@ struct EditUserDetailsView: View {
                 }
 
                 Button(action: {
-                    var updatedUser = user
-                    updatedUser.username = username
-                    updatedUser.emailID = emailID
-                    updatedUser.membership = membership
-                    updatedUser.phoneNumber = phoneNumber
-                    updateUser(updatedUser)
-                    presentationMode.wrappedValue.dismiss()
+                    if validateInput() {
+                        var updatedUser = user
+                        updatedUser.username = username
+                        updatedUser.emailID = emailID
+                        updatedUser.membership = membership
+                        updatedUser.phoneNumber = phoneNumber
+                        updateUser(updatedUser)
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }) {
                     Text("Save")
                         .font(.headline)
@@ -69,6 +79,44 @@ struct EditUserDetailsView: View {
         .background(Color.white)
         .cornerRadius(20)
         .frame(maxWidth: 500) // Limit the width of the pop-up
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Invalid Input"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+    }
+
+    func validateInput() -> Bool {
+        if !isValidEmail(emailID) {
+            alertMessage = "Please enter a valid email ID."
+            showAlert = true
+            return false
+        }
+        if !isValidUsername(username) {
+            alertMessage = "Please enter a valid username."
+            showAlert = true
+            return false
+        }
+        if !isValidPhoneNumber(phoneNumber) {
+            alertMessage = "Please enter a valid phone number."
+            showAlert = true
+            return false
+        }
+        return true
+    }
+
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: email)
+    }
+
+    func isValidUsername(_ username: String) -> Bool {
+        return !username.isEmpty
+    }
+
+    func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
+        let phoneRegEx = "^[0-9]+$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegEx)
+        return phoneTest.evaluate(with: phoneNumber)
     }
 }
 
@@ -76,11 +124,14 @@ struct AddUserDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var username = ""
     @State private var emailID = ""
-    @State private var membership = ""
+    @State private var membership = "Silver"
     @State private var phoneNumber = ""
-    
+
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+
     var addUser: (LibraryUser) -> Void
-    
+
     var body: some View {
         VStack {
             Text("Enter User Details")
@@ -90,8 +141,13 @@ struct AddUserDetailsView: View {
             Form {
                 TextField("Username", text: $username)
                 TextField("Email ID", text: $emailID)
-                TextField("Membership", text: $membership)
+                Picker("Membership", selection: $membership) {
+                    Text("Silver").tag("Silver")
+                    Text("Gold").tag("Gold")
+                    Text("Platinum").tag("Platinum")
+                }
                 TextField("Phone Number", text: $phoneNumber)
+                    .keyboardType(.numberPad)
             }
 
             HStack {
@@ -105,8 +161,11 @@ struct AddUserDetailsView: View {
                 }
 
                 Button(action: {
-                    let newUser = LibraryUser(id: Int.random(in: 1...1000), username: username, emailID: emailID, membership: membership, phoneNumber: phoneNumber, lastIssuedBook: "None", charges: "0", memberSince: "2023-01-01")
-                    addUser(newUser)
+                    if validateInput() {
+                        let newUser = LibraryUser(id: Int.random(in: 1...1000), username: username, emailID: emailID, membership: membership, phoneNumber: phoneNumber, lastIssuedBook: "None", charges: "0", memberSince: "2023-01-01")
+                        addUser(newUser)
+                        presentationMode.wrappedValue.dismiss()
+                    }
                 }) {
                     Text("Save")
                         .font(.headline)
@@ -119,6 +178,44 @@ struct AddUserDetailsView: View {
         .background(Color.white)
         .cornerRadius(20)
         .frame(maxWidth: 500) // Limit the width of the pop-up
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Invalid Input"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+    }
+
+    func validateInput() -> Bool {
+        if !isValidEmail(emailID) {
+            alertMessage = "Please enter a valid email ID."
+            showAlert = true
+            return false
+        }
+        if !isValidUsername(username) {
+            alertMessage = "Please enter a valid username."
+            showAlert = true
+            return false
+        }
+        if !isValidPhoneNumber(phoneNumber) {
+            alertMessage = "Please enter a valid phone number."
+            showAlert = true
+            return false
+        }
+        return true
+    }
+
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: email)
+    }
+
+    func isValidUsername(_ username: String) -> Bool {
+        return !username.isEmpty
+    }
+
+    func isValidPhoneNumber(_ phoneNumber: String) -> Bool {
+        let phoneRegEx = "^[0-9]+$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegEx)
+        return phoneTest.evaluate(with: phoneNumber)
     }
 }
 
@@ -161,7 +258,7 @@ struct UsersCatalogue: View {
             }
             .listStyle(SidebarListStyle())
             .navigationTitle("Khvaab Library")
-            
+
             ZStack {
                 VStack {
                     ScrollView {
@@ -180,7 +277,7 @@ struct UsersCatalogue: View {
                                     )
                                 )
                                 .frame(width: 50, alignment: .center)
-                                
+
                                 Text("User ID")
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 Text("Username")
@@ -202,9 +299,9 @@ struct UsersCatalogue: View {
                             }
                             .font(.headline)
                             .padding(.horizontal)
-                            
+
                             Divider()
-                            
+
                             ForEach(users) { user in
                                 HStack {
                                     CheckBoxView(
@@ -220,7 +317,7 @@ struct UsersCatalogue: View {
                                         )
                                     )
                                     .frame(width: 50, alignment: .center)
-                                    
+
                                     Text("\(user.id)")
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     Text(user.username)
@@ -237,7 +334,7 @@ struct UsersCatalogue: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     Text(user.memberSince)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-                                    
+
                                     HStack {
                                         Button(action: {
                                             userToEdit = user
@@ -246,7 +343,7 @@ struct UsersCatalogue: View {
                                             Image(systemName: "pencil")
                                                 .foregroundColor(.blue)
                                         }
-                                        
+
                                         Button(action: {}) {
                                             Image(systemName: "ellipsis")
                                                 .foregroundColor(.blue)
@@ -273,7 +370,7 @@ struct UsersCatalogue: View {
                         .frame(maxWidth: .infinity, alignment: .center) // Center the table
                     }
                 }
-                
+
                 // Floating Button
                 VStack {
                     Spacer()

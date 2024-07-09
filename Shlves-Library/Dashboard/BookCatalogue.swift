@@ -1,19 +1,22 @@
-//
-//  BookCatalogue.swift
-//  Shlves-Library
-//
-//  Created by Sahil Raj on 05/07/24.
-//
-
 import SwiftUI
 
 struct AddBookDetailsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var bookTitle = ""
     @State private var author = ""
-    @State private var genre = ""
+    @State private var genre = Genre.Fiction
+    @State private var quantity = ""
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var addBook: (Book) -> Void
+    var books: [Book] // Pass existing books
+
+    let genres: [Genre] = [
+        .Horror, .Mystery, .Fiction, .Finance, .Fantasy, .Business, .Romance,
+        .Psychology, .YoungAdult, .SelfHelp, .HistoricalFiction, .NonFiction,
+        .ScienceFiction, .Literature
+    ]
     
     var body: some View {
         VStack {
@@ -24,7 +27,13 @@ struct AddBookDetailsView: View {
             Form {
                 TextField("Book Title", text: $bookTitle)
                 TextField("Author", text: $author)
-                TextField("Genre", text: $genre)
+                Picker("Genre", selection: $genre) {
+                    ForEach(genres, id: \.self) { genre in
+                        Text(genre.rawValue).tag(genre)
+                    }
+                }
+                TextField("Quantity", text: $quantity)
+                    .keyboardType(.numberPad) // Ensure numeric keyboard
             }
 
             HStack {
@@ -38,28 +47,42 @@ struct AddBookDetailsView: View {
                 }
 
                 Button(action: {
+                    // Validate quantity input
+                    guard let quantityValue = Int(quantity) else {
+                        alertMessage = "Please enter a valid numeric quantity."
+                        showAlert = true
+                        return
+                    }
+                    
+                    // Check if the book already exists
+                    if books.contains(where: { $0.bookTitle == bookTitle && $0.author == author }) {
+                        alertMessage = "A book with the same title and author already exists."
+                        showAlert = true
+                        return
+                    }
+
                     let newBook = Book(
                         bookCode: "978-\(Int.random(in: 1000000...9999999))", // Generate random ISBN
                         bookCover: "book_cover",
                         bookTitle: bookTitle.isEmpty ? "Unknown Title" : bookTitle,
                         author: author.isEmpty ? "Unknown Author" : author,
-                        genre: [Genre(rawValue: genre.capitalized) ?? .Fiction], // Default to Fiction if genre is not recognized
+                        genre: [genre],
                         issuedDate: "2024-05-01",
                         returnDate: "2024-06-01",
-                        status: "Available"
-                )
-                                        
-                                        // Call the addBook function
+                        status: "Available",
+                        quantity: quantityValue
+                    )
+
                     DataController.shared.addBook(newBook) { result in
                         switch result {
-                            case .success:
-                                addBook(newBook) // Add to local state if successful
-                                presentationMode.wrappedValue.dismiss()
-                            case .failure(let error):
-                                print("Failed to add book: \(error.localizedDescription)")
-                                                // Handle failure case as needed
-                                            }
-                                        }
+                        case .success:
+                            addBook(newBook)
+                            presentationMode.wrappedValue.dismiss()
+                        case .failure(let error):
+                            print("Failed to add book: \(error.localizedDescription)")
+                            // Handle failure case as needed
+                        }
+                    }
                 }) {
                     Text("Save")
                         .font(.headline)
@@ -72,6 +95,13 @@ struct AddBookDetailsView: View {
         .background(Color.white)
         .cornerRadius(20)
         .frame(maxWidth: 500) // Limit the width of the pop-up
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }
 
@@ -79,6 +109,7 @@ struct AddBookOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showingAddBookDetails = false
     var addBook: (Book) -> Void
+    var books: [Book] // Pass existing books
 
     var body: some View {
         VStack {
@@ -130,11 +161,7 @@ struct AddBookOptionsView: View {
                     .background(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 2))
                 }
                 .sheet(isPresented: $showingAddBookDetails) {
-                    AddBookDetailsView { newBook in
-                        addBook(newBook)
-                        showingAddBookDetails = false
-                        presentationMode.wrappedValue.dismiss()
-                    }
+                    AddBookDetailsView(addBook: addBook, books: books)
                 }
             }
             .padding()
@@ -179,10 +206,6 @@ struct CheckBoxView: View {
     }
 }
 
-
-
-
-
 struct BooksCatalogue: View {
     @State private var selectedBooks = Set<UUID>()
     @State private var showingAddBookOptions = false
@@ -192,7 +215,7 @@ struct BooksCatalogue: View {
         NavigationView {
             List {
                 NavigationLink(destination: BooksCatalogue()) {
-                    Label("Khvaab Library", systemImage: "books.vertical")
+                    Label("Shelves Library", systemImage: "books.vertical")
                         .font(.title)
                         .foregroundColor(.brown)
                 }
@@ -203,7 +226,7 @@ struct BooksCatalogue: View {
                 }
             }
             .listStyle(SidebarListStyle())
-            .navigationTitle("Khvaab Library")
+            .navigationTitle("Shelves Library")
             
             ZStack {
                 VStack {
@@ -337,10 +360,10 @@ struct BooksCatalogue: View {
                         .padding(.trailing, 20)
                         .padding(.bottom, 20)
                         .sheet(isPresented: $showingAddBookOptions) {
-                            AddBookOptionsView { newBook in
+                            AddBookOptionsView(addBook: { newBook in
                                 // Append new book locally and update UI
                                 books.append(newBook)
-                            }
+                            }, books: books)
                         }
                     }
                 }
