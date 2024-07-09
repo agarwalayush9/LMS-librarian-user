@@ -403,7 +403,7 @@ struct UsersCatalogue: View {
                     }
                 }
             }
-            .navigationTitle("User Catalogues")
+            .navigationTitle("User's Data")
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .sheet(item: $userToEdit) { user in
