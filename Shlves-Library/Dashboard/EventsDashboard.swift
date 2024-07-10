@@ -12,8 +12,27 @@ struct EventsDashboard: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                Text("Hello")
+                VStack(alignment : .leading){
+                    Text("Manage Events")
+                        .font(
+                        Font.custom("DM Sans", size: 52)
+                        .weight(.medium)
+                        )
+                        
+                        customGraphCard(width: 730,
+                                        height: 259)
+                    Spacer()
+                }
+                .padding([.top, .leading], 64)
+                .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+
                 
+                
+                
+                
+                
+                
+                //This is to be the last part of z Stack
                 if menuOpened {
                     sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30,
                              menuOpened: menuOpened,
@@ -23,7 +42,6 @@ struct EventsDashboard: View {
                     .transition(.offset(x: menuOpened ? -UIScreen.main.bounds.width : 0))
 
                 }
-
             }
             //navigation Bar Mark ~zek
             .navigationTitle("Manager Events")
@@ -60,4 +78,25 @@ struct EventsDashboard: View {
 
 #Preview {
     EventsDashboard()
+}
+
+func textColorChanger(title : String) -> Text{
+    return Text(title)
+        .font(
+        Font.custom("DM Sans", size: 52)
+        .weight(.medium)
+        )
+        .foregroundColor(.customButton)
+}
+
+struct customGraphCard: View {
+    var width : Double
+    var height : Double
+    
+    
+    var body: some View {
+        Rectangle()
+            .frame(width: width, height: height)
+            .background(.blue)
+    }
 }
