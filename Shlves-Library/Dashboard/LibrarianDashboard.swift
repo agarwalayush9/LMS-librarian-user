@@ -113,7 +113,7 @@ struct LibrarianDashboard: View {
 
                             if AddButtonPressed {
                                 showAddBarExtension(AddbuttonPressed: $AddButtonPressed)
-                                    .transition(.offset(x: AddButtonPressed ? -UIScreen.main.bounds.width  : +25,
+                                    .transition(.offset(x: AddButtonPressed ? -UIScreen.main.bounds.width  : 0,
                                                         y: 0))
                                     //.animation(.easeInOut, value: AddButtonPressed)
                                     
@@ -123,7 +123,7 @@ struct LibrarianDashboard: View {
                             showTabBarButtons()
                         }
                         .padding([.top, .leading])
-                        .padding(.leading, 50)
+                       // .padding(.leading, 50)
                         
                     )
                     .ignoresSafeArea()
@@ -135,6 +135,8 @@ struct LibrarianDashboard: View {
                              toggleMenu: toggleMenu)
                     .ignoresSafeArea()
                     .toolbar(.hidden, for: .navigationBar)
+                    
+
                 }
             }
             .navigationTitle("lms".capitalized)
@@ -143,7 +145,9 @@ struct LibrarianDashboard: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
-                        menuOpened.toggle()
+                        withAnimation{
+                            menuOpened.toggle()
+                        }
                     }, label: {
                         Image(systemName: "sidebar.left")
                             .foregroundStyle(Color.black)
@@ -253,6 +257,6 @@ struct circleCancleButton : View {
     }
 }
 
-#Preview {
-    LibrarianDashboard(isLoggedIn: .constant(true))
-}
+//#Preview {
+//    LibrarianDashboard(isLoggedIn: .constant(true))
+//}
