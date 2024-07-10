@@ -135,7 +135,7 @@ struct LibrarianDashboard: View {
                              toggleMenu: toggleMenu)
                     .ignoresSafeArea()
                     .toolbar(.hidden, for: .navigationBar)
-                    
+                    .transition(.offset(x: menuOpened ? -UIScreen.main.bounds.width : 0))
 
                 }
             }
@@ -168,7 +168,9 @@ struct LibrarianDashboard: View {
     }
 
     func toggleMenu() {
-        menuOpened.toggle()
+        withAnimation(.easeInOut){
+            menuOpened.toggle()
+        }
     }
 }
 
@@ -235,6 +237,7 @@ struct showAddBarExtension : View {
         .padding(.leading, 30)
     }
     func toggleAddButtonPressed(){
+        
         AddbuttonPressed.toggle()
     }
 }
@@ -257,6 +260,6 @@ struct circleCancleButton : View {
     }
 }
 
-//#Preview {
-//    LibrarianDashboard(isLoggedIn: .constant(true))
-//}
+#Preview {
+    LibrarianDashboard(isLoggedIn: .constant(true))
+}
