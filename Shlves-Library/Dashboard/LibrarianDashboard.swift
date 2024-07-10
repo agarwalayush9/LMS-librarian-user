@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LibrarianDashboard: View {
     @State private var menuOpened = false
-    @State  var AddButtonPressed = true
+     @State private var AddButtonPressed = false
     @State private var navigateToBookCatalogue = false
     @State private var navigateToUserRecord = false
     @Binding var isLoggedIn: Bool
@@ -94,47 +94,40 @@ struct LibrarianDashboard: View {
                     .foregroundColor(Color("librarianDashboardTabBar"))
                     .overlay(
                         HStack(alignment: .center) {
-                            
-                            // this isfor showng add button itself
-                            if AddButtonPressed{ Button(action: {
-                                print("Add pressed")
-                                AddButtonPressed.toggle()
-                            }, label: {
-                                CustomButton(systemImage: "plus",
-                                             width: 98,
-                                             height: 39,
-                                             title: "Add",
-                                             colorName: "CustomButtonColor")
-                            })
-                            }else{
-                                
-                                
+                            if !AddButtonPressed {
+                                //MARK: make this button a struct
                                 Button(action: {
-                                    print("crossButtonPressed")
-                                    AddButtonPressed.toggle()
+                                    withAnimation(.easeInOut) {
+                                        AddButtonPressed.toggle()
+                                        
+                                        //AddButtonPressed.toggle()
+                                    }
                                 }, label: {
-                                    circleCancleButton(width: 50,
-                                                       colorName: "CustomButtonColor",
-                                                       systemImage: "multiply"
-                                                      )
+                                    CustomButton(systemImage: "plus",
+                                                 width: 98,
+                                                 height: 39,
+                                                 title: "Add",
+                                                 colorName: "CustomButtonColor")                                })
+                                    
+                            }
 
-                                })
+                            if AddButtonPressed {
+                                showAddBarExtension(AddbuttonPressed: $AddButtonPressed)
+                                    .transition(.offset(x: AddButtonPressed ? -UIScreen.main.bounds.width  : +25,
+                                                        y: 0))
+                                    //.animation(.easeInOut, value: AddButtonPressed)
+                                    
                             }
                             
-                            //.padding()
                             Spacer()
-                            //This is for Add button extension
-                            if AddButtonPressed{
-                                showTabBarButtons()
-                            }else{
-                                showAddBarExtension()
-                            }
-                            
-                                
+                            showTabBarButtons()
                         }
                         .padding([.top, .leading])
+                        .padding(.leading, 50)
+                        
                     )
                     .ignoresSafeArea()
+
 
                 if menuOpened {
                     sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30,
@@ -177,14 +170,9 @@ struct LibrarianDashboard: View {
 
 
 
-
-#Preview {
-    LibrarianDashboard(isLoggedIn: .constant(true))
-}
-
-
 struct showTabBarButtons : View {
     var body: some View {
+        
         Button(action: {
         print("Lend Book Pressed")
     }, label: {
@@ -207,25 +195,43 @@ struct showTabBarButtons : View {
 }
 
 struct showAddBarExtension : View {
+    @Binding var AddbuttonPressed : Bool
     var body: some View {
-        Button(action: {
-        print("Add User Pressed")
-    }, label: {
-        CustomButton(systemImage: "person.fill.badge.plus",
-                     width: 150,
-                     height: 39,
-                     title: "Add User",
-                     colorName: "CustomButtonColor")      })
-    
-    Button(action: {
-        print("Add Books Pressed")
-    }, label: {
-        CustomButton(systemImage: "books.vertical.fill",
-                     width: 180,
-                     height: 39,
-                     title: "Add Books",
-                     colorName: "CustomButtonColor")      })
-    .padding()
+        HStack{
+            Button(action: {
+               print("pressed")
+                toggleAddButtonPressed()
+                
+            }, label: {
+                circleCancleButton(width: 50,
+                                   colorName: "CustomButtonColor",
+                                   systemImage: "multiply")
+
+            })
+            
+            Button(action: {
+                print("Add User Pressed")
+            }, label: {
+                CustomButton(systemImage: "person.fill.badge.plus",
+                             width: 150,
+                             height: 39,
+                             title: "Add User",
+                             colorName: "CustomButtonColor")      })
+            
+            Button(action: {
+                print("Add Books Pressed")
+            }, label: {
+                CustomButton(systemImage: "books.vertical.fill",
+                             width: 180,
+                             height: 39,
+                             title: "Add Books",
+                             colorName: "CustomButtonColor")      })
+            //    .padding()
+        }
+        .padding(.leading, 30)
+    }
+    func toggleAddButtonPressed(){
+        AddbuttonPressed.toggle()
     }
 }
 
@@ -245,4 +251,8 @@ struct circleCancleButton : View {
                     .foregroundStyle(.white)
                     )
     }
+}
+
+#Preview {
+    LibrarianDashboard(isLoggedIn: .constant(true))
 }
