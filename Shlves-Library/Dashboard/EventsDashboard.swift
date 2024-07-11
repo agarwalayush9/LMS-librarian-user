@@ -15,17 +15,17 @@ struct EventsDashboard: View {
                 VStack{
                     HStack{
                         ScrollView {
-                            VStack{
+                            VStack(alignment: .leading){
                                 Text("Manage Events")
                                     .font(
                                     Font.custom("DM Sans", size: 52)
                                     .weight(.medium)
                                     )
-                                    .frame(alignment: .leading)
+                                
                                     //Event Revenue Details Card
                                     customGraphCard(width: 730,
                                                     height: 250)
-                                    .frame(alignment: .topLeading)
+                                    
                                 
                                 //MARK: Line 2
                                 HStack{
@@ -61,7 +61,7 @@ struct EventsDashboard: View {
                                 customGraphCard(width: 344 ,
                                                 height: 285)
                                 .padding([.leading, .trailing])
-                                HStack(alignment: .center){
+                                HStack{
                                     Text("Upcoming Events")
                                         .font(
                                             Font.custom("DM sans", size: 36)
