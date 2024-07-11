@@ -108,6 +108,7 @@ struct AddBookDetailsView: View {
 struct AddBookOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showingAddBookDetails = false
+    @State private var showingISBN = false
     var addBook: (Book) -> Void
     var books: [Book] // Pass existing books
 
@@ -121,16 +122,24 @@ struct AddBookOptionsView: View {
             VStack(spacing: 60) {
                 Button(action: {
                     // Action for ISBN Code Scanning
+                     
+                    showingISBN = true
+                    
                 }) {
-                    HStack {
-                        Image(systemName: "barcode.viewfinder")
-                            .font(.system(size: 40))
-                        Text("Using ISBN Code Scanning")
-                            .font(.headline)
-                    }
-                    .padding(.all, 40)
-                    .frame(maxWidth: .infinity)
-                    .background(RoundedRectangle(cornerRadius: 15).stroke(Color.orange, lineWidth: 2))
+                    
+                            HStack {
+                                Image(systemName: "barcode.viewfinder")
+                                    .font(.system(size: 40))
+                                Text("Using ISBN Code Scanning")
+                                    .font(.headline)
+                            }
+                            .padding(.all, 40)
+                            .frame(maxWidth: .infinity)
+                            .background(RoundedRectangle(cornerRadius: 15).stroke(Color.orange, lineWidth: 2))
+                        
+                }
+                .sheet(isPresented: $showingISBN){
+                    ContentView()
                 }
 
                 Button(action: {

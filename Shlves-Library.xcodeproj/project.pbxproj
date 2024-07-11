@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		737170712C3B465F009A3B05 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737170702C3B465F009A3B05 /* UserRecord.swift */; };
+		73E886892C3FF892000687DD /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886862C3FF892000687DD /* BookDetailView.swift */; };
+		73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886872C3FF892000687DD /* BarCodeScannerView.swift */; };
+		73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886882C3FF892000687DD /* BookDetails.swift */; };
+		73E8868D2C3FF89D000687DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E8868C2C3FF89D000687DD /* ContentView.swift */; };
 		B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */; };
 		B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */; };
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
@@ -30,6 +34,10 @@
 
 /* Begin PBXFileReference section */
 		737170702C3B465F009A3B05 /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		73E886862C3FF892000687DD /* BookDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
+		73E886872C3FF892000687DD /* BarCodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeScannerView.swift; sourceTree = "<group>"; };
+		73E886882C3FF892000687DD /* BookDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetails.swift; sourceTree = "<group>"; };
+		73E8868C2C3FF89D000687DD /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideBaroptionData.swift; sourceTree = "<group>"; };
 		B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardAnalyticsData.swift; sourceTree = "<group>"; };
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
@@ -117,6 +125,10 @@
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
 				D0EDBE792C36A38500EC06AB /* DataController.swift */,
 				D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */,
+				73E886872C3FF892000687DD /* BarCodeScannerView.swift */,
+				73E886882C3FF892000687DD /* BookDetails.swift */,
+				73E886862C3FF892000687DD /* BookDetailView.swift */,
+				73E8868C2C3FF89D000687DD /* ContentView.swift */,
 			);
 			path = "Shlves-Library";
 			sourceTree = "<group>";
@@ -210,15 +222,19 @@
 			files = (
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
 				B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */,
+				73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */,
 				B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */,
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
 				B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
+				73E8868D2C3FF89D000687DD /* ContentView.swift in Sources */,
+				73E886892C3FF892000687DD /* BookDetailView.swift in Sources */,
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				D0EDBE882C37260300EC06AB /* BookCatalogue.swift in Sources */,
+				73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
 				737170712C3B465F009A3B05 /* UserRecord.swift in Sources */,
 			);
@@ -354,9 +370,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
+				DEVELOPMENT_TEAM = 458RNVZ66L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Shlves-Library/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -383,9 +401,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
+				DEVELOPMENT_TEAM = 458RNVZ66L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Shlves-Library/Info.plist";
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
