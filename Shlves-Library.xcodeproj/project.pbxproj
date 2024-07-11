@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		737170712C3B465F009A3B05 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737170702C3B465F009A3B05 /* UserRecord.swift */; };
+		B10B88DE2C3FAB8B009CF19F /* DMSansMedium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B10B88DA2C3FAB8B009CF19F /* DMSansMedium.ttf */; };
+		B10B88DF2C3FAB8B009CF19F /* DMSansRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B10B88DB2C3FAB8B009CF19F /* DMSansRegular.ttf */; };
+		B10B88E02C3FAB8B009CF19F /* DMSansSemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B10B88DC2C3FAB8B009CF19F /* DMSansSemiBold.ttf */; };
+		B10B88E12C3FAB8B009CF19F /* DMSansBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B10B88DD2C3FAB8B009CF19F /* DMSansBold.ttf */; };
 		B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */; };
 		B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */; };
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
@@ -31,6 +35,10 @@
 
 /* Begin PBXFileReference section */
 		737170702C3B465F009A3B05 /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		B10B88DA2C3FAB8B009CF19F /* DMSansMedium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DMSansMedium.ttf; sourceTree = "<group>"; };
+		B10B88DB2C3FAB8B009CF19F /* DMSansRegular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DMSansRegular.ttf; sourceTree = "<group>"; };
+		B10B88DC2C3FAB8B009CF19F /* DMSansSemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DMSansSemiBold.ttf; sourceTree = "<group>"; };
+		B10B88DD2C3FAB8B009CF19F /* DMSansBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = DMSansBold.ttf; sourceTree = "<group>"; };
 		B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideBaroptionData.swift; sourceTree = "<group>"; };
 		B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardAnalyticsData.swift; sourceTree = "<group>"; };
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
@@ -65,6 +73,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B10B88D92C3FAB6E009CF19F /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B10B88DD2C3FAB8B009CF19F /* DMSansBold.ttf */,
+				B10B88DA2C3FAB8B009CF19F /* DMSansMedium.ttf */,
+				B10B88DB2C3FAB8B009CF19F /* DMSansRegular.ttf */,
+				B10B88DC2C3FAB8B009CF19F /* DMSansSemiBold.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		B1BEB40E2C359FB300ED5C01 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +113,7 @@
 			children = (
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
 				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
+				B10B88D92C3FAB6E009CF19F /* fonts */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				FD87DC842C356BFC00553DC0 /* Shlves-Library */,
 				FD87DC832C356BFC00553DC0 /* Products */,
@@ -197,10 +217,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10B88DE2C3FAB8B009CF19F /* DMSansMedium.ttf in Resources */,
+				B10B88E02C3FAB8B009CF19F /* DMSansSemiBold.ttf in Resources */,
 				FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */,
 				FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */,
+				B10B88DF2C3FAB8B009CF19F /* DMSansRegular.ttf in Resources */,
 				FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */,
 				D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */,
+				B10B88E12C3FAB8B009CF19F /* DMSansBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
