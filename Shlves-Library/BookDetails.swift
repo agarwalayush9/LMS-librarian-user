@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct BookDetails: Decodable {
-    let title: String
-    
-    let description: String?
-    // Add more properties as needed
-}
+//struct BookDetails: Decodable {
+//    let title: String
+//    
+//    let description: String?
+//    // Add more properties as needed
+//}
 
 enum APIError: Error {
     case invalidResponse
@@ -20,7 +20,7 @@ enum APIError: Error {
 }
 
 class BookAPI {
-    static func fetchDetails(isbn: String, completion: @escaping (Result<BookDetails, APIError>) -> Void) {
+    static func fetchDetails(isbn: String, completion: @escaping (Result<Book, APIError>) -> Void) {
         let baseUrl = "https://www.googleapis.com/books/v1/volumes"
         let queryItems = [
             URLQueryItem(name: "q", value: "isbn:\(isbn)")
@@ -47,13 +47,19 @@ class BookAPI {
             
             do {
                 let decodedData = try JSONDecoder().decode(GoogleBooksResponse.self, from: data)
-                if let book = decodedData.items?.first?.volumeInfo {
-                    let details = BookDetails(
-                        title: book.title,
-                        
-                        description: book.description
+                if let bookInfo = decodedData.items?.first?.volumeInfo {
+                    let book = Book(
+                        bookCode: isbn,
+                        bookCover: bookInfo.imageLinks?.thumbnail ?? "",
+                        bookTitle: bookInfo.title,
+                        author: bookInfo.authors?.first ?? "Unknown",
+                        genre: [], // Provide genre if available
+                        issuedDate: "",
+                        returnDate: "",
+                        status: "available",
+                        description: bookInfo.description ?? ""
                     )
-                    completion(.success(details))
+                    completion(.success(book))
                 } else {
                     completion(.failure(.invalidResponse))
                 }
@@ -63,7 +69,6 @@ class BookAPI {
         }.resume()
     }
 }
-
 struct GoogleBooksResponse: Decodable {
     let items: [GoogleBook]?
 }
@@ -76,5 +81,9 @@ struct VolumeInfo: Decodable {
     let title: String
     let authors: [String]?
     let description: String?
-    // Add more properties as needed
+    let imageLinks: ImageLinks?
+}
+
+struct ImageLinks: Decodable {
+    let thumbnail: String?
 }

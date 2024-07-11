@@ -9,14 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var scannedCode: String?
-    @State private var bookDetails: BookDetails?
+    @State private var book: Book?
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
     
+    @ObservedObject var dataController = DataController.shared // Use the shared instance of DataController
+    
     var body: some View {
         VStack {
-            if let bookDetails = bookDetails {
-                BookDetailView(book: bookDetails)
+            if let book = book {
+                BookDetailView(book: book)
             } else {
                 BarcodeScannerView(scannedCode: $scannedCode, onCodeScanned: fetchBookDetails)
             }
@@ -37,9 +39,10 @@ struct ContentView: View {
         BookAPI.fetchDetails(isbn: scannedCode) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let details):
-                    self.bookDetails = details
+                case .success(let book):
+                    self.book = book
                     self.showAlert = false // Reset showAlert if it was previously shown
+                    self.addBookToDatabase(book)
                 case .failure(let error):
                     // Show error only if the scannedCode was valid but API fetch failed
                     if scannedCode.isEmpty {
@@ -60,6 +63,20 @@ struct ContentView: View {
             return "Failed to fetch book details: Invalid response from server."
         case .networkError(let error):
             return "Failed to fetch book details: Network error \(error.localizedDescription)"
+        }
+    }
+    
+    private func addBookToDatabase(_ book: Book) {
+        dataController.addBook(book) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success():
+                    print("Book added to database successfully.")
+                case .failure(let error):
+                    self.alertMessage = "Failed to add book to database: \(error.localizedDescription)"
+                    self.showAlert = true
+                }
+            }
         }
     }
 }

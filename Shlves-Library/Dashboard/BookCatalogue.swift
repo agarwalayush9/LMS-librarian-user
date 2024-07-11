@@ -70,7 +70,8 @@ struct AddBookDetailsView: View {
                         issuedDate: "2024-05-01",
                         returnDate: "2024-06-01",
                         status: "Available",
-                        quantity: quantityValue
+                        quantity: quantityValue,
+                        description: ""
                     )
 
                     DataController.shared.addBook(newBook) { result in

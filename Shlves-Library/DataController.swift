@@ -140,7 +140,8 @@ class DataController: ObservableObject {
                     let genreStrings = dict["genre"] as? [String],
                     let issuedDate = dict["issuedDate"] as? String,
                     let returnDate = dict["returnDate"] as? String,
-                    let status = dict["status"] as? String
+                    let status = dict["status"] as? String,
+                    let description = dict["description"] as? String
                 else {
                     print("Failed to parse book data.")
                     continue
@@ -157,7 +158,8 @@ class DataController: ObservableObject {
                     genre: genres,
                     issuedDate: issuedDate,
                     returnDate: returnDate,
-                    status: status
+                    status: status,
+                    description: description
                 )
 
                 books.append(book)

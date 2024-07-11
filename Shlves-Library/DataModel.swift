@@ -37,6 +37,7 @@ struct Book: Identifiable, Codable {
     let returnDate: String
     let status: String
     var quantity: Int?
+    var description: String
     
     func toDictionary() -> [String: Any] {
             return [
@@ -48,7 +49,8 @@ struct Book: Identifiable, Codable {
                 "genre": genre.map { $0.rawValue },
                 "issuedDate": issuedDate,
                 "returnDate": returnDate,
-                "status": status
+                "status": status,
+                "description": description
             ]
         }
 }
