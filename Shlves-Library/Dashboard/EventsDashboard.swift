@@ -21,9 +21,10 @@ struct EventsDashboard: View {
                     .ignoresSafeArea()
                     .toolbar(.hidden, for: .navigationBar)
                     .transition(.offset(x: menuOpened ? -UIScreen.main.bounds.width : 0))
-
+                    
                 }
-            }.background(Color("dashboardbg"))
+            }
+            .background(Color("dashboardbg"))
             //navigation Bar Mark ~zek
             .navigationTitle("Manager Events")
             .navigationBarTitleDisplayMode(.inline)
@@ -47,12 +48,13 @@ struct EventsDashboard: View {
                             .foregroundColor(Color.black)
                     })
                 }
+                
             }//Navigation bar ends    ~
         }
     }
     func toggleMenu() {
         withAnimation(.easeInOut){
-        menuOpened.toggle()
+            menuOpened.toggle()
         }
     }
 }
@@ -64,7 +66,7 @@ struct EventsDashboard: View {
 func textColorChanger(title : String) -> Text{
     return Text(title)
         .font(
-        Font.custom("DMSans-Medium", size: 52)
+            Font.custom("DMSans-Medium", size: 52)
         )
         .foregroundColor(.customButton)
 }
@@ -74,7 +76,9 @@ struct customGraphCard: View {
     var height : Double
     var body: some View {
         Rectangle()
-            .frame(width: width, height: height)
+        //            .frame(width: width, height: height)
+            .frame(minHeight: height)
+            .frame(maxWidth: width)
             .foregroundStyle(Color(.yellow))
             .clipShape(RoundedRectangle(cornerRadius: 14))
     }
@@ -83,11 +87,11 @@ struct customGraphCard: View {
 struct customEventCard: View {
     var width : Double
     var height : Double
-//    var imageName : CIImage
-//    var eventName : String
-//    var eventDate : String
-//    var eventLocation : String
-//    var hostName : String
+    //    var imageName : CIImage
+    //    var eventName : String
+    //    var eventDate : String
+    //    var eventLocation : String
+    //    var hostName : String
     
     var body: some View {
         Rectangle()
@@ -101,7 +105,7 @@ struct customEventCard: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 112, height: 150)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-    
+                    
                     VStack(alignment: .leading){
                         //event name
                         Text("Event Name:")
@@ -112,11 +116,11 @@ struct customEventCard: View {
                         
                         Text("California Art Festival 2023 Dana Point 29-30")
                             .font(
-                            Font.custom("DM Sans", size: 16)
-                            .weight(.bold)
+                                Font.custom("DM Sans", size: 16)
+                                    .weight(.bold)
                             )
                             .frame(maxWidth: 150,maxHeight: 150)
-//                            .padding(.leading,45)
+                        //                            .padding(.leading,45)
                             .lineLimit(nil)
                             .fixedSize(horizontal: false, vertical: true)
                             .multilineTextAlignment(.leading)
@@ -134,11 +138,11 @@ struct customEventCard: View {
                         Text("Host Name")
                             .foregroundStyle(.gray)
                         Text("Kaleem Bhaiya")
-                    }.padding(.leading, 15)
+                    }//.padding(.leading, 15)
                     .font(
                         Font.custom("DM Sans", size: 16)
-                        .weight(.bold)
-                        )
+                            .weight(.bold)
+                    )
                     .padding(.trailing, 45)//End of VStack for Event Details
                 }//End of HStack
             )
@@ -185,11 +189,12 @@ struct EventAnalyticsCard: View {
                                                 height: 243)
                             }
                             
-                            Spacer()
                         }
-                        .padding(.trailing, 54)
+                        .padding([.leading,.top] ,54)
+                        
                         
                     }
+                    Spacer()
                     //MARK: Right of Manage event
                     ScrollView {
                         VStack(alignment : .leading){
@@ -212,42 +217,48 @@ struct EventAnalyticsCard: View {
                             //MARK: beneath will be two closest upcoming events only 2
                             
                             //Probably i'll make this a list
-                            Text("Tomorrow")
-                                .font(
-                                    Font.custom("DMSansBold", size: 16)
-                                )
-                                .padding(.top, 1)
-                                .padding([.leading, .trailing])
-                                
-                            HStack{
-                                customEventCard(width: 344, height: 194)
-                                
+                                VStack(alignment: .leading){
+                                Text("Tomorrow")
+                                    .font(
+                                        Font.custom("DMSansBold", size: 16)
+                                    )
+                                    .padding(.top, 1)
                                     .padding([.leading, .trailing])
-                            }
-                            
-                            
-                            Text("15 JULY")
-                                .font(
-                                    Font.custom("DMSansBold", size: 16)
-                                ).padding(.top, 22)
-                                .padding([.leading, .trailing])
-                            
-                            customGraphCard(width: 344, height: 194)
-                                .padding([.leading, .trailing])
-                            
-                            //till here
+                                
+                                HStack{
+                                    customEventCard(width: 344, height: 194)
+                                    
+                                        .padding([.leading, .trailing])
+                                }
+                                
+                                
+                                Text("15 JULY")
+                                    .font(
+                                        Font.custom("DMSansBold", size: 16)
+                                    ).padding(.top, 22)
+                                    .padding([.leading, .trailing])
+                                
+                                customGraphCard(width: 344, height: 194)
+                                    .padding([.leading, .trailing])
+                                    
+                                //till here
+                                }.frame(maxHeight: 560)
                             
                         }
                     }.padding([.leading, .trailing], 30)
+                        .padding(.top, 54)
                     Spacer()
                 }
+                
                 HStack{
-                    BookCirculationCard(minHeight: 160, title: "All Events Listing")
-                    BookCirculationCard(minHeight: 160, title: "All Events Registration by Users")
-                }.padding(.trailing, 114)
+                    BookCirculationCard(minHeight: 200, title: "All Events Listing")
+                    BookCirculationCard(minHeight: 200, title: "All Events Registration by Users")
+                }.padding([.leading, .trailing],54)
+                Spacer()
+                    
+                
             }
-            .padding([.top, .leading], 64)
-        .frame(width: UIScreen.main.bounds.width, alignment: .leading)
+                .frame(width: UIScreen.main.bounds.width)
         }
     }
 }
