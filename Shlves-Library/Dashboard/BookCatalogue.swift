@@ -8,7 +8,7 @@ struct AddBookDetailsView: View {
     @State private var quantity = ""
     @State private var showAlert = false
     @State private var alertMessage = ""
-    
+ 
     var addBook: (Book) -> Void
     var books: [Book] // Pass existing books
 
@@ -104,7 +104,6 @@ struct AddBookDetailsView: View {
         }
     }
 }
-
 struct AddBookOptionsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var showingAddBookDetails = false
@@ -113,83 +112,96 @@ struct AddBookOptionsView: View {
     var books: [Book] // Pass existing books
 
     var body: some View {
-        VStack {
-            Text("Add Books")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding()
+        NavigationView {
+            VStack {
+                Text("Add Books")
+                    .font(.custom("DMSans-ExtraBold", size: 32))
+                    .fontWeight(.bold)
+                   
 
-            VStack(spacing: 60) {
-                Button(action: {
-                    // Action for ISBN Code Scanning
-                     
-                    showingISBN = true
-                    
-                }) {
-                    
-                            HStack {
-                                Image(systemName: "barcode.viewfinder")
-                                    .font(.system(size: 40))
-                                Text("Using ISBN Code Scanning")
-                                    .font(.headline)
-                            }
-                            .padding(.all, 40)
-                            .frame(maxWidth: .infinity)
-                            .background(RoundedRectangle(cornerRadius: 15).stroke(Color.orange, lineWidth: 2))
-                        
-                }
-                .sheet(isPresented: $showingISBN){
-                    ContentView()
-                }
-
-                Button(action: {
-                    // Action for Batch Upload
-                }) {
-                    HStack {
-                        Image(systemName: "square.and.arrow.up")
-                            .font(.system(size: 40))
-                        Text("Batch Upload (CSV, Spreadsheet)")
-                            .font(.headline)
+                VStack(spacing: 30) {
+                    Button(action: {
+                        // Action for ISBN Code Scanning
+                        showingISBN = true
+                    }) {
+                        VStack {
+                            Image(systemName: "barcode.viewfinder")
+                                .font(.system(size: 65))
+                                .foregroundColor(.black)
+                            
+                                .padding(.bottom)
+                                
+                            Text("Using ISBN Code Scanning")
+                                .font(.custom("DMSans-Bold", size: 20))
+                                
+                                .foregroundColor(.black)
+                        }
+                        .padding(.all, 20)
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 1, green: 0.74, blue: 0.28), lineWidth: 3))
                     }
-                    .padding(.all, 40)
-                    .frame(maxWidth: .infinity)
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 2))
-                }
-
-                Button(action: {
-                    showingAddBookDetails = true
-                }) {
-                    HStack {
-                        Image(systemName: "pencil")
-                            .font(.system(size: 40))
-                        Text("Enter Details Manually")
-                            .font(.headline)
+                    .sheet(isPresented: $showingISBN) {
+                        ContentView()
                     }
-                    .padding(.all, 40)
-                    .frame(maxWidth: .infinity)
-                    .background(RoundedRectangle(cornerRadius: 10).stroke(Color.orange, lineWidth: 2))
+
+                    Button(action: {
+                        // Action for Batch Upload
+                    }) {
+                        VStack {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 65))
+                                .foregroundColor(.black)
+                                .padding(.bottom)
+                            Text("Batch Upload (CSV, Spreadsheet)")
+                                .font(.custom("DMSans-Bold", size: 20))
+                                .foregroundColor(.black)
+                        }
+                        .padding(.all, 20)
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 1, green: 0.74, blue: 0.28), lineWidth: 3))
+                    }
+
+                    Button(action: {
+                        showingAddBookDetails = true
+                    }) {
+                        VStack {
+                            Image(systemName: "pencil")
+                                .font(.system(size: 65))
+                                .foregroundColor(.black)
+                                .padding(.bottom)
+                            Text("Enter Details Manually")
+                                .font(.custom("DMSans-Bold", size: 20))
+                                .foregroundColor(.black)
+                        }
+                        .padding(.all, 20)
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color(red: 1, green: 0.74, blue: 0.28), lineWidth: 3))
+                    }
+                    .sheet(isPresented: $showingAddBookDetails) {
+                        AddBookDetailsView(addBook: addBook, books: books)
+                    }
                 }
-                .sheet(isPresented: $showingAddBookDetails) {
-                    AddBookDetailsView(addBook: addBook, books: books)
-                }
+                .padding(.bottom)
             }
             .padding()
-
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Cancel")
-                    .font(.headline)
-                    .foregroundColor(.blue)
-                    .padding()
+            .background(Color.white)
+            .cornerRadius(20)
+            .frame(maxWidth: 500) // Limit the width of the pop-up
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                            .font(.headline)
+                            .foregroundColor(.blue)
+                    }
+                }
             }
         }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(20)
-        .frame(maxWidth: 500) // Limit the width of the pop-up
     }
 }
+
 
 struct CheckBoxView: View {
     @Binding var isChecked: Bool
@@ -219,25 +231,32 @@ struct BooksCatalogue: View {
     @State private var selectedBooks = Set<UUID>()
     @State private var showingAddBookOptions = false
     @State private var books: [Book] = [] // Use @State to hold fetched books
+    @State private var menuOpened = false
     
     var body: some View {
-        NavigationView {
-            List {
-                NavigationLink(destination: BooksCatalogue()) {
-                    Label("Shelves Library", systemImage: "books.vertical")
-                        .font(.title)
-                        .foregroundColor(.brown)
-                }
-                NavigationLink(destination: BooksCatalogue()) {
-                    Label("Book Catalogues", systemImage: "book")
-                        .font(.title2)
-                        .foregroundColor(.brown)
-                }
-            }
-            .listStyle(SidebarListStyle())
-            .navigationTitle("Shelves Library")
+        NavigationStack {
+//            List {
+//                NavigationLink(destination: BooksCatalogue()) {
+//                    Label("Shelves Library", systemImage: "books.vertical")
+//                        .font(.title)
+//                        .foregroundColor(.brown)
+//                }
+//                NavigationLink(destination: BooksCatalogue()) {
+//                    Label("Book Catalogues", systemImage: "book")
+//                        .font(.title2)
+//                        .foregroundColor(.brown)
+//                }
+//            }
+//            .listStyle(SidebarListStyle())
+//            .navigationTitle("Shelves Library")
             
             ZStack {
+                
+                backgroundView()
+                                    .ignoresSafeArea(.all)
+                                    .blur(radius: menuOpened ? 10 : 0)
+                                    .animation(.easeInOut(duration: 0.25), value: menuOpened)
+                
                 VStack {
                     ScrollView {
                         LazyVStack(alignment: .leading) {
@@ -297,10 +316,10 @@ struct BooksCatalogue: View {
                                     .frame(width: 50, alignment: .center)
                                     
                                     Text(book.bookCode)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .frame(maxWidth: .infinity, alignment: .center)
                                     Image(book.bookCover)
                                         .resizable()
-                                        .frame(width: 60, height: 80)
+                                        .frame(width: 80, height: 115)
                                         .cornerRadius(5)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     Text(book.bookTitle)
@@ -333,11 +352,13 @@ struct BooksCatalogue: View {
                                         }
                                     }
                                     .frame(maxWidth: 80, alignment: .leading)
+                                    
                                 }
                                 .padding(.vertical, 8)
                                 .padding(.horizontal)
                                 .background(selectedBooks.contains(book.id) ? Color(red: 255/255, green: 246/255, blue: 227/255) : Color.clear)
                                 .border(Color(red: 0.32, green: 0.23, blue: 0.06), width: selectedBooks.contains(book.id) ? 2 : 0)
+                                DottedDivider()
                             }
                         }
                         .frame(maxWidth: .infinity, alignment: .center) // Center the table
@@ -363,27 +384,81 @@ struct BooksCatalogue: View {
                                 RoundedRectangle(cornerRadius: 14)
                                     .fill(Color(red: 0.32, green: 0.23, blue: 0.06))
                                     .stroke(Color(red: 1, green: 0.74, blue: 0.28), lineWidth: 4)
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 2)
+                                    .shadow(color: .gray, radius: 3, x: 0, y: 2)
                             )
                         }
-                        .padding(.trailing, 20)
-                        .padding(.bottom, 20)
+                        
+                        
+                        .padding(.trailing, 40)
+                        .padding(.bottom, 25)
                         .sheet(isPresented: $showingAddBookOptions) {
                             AddBookOptionsView(addBook: { newBook in
                                 // Append new book locally and update UI
                                 books.append(newBook)
                             }, books: books)
                         }
+                        
                     }
+                    
+                }
+                //menuOpened here
+                if menuOpened {
+                                    sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30,
+                                             menuOpened: menuOpened,
+                                             toggleMenu: toggleMenu)
+                                    .ignoresSafeArea()
+                                    .toolbar(.hidden, for: .navigationBar)
+                                    
+
+                                }
+            }
+            // start here
+            .navigationTitle("Book Catalogue".capitalized)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbarBackground(.visible, for: .navigationBar)
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                Button(action: {
+                                    withAnimation{
+                                        menuOpened.toggle()
+                                    }
+                                }, label: {
+                                    Image(systemName: "sidebar.left")
+                                        .foregroundStyle(Color.black)
+                                })
+                            }
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button(action: {
+                                    // Add action for books vertical button
+                                }, label: {
+                                    Image(systemName: "books.vertical")
+                                        .foregroundColor(Color.black)
+                                })
+                            }
+                        }
+                        .onAppear {
+                            // Fetch books from DataController
+                            fetchBooks()
+                        }
+                        .navigationTitle("Books Catalogues")
+            .font(.custom("DMSans_18pt-Medium", size: 17))
+           //end here
+        }
+        
+        
+    }
+    
+    
+    struct DottedDivider: View {
+        var body: some View {
+            HStack {
+                ForEach(0..<150) { _ in
+                    Circle()
+                        .fill(Color.gray)
+                        .frame(width: 2, height: 2)
                 }
             }
-            .onAppear {
-                // Fetch books from DataController
-                fetchBooks()
-            }
-            .navigationTitle("Books Catalogues")
         }
-        .navigationViewStyle(DoubleColumnNavigationViewStyle())
     }
     
     private func fetchBooks() {
@@ -398,6 +473,9 @@ struct BooksCatalogue: View {
                 // Handle error as needed
             }
         }
+    }
+    func toggleMenu(){
+        menuOpened.toggle()
     }
 }
 

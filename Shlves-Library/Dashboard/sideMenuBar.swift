@@ -99,7 +99,7 @@ struct sideMenu: View {
             GeometryReader { _ in
                 EmptyView()
             }
-            .background(Color.gray.ignoresSafeArea().opacity(0.25))
+            .background(Color.gray.ignoresSafeArea().opacity(0.0001))
             .onTapGesture {
                 toggleMenu()
             }
@@ -223,6 +223,3 @@ struct LibrarianProfile: View {
 #Preview("test") {
     test()
 }
-
-
-

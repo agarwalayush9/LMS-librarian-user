@@ -12,6 +12,12 @@
 		73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886872C3FF892000687DD /* BarCodeScannerView.swift */; };
 		73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886882C3FF892000687DD /* BookDetails.swift */; };
 		73E8868D2C3FF89D000687DD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E8868C2C3FF89D000687DD /* ContentView.swift */; };
+		73E886912C4062DD000687DD /* DMSans_18pt-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886902C4062DD000687DD /* DMSans_18pt-Black.ttf */; };
+		73E886932C4063F8000687DD /* DMSans_18pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886922C4063F8000687DD /* DMSans_18pt-Medium.ttf */; };
+		73E886952C406456000687DD /* DMSans_18pt-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886942C406455000687DD /* DMSans_18pt-SemiBold.ttf */; };
+		73E886972C4064A9000687DD /* DMSans_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886962C4064A9000687DD /* DMSans_18pt-Bold.ttf */; };
+		73E886992C406572000687DD /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886982C406572000687DD /* DMSans-Bold.ttf */; };
+		73E8869B2C406629000687DD /* DMSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E8869A2C406629000687DD /* DMSans-ExtraBold.ttf */; };
 		B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */; };
 		B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */; };
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
@@ -38,6 +44,12 @@
 		73E886872C3FF892000687DD /* BarCodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeScannerView.swift; sourceTree = "<group>"; };
 		73E886882C3FF892000687DD /* BookDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetails.swift; sourceTree = "<group>"; };
 		73E8868C2C3FF89D000687DD /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		73E886902C4062DD000687DD /* DMSans_18pt-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans_18pt-Black.ttf"; sourceTree = "<group>"; };
+		73E886922C4063F8000687DD /* DMSans_18pt-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans_18pt-Medium.ttf"; sourceTree = "<group>"; };
+		73E886942C406455000687DD /* DMSans_18pt-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans_18pt-SemiBold.ttf"; sourceTree = "<group>"; };
+		73E886962C4064A9000687DD /* DMSans_18pt-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans_18pt-Bold.ttf"; sourceTree = "<group>"; };
+		73E886982C406572000687DD /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
+		73E8869A2C406629000687DD /* DMSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-ExtraBold.ttf"; sourceTree = "<group>"; };
 		B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideBaroptionData.swift; sourceTree = "<group>"; };
 		B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardAnalyticsData.swift; sourceTree = "<group>"; };
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
@@ -71,6 +83,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73E8868E2C405835000687DD /* ISBNfiles */ = {
+			isa = PBXGroup;
+			children = (
+				73E886872C3FF892000687DD /* BarCodeScannerView.swift */,
+				73E886882C3FF892000687DD /* BookDetails.swift */,
+				73E886862C3FF892000687DD /* BookDetailView.swift */,
+				73E8868C2C3FF89D000687DD /* ContentView.swift */,
+			);
+			path = ISBNfiles;
+			sourceTree = "<group>";
+		};
+		73E8868F2C4062B8000687DD /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				73E886902C4062DD000687DD /* DMSans_18pt-Black.ttf */,
+				73E886922C4063F8000687DD /* DMSans_18pt-Medium.ttf */,
+				73E886942C406455000687DD /* DMSans_18pt-SemiBold.ttf */,
+				73E886962C4064A9000687DD /* DMSans_18pt-Bold.ttf */,
+				73E886982C406572000687DD /* DMSans-Bold.ttf */,
+				73E8869A2C406629000687DD /* DMSans-ExtraBold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		B1BEB40E2C359FB300ED5C01 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,7 +135,9 @@
 			children = (
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
 				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
+				73E8868F2C4062B8000687DD /* Fonts */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
+				73E8868E2C405835000687DD /* ISBNfiles */,
 				FD87DC842C356BFC00553DC0 /* Shlves-Library */,
 				FD87DC832C356BFC00553DC0 /* Products */,
 				D0B9B10E2C35AB3B009521D5 /* Frameworks */,
@@ -125,10 +163,6 @@
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
 				D0EDBE792C36A38500EC06AB /* DataController.swift */,
 				D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */,
-				73E886872C3FF892000687DD /* BarCodeScannerView.swift */,
-				73E886882C3FF892000687DD /* BookDetails.swift */,
-				73E886862C3FF892000687DD /* BookDetailView.swift */,
-				73E8868C2C3FF89D000687DD /* ContentView.swift */,
 			);
 			path = "Shlves-Library";
 			sourceTree = "<group>";
@@ -206,10 +240,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73E886972C4064A9000687DD /* DMSans_18pt-Bold.ttf in Resources */,
+				73E886992C406572000687DD /* DMSans-Bold.ttf in Resources */,
+				73E8869B2C406629000687DD /* DMSans-ExtraBold.ttf in Resources */,
+				73E886932C4063F8000687DD /* DMSans_18pt-Medium.ttf in Resources */,
 				FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */,
+				73E886912C4062DD000687DD /* DMSans_18pt-Black.ttf in Resources */,
 				FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */,
 				FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */,
 				D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */,
+				73E886952C406456000687DD /* DMSans_18pt-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

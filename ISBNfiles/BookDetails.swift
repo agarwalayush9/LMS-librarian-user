@@ -1,17 +1,15 @@
-//
-//  BookDetails.swift
-//  Barcode
-//
-//  Created by Mohit Kumar Gupta on 11/07/24.
-//
-
 import Foundation
 
 struct BookDetails: Decodable {
     let title: String
-    
+    let authors: [String]?
     let description: String?
-    // Add more properties as needed
+    let publisher: String?
+    let publishedDate: String?
+    let pageCount: Int?
+    let categories: [String]?
+    let averageRating: Double?
+    let imageUrl: URL? // New field for book image URL
 }
 
 enum APIError: Error {
@@ -50,8 +48,14 @@ class BookAPI {
                 if let book = decodedData.items?.first?.volumeInfo {
                     let details = BookDetails(
                         title: book.title,
-                        
-                        description: book.description
+                        authors: book.authors,
+                        description: book.description,
+                        publisher: book.publisher,
+                        publishedDate: book.publishedDate,
+                        pageCount: book.pageCount,
+                        categories: book.categories,
+                        averageRating: book.averageRating,
+                        imageUrl: book.imageLinks?.thumbnail // Extract the image URL
                     )
                     completion(.success(details))
                 } else {
@@ -76,5 +80,14 @@ struct VolumeInfo: Decodable {
     let title: String
     let authors: [String]?
     let description: String?
-    // Add more properties as needed
+    let publisher: String?
+    let publishedDate: String?
+    let pageCount: Int?
+    let categories: [String]?
+    let averageRating: Double?
+    let imageLinks: ImageLinks? // New field for image links
+
+    struct ImageLinks: Decodable {
+        let thumbnail: URL?
+    }
 }

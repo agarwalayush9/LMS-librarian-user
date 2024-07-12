@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Barcode
-//
-//  Created by Mohit Kumar Gupta on 11/07/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
@@ -12,7 +5,7 @@ struct ContentView: View {
     @State private var bookDetails: BookDetails?
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
-    
+
     var body: some View {
         VStack {
             if let bookDetails = bookDetails {
@@ -29,11 +22,10 @@ struct ContentView: View {
             )
         }
     }
-    
+
     func fetchBookDetails() {
         guard let scannedCode = scannedCode else { return }
-        
-        // Call API to fetch book details using scannedCode (ISBN, etc.)
+
         BookAPI.fetchDetails(isbn: scannedCode) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -41,9 +33,7 @@ struct ContentView: View {
                     self.bookDetails = details
                     self.showAlert = false // Reset showAlert if it was previously shown
                 case .failure(let error):
-                    // Show error only if the scannedCode was valid but API fetch failed
                     if scannedCode.isEmpty {
-                        // If scannedCode is empty, it means no valid barcode was scanned
                         self.alertMessage = "No barcode scanned."
                     } else {
                         self.alertMessage = self.errorMessage(from: error)
@@ -53,7 +43,7 @@ struct ContentView: View {
             }
         }
     }
-    
+
     private func errorMessage(from error: APIError) -> String {
         switch error {
         case .invalidResponse:

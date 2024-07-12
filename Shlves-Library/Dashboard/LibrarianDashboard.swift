@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct LibrarianDashboard: View {
+    @State private var menuOpened = false
+     @State private var AddButtonPressed = false
     @State private var navigateToBookCatalogue = false
     @State private var navigateToUserRecord = false
-    @State private var menuOpened = false
     @Binding var isLoggedIn: Bool
     
     var body: some View {
@@ -93,35 +94,49 @@ struct LibrarianDashboard: View {
                     .foregroundColor(Color("librarianDashboardTabBar"))
                     .overlay(
                         HStack(alignment: .center) {
-                            CustomButton(systemImage: "plus",
-                                         width: 98,
-                                         height: 39,
-                                         title: "Add",
-                                         colorName: "CustomButtonColor")
-                                .padding()
+                            if !AddButtonPressed {
+                                //MARK: make this button a struct
+                                Button(action: {
+                                    withAnimation(.easeInOut) {
+                                        AddButtonPressed.toggle()
+                                        
+                                        //AddButtonPressed.toggle()
+                                    }
+                                }, label: {
+                                    CustomButton(systemImage: "plus",
+                                                 width: 98,
+                                                 height: 39,
+                                                 title: "Add",
+                                                 colorName: "CustomButtonColor")                                })
+                                    
+                            }
+
+                            if AddButtonPressed {
+                                showAddBarExtension(AddbuttonPressed: $AddButtonPressed)
+                                    .transition(.offset(x: AddButtonPressed ? -UIScreen.main.bounds.width  : 0,
+                                                        y: 0))
+                                    //.animation(.easeInOut, value: AddButtonPressed)
+                                    
+                            }
+                            
                             Spacer()
-                            CustomButton(systemImage: "",
-                                         width: 150,
-                                         height: 39,
-                                         title: "Lend Book",
-                                         colorName: "CustomButtonColor")
-                            CustomButton(systemImage: "",
-                                         width: 180,
-                                         height: 39,
-                                         title: "Return Book",
-                                         colorName: "CustomButtonColor")
-                                .padding()
+                            showTabBarButtons()
                         }
                         .padding([.top, .leading])
+                       // .padding(.leading, 50)
+                        
                     )
                     .ignoresSafeArea()
 
+
                 if menuOpened {
-                    sideMenu(isLoggedIn: $isLoggedIn, width: UIScreen.main.bounds.width * 0.30,
+                    sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30,
                              menuOpened: menuOpened,
                              toggleMenu: toggleMenu)
                     .ignoresSafeArea()
-                   // .toolbar(.hidden, for: .navigationBar)
+                    .toolbar(.hidden, for: .navigationBar)
+                    .transition(.offset(x: menuOpened ? -UIScreen.main.bounds.width : 0))
+
                 }
             }
             .navigationTitle("lms".capitalized)
@@ -130,49 +145,150 @@ struct LibrarianDashboard: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: {
-                        menuOpened.toggle()
+                        withAnimation{
+                            menuOpened.toggle()
+                        }
                     }, label: {
                         Image(systemName: "sidebar.left")
                             .foregroundStyle(Color.black)
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
+                    // start here
+//                    Button(action: {
+//                        // Add action for books vertical button
+//                        navigateToUserRecord = true
+//                    }, label: {
+//                        Image(systemName: "books.vertical")
+//                            .foregroundColor(Color.black)
+//                    })
                     HStack{
-                        Button(action: {
-                            // Add action for books vertical button
-                            navigateToBookCatalogue = true
-                            
-                        }, label: {
-                            Image(systemName: "books.vertical")
-                                .foregroundColor(Color.black)
-                        })
-                        Button(action: {
-                            // Add action for books vertical button
-                            //navigateToBookCatalogue = true
-                            navigateToUserRecord = true
-                            
-                        }, label: {
-                            Image(systemName: "person.3.fill")
-                                .foregroundColor(Color.black)
-                        })
-                    }
-                    
+                                            Button(action: {
+                                                // Add action for books vertical button
+                                                navigateToBookCatalogue = true
+                                                
+                                            }, label: {
+                                                Image(systemName: "books.vertical")
+                                                    .foregroundColor(Color.black)
+                                            })
+                                            Button(action: {
+                                                // Add action for books vertical button
+                                                //navigateToBookCatalogue = true
+                                                navigateToUserRecord = true
+                                                
+                                            }, label: {
+                                                Image(systemName: "person.3.fill")
+                                                    .foregroundColor(Color.black)
+                                            })
+                                        }
+                    //end here
                 }
             }
+            //enter destinations here
             .navigationDestination(isPresented: $navigateToBookCatalogue) {
-                            BooksCatalogue()
+                                        BooksCatalogue()
+                                    }
+                        .navigationDestination(isPresented: $navigateToUserRecord){
+                            UsersCatalogue()
                         }
-            .navigationDestination(isPresented: $navigateToUserRecord){
-                UsersCatalogue()
-            }
+            
         }
         
     }
 
     func toggleMenu() {
-        menuOpened.toggle()
+        withAnimation(.easeInOut){
+            menuOpened.toggle()
+        }
     }
 }
 
 
 
+struct showTabBarButtons : View {
+    var body: some View {
+        
+        Button(action: {
+        print("Lend Book Pressed")
+    }, label: {
+        CustomButton(systemImage: "",
+                     width: 150,
+                     height: 39,
+                     title: "Lend Book",
+                     colorName: "CustomButtonColor")      })
+    
+    Button(action: {
+        print("Return Book Pressed")
+    }, label: {
+        CustomButton(systemImage: "",
+                     width: 180,
+                     height: 39,
+                     title: "Return Book",
+                     colorName: "CustomButtonColor")      })
+    .padding()
+    }
+}
+
+struct showAddBarExtension : View {
+    @Binding var AddbuttonPressed : Bool
+    var body: some View {
+        HStack{
+            Button(action: {
+               print("pressed")
+                toggleAddButtonPressed()
+                
+            }, label: {
+                circleCancleButton(width: 50,
+                                   colorName: "CustomButtonColor",
+                                   systemImage: "multiply")
+
+            })
+            
+            Button(action: {
+                print("Add User Pressed")
+            }, label: {
+                CustomButton(systemImage: "person.fill.badge.plus",
+                             width: 150,
+                             height: 39,
+                             title: "Add User",
+                             colorName: "CustomButtonColor")      })
+            
+            Button(action: {
+                print("Add Books Pressed")
+            }, label: {
+                CustomButton(systemImage: "books.vertical.fill",
+                             width: 180,
+                             height: 39,
+                             title: "Add Books",
+                             colorName: "CustomButtonColor")      })
+            //    .padding()
+        }
+        .padding(.leading, 30)
+    }
+    func toggleAddButtonPressed(){
+        
+        AddbuttonPressed.toggle()
+    }
+}
+
+
+
+struct circleCancleButton : View {
+    var width : Double
+    var colorName : String
+    var systemImage : String
+    var body: some View {
+        Circle()
+            .frame(width: width, height: width)
+            //.background(Color(colorName))
+            .foregroundColor(Color(colorName))
+            .overlay(
+                Image(systemName: systemImage)
+                    .foregroundStyle(.white)
+                    )
+    }
+}
+
+#Preview {
+    LibrarianDashboard(isLoggedIn: .constant(true))
+}
