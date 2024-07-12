@@ -10,7 +10,8 @@ import SwiftUI
 struct EventsDashboard: View {
     @State private var menuOpened = false
     @State private var showPopover = false
-
+    
+    
     var body: some View {
         NavigationStack {
             ZStack{
@@ -65,17 +66,11 @@ struct EventsDashboard: View {
 }
 
 #Preview {
-    CreateUserForm()
+    CreateNextUserForm()
 }
 
-func textColorChanger(title : String) -> Text{
-    return Text(title)
-        .font(
-            Font.custom("DMSans-Medium", size: 52)
-        )
-        .foregroundColor(.customButton)
-}
 
+//MARK: Custom card for showing Graph
 struct customGraphCard: View {
     var width : Double
     var height : Double
@@ -89,14 +84,11 @@ struct customGraphCard: View {
     }
 }
 
+//MARK: Custom Card for event
 struct customEventCard: View {
     var width : Double
     var height : Double
-    //    var imageName : CIImage
-    //    var eventName : String
-    //    var eventDate : String
-    //    var eventLocation : String
-    //    var hostName : String
+  
     
     var body: some View {
         Rectangle()
@@ -164,7 +156,7 @@ struct customEventCard: View {
 //    }
 //}
 
-
+//MARK: skeleton of whole page
 struct EventAnalyticsCard: View {
     var body: some View {
         ScrollView {
@@ -280,7 +272,7 @@ struct EventAnalyticsCard: View {
 }
 
 
-
+// MARK: Floating Button on Event DashBoard
 struct floatingEventButtonView: View {
     @Binding var showPopover : Bool
     var body: some View {
@@ -313,12 +305,50 @@ struct floatingEventButtonView: View {
     }
 }
 
+//MARK: Custom Button for taking to next page in event Creation
+struct nextButton: View {
+    @Binding var nextPopOver1 : Bool
+    var body: some View {
+        VStack{
+            Spacer()
+            HStack{
+                Spacer()
+                Button(action: {
+                    print("pressed")
+                    nextPopOver1.toggle()
+                    
+                }, label: {
+                    CustomButton(systemImage: "",
+                                 width: 92,
+                                 height: 42,
+                                 title: "Next",
+                                 colorName: "CustomButtonColor")
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .inset(by: -2)
+                            .stroke(Color("cardIconColor"), lineWidth: 4)
+                            
+                    )
+                }).sheet(isPresented: $nextPopOver1, content: {
+                    CreateNextUserForm()
+                })
+                
+            }.padding([.trailing, .bottom], 90)
+        }
+    }
+}
 
+
+//MARK: User form for 1st Page
 struct CreateUserForm : View {
     @State private var eventName = ""
     @State private var eventCategory = ""
     @State private var description = ""
-    
+    @State private var eventdate = ""
+    @State private var eventTime = ""
+    @State private var eventDuration = ""
+    @State private var isChecked = false
+    @State private var nextPopOver1 = false
     var body: some View {
         ZStack{
             VStack(alignment: .leading){
@@ -327,7 +357,7 @@ struct CreateUserForm : View {
                         Font.custom("DM Sans", size: 36)
                             .weight(.semibold)
                     )
-                    .padding(.bottom, 25)
+                    .padding([.top,.bottom], 25)
 
                 customFormField(title: "Event Name",
                                 eventName: eventName, 
@@ -347,11 +377,21 @@ struct CreateUserForm : View {
                     .weight(.bold)
                     )
                     .padding(.top)
-                    .padding(.bottom, 50)
+                    .padding(.bottom, 25)
                 //timing details
-                timingDetails(title: "Date", width: 214, height: 60)
+                HStack{
+                    timingDetails(eventDate: currentDate(),
+                                  eventTime: currentTime(),
+                                  eventDuration: "1")
+                }
+                HStack{
+                    CheckBoxView(isChecked: $isChecked)
+                    Text("The event will take place on \(eventdate) at \(eventTime) for \(eventDuration) hours")
+                }
                 Spacer()
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                nextButton(nextPopOver1: $nextPopOver1)
+            }.padding(.leading, 40)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
                            
         }
         .padding()
@@ -359,6 +399,69 @@ struct CreateUserForm : View {
     }
 }
 
+//MARK: User Form for 2nd Page
+struct CreateNextUserForm : View {
+    @State private var eventName = ""
+    @State private var eventCategory = ""
+    @State private var description = ""
+    @State private var eventdate = ""
+    @State private var eventTime = ""
+    @State private var eventDuration = ""
+    @State private var isChecked = false
+    @State private var nextPopOver1 = false
+    var body: some View {
+        ZStack{
+            VStack(alignment: .leading){
+                Text("Create Event")
+                    .font(
+                        Font.custom("DM Sans", size: 36)
+                            .weight(.semibold)
+                    )
+                    .padding([.top,.bottom], 25)
+
+                customFormField(title: "Location",
+                                eventName: eventName,
+                                placeHolder: "Enter Event’s Location",
+                                width: 56)
+                customFormField(title: "Add Host",
+                                eventName: eventCategory,
+                                placeHolder: "Enter Host Name",
+                                width: 56)
+                customFormField(title: "Add any Special Guests",
+                                 eventName: description,
+                                 placeHolder: "Enter Special Guests Name",
+                                width: 105)
+                Text("Send Notificationsto Memers via ")
+                    .font(
+                    Font.custom("DM Sans", size: 20)
+                    .weight(.bold)
+                    )
+                    .foregroundStyle(.customButton)
+                    .padding(.top)
+                    .padding(.bottom, 25)
+                //timing details
+                HStack{
+                    CheckBoxView(isChecked: $isChecked)
+                    Text("Push Notification")
+                    Spacer()
+                    CheckBoxView(isChecked: $isChecked)
+                    Text("Push Notification")
+                }
+                Spacer()
+                nextButton(nextPopOver1: $nextPopOver1)
+            }.padding(.leading, 40)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                           
+        }
+        .padding()
+        
+    }
+}
+
+
+
+
+//MARK: struct for creation of Custom Form field
 struct customFormField: View {
    @State private var title : String
     @State private var placeHolder : String
@@ -398,52 +501,112 @@ struct customFormField: View {
 
 
 struct timingDetails : View {
+    @State private var eventDate : String
+    @State private var eventTime : String
+    @State private var eventDuration : String
+
     
-    @State private var title : String
-    
-    var width : Double
-    var height : Double
-    
-    init(title: String, width: Double, height: Double) {
-        self.title = title
-        self.width = width
-        self.height = height
+    init(eventDate: String,eventTime: String, eventDuration: String) {
+        self.eventDate = eventDate
+        self.eventTime = eventTime
+        self.eventDuration = eventDuration
     }
     
     var body: some View {
-        VStack(alignment: .leading){
-            Text(title)
-                .font(
-                    Font.custom("DM Sans", size: 20)
-                        .weight(.bold)
-                )
-                .padding(.bottom, 10)
-                Rectangle()
-                .frame(maxWidth: width, maxHeight: height,alignment: .leading)
-                .overlay(
-                    HStack{
-                        Text(currentDate())
-                            .foregroundStyle(.customButton)
-                            .font(.system(size: 20))
-                        Spacer()
-                        Button(action: {
-                            showCalender()
-                            //MARK: here
-                        }, label: {
-                            Image(systemName: "calendar")
-                                .foregroundStyle(.customButton)
-                                .font(.system(size: 34))
-                        })
-                    }.padding()
+        VStack {
+            HStack {
+                VStack(alignment: .leading){
+                    Text("Date")
+                        .font(
+                            Font.custom("DM Sans", size: 20)
+                                .weight(.bold)
+                        )
+                        .padding(.bottom, 10)
+                    Rectangle()
+                        .frame(maxWidth: 214, maxHeight: 60, alignment: .leading)
+                        .overlay(
+                            HStack{
+                                TextField(currentDate(), text: $eventDate)
+                                    .foregroundStyle(.customButton)
+                                    .font(.system(size: 20))
+                                Spacer()
+                                Image(systemName: "calendar")
+                                    .foregroundColor(.customButton)
+                                    .font(.system(size: 30))
+                                
+                            }.padding()
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .inset(by: -2)
+                                .stroke(Color("CustomButtonColor"), lineWidth: 4)
+                        )
+                        .foregroundStyle(.textFormFieldBg)
+                    
+                }
+                .padding()
+                VStack(alignment: .leading){
+                    Text("Time")
+                        .font(
+                            Font.custom("DM Sans", size: 20)
+                                .weight(.bold)
+                        )
+                        .padding(.bottom, 10)
+                    Rectangle()
+                        .frame(maxWidth: 146, maxHeight: 60, alignment: .leading)
+                        .overlay(
+                            HStack{
+                                TextField(currentTime(), text: $eventTime)
+                                    .foregroundStyle(.customButton)
+                                    .font(.system(size: 20))
+                                Spacer()
+                                Image(systemName: "clock")
+                                    .foregroundColor(.customButton)
+                                    .font(.system(size: 30))
+                                
+                            }.padding()
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .inset(by: -2)
+                                .stroke(Color("CustomButtonColor"), lineWidth: 4)
+                        )
+                        .foregroundStyle(.textFormFieldBg)
+                    
+                }
+                .padding(.trailing)
+                VStack(alignment: .leading){
+                    Text("Duration")
+                        .font(
+                            Font.custom("DM Sans", size: 20)
+                                .weight(.bold)
+                        )
+                        .padding(.bottom, 10)
+                    Rectangle()
+                        .frame(maxWidth: 146, maxHeight: 60, alignment: .leading)
+                        .overlay(
+                            HStack{
+                                TextField("1 hr", text: $eventDuration)
+                                    .foregroundStyle(.customButton)
+                                    .font(.system(size: 20))
+                                Spacer()
+                                Image(systemName: "timer")
+                                    .foregroundColor(.customButton)
+                                    .font(.system(size: 30))
+                                
+                            }.padding()
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .inset(by: -2)
+                                .stroke(Color("CustomButtonColor"), lineWidth: 4)
+                        )
+                        .foregroundStyle(.textFormFieldBg)
+                    
+                }
 
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .inset(by: -2)
-                        .stroke(Color("CustomButtonColor"), lineWidth: 4)
-                )
-                
-                .foregroundStyle(.textFormFieldBg)
+
+            }
         }
     }
 }
@@ -463,21 +626,27 @@ struct todayDate : View {
 
 func currentDate() -> String {
         let now = Date()
-        
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "d MMMM, yyyy"
         let dateString = dateFormatter.string(from: now)
-     
-        
         return "\(dateString)"
     }
 
 struct showCalender : View {
-    @State private var eventDate = Date()
+   
     var body: some View {
         VStack{
-            DatePicker("Date", selection: $eventDate)
+            
         }
     }
 }
+
+func currentTime() -> String {
+        let now = Date()
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "h:mm a"
+        let timeString = timeFormatter.string(from: now)
+        
+        return "\(timeString)"
+    }
