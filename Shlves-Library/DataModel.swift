@@ -69,3 +69,65 @@ enum Genre: String, Codable {
     case ScienceFiction
     case Literature
 }
+
+//  MARK: Struct for Graphs
+struct Event {
+    var id = UUID()
+    var name: String
+    var host: String
+    var date: Date
+    var time: Time
+    var address: String
+    var duration: String
+    var specialGuest: String?
+    var category: String?
+    var description: String
+    var registeredMembers: [User]
+    var tickets: Int
+    var imageName: String
+    var fees: Int
+    var revenue: Int
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "id": id.uuidString,
+            "name": name,
+            "host": host,
+            "date": date,
+            "time": time.toDictionary(),
+            "address": address,
+            "duration": duration,
+            "specialGuest": specialGuest ?? "",
+            "category": category ?? "",
+            "description": description,
+            "registeredMembers": registeredMembers.map { $0.toDictionary() },
+            "tickets": tickets,
+            "imageName": imageName,
+            "fees": fees,
+            "revenue": revenue
+        ]
+    }
+}
+struct Location: Codable {
+    var latitude: Double
+    var longitude: Double
+    
+    func toDictionary() -> [String: Double] {
+        return [
+            "latitude": latitude,
+            "longitude": longitude
+        ]
+    }
+}
+
+struct Time: Codable {
+    var hours: Int
+    var minutes: Int
+    
+    func toDictionary() -> [String: Int] {
+        return [
+            "hours": hours,
+            "minutes": minutes
+        ]
+    }
+}

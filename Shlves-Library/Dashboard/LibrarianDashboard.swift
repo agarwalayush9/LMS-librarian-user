@@ -154,14 +154,43 @@ struct LibrarianDashboard: View {
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button(action: {
-                        // Add action for books vertical button
-                    }, label: {
-                        Image(systemName: "books.vertical")
-                            .foregroundColor(Color.black)
-                    })
+                    // start here
+//                    Button(action: {
+//                        // Add action for books vertical button
+//                        navigateToUserRecord = true
+//                    }, label: {
+//                        Image(systemName: "books.vertical")
+//                            .foregroundColor(Color.black)
+//                    })
+                    HStack{
+                                            Button(action: {
+                                                // Add action for books vertical button
+                                                navigateToBookCatalogue = true
+                                                
+                                            }, label: {
+                                                Image(systemName: "books.vertical")
+                                                    .foregroundColor(Color.black)
+                                            })
+                                            Button(action: {
+                                                // Add action for books vertical button
+                                                //navigateToBookCatalogue = true
+                                                navigateToUserRecord = true
+                                                
+                                            }, label: {
+                                                Image(systemName: "person.3.fill")
+                                                    .foregroundColor(Color.black)
+                                            })
+                                        }
+                    //end here
                 }
             }
+            //enter destinations here
+            .navigationDestination(isPresented: $navigateToBookCatalogue) {
+                                        BooksCatalogue()
+                                    }
+                        .navigationDestination(isPresented: $navigateToUserRecord){
+                            UsersCatalogue()
+                        }
             
         }
         

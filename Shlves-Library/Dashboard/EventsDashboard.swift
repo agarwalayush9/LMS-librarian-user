@@ -9,9 +9,12 @@ import SwiftUI
 
 struct EventsDashboard: View {
     @State private var menuOpened = false
+    @State private var showPopover = false
+
     var body: some View {
         NavigationStack {
             ZStack{
+                //calling main screen struct
                 EventAnalyticsCard()
                 //This is to be the last part of z Stack
                 if menuOpened {
@@ -23,6 +26,8 @@ struct EventsDashboard: View {
                     .transition(.offset(x: menuOpened ? -UIScreen.main.bounds.width : 0))
                     
                 }
+                //calling create an event button
+                floatingEventButtonView(showPopover : $showPopover)
             }
             .background(Color("dashboardbg"))
             //navigation Bar Mark ~zek
@@ -60,7 +65,7 @@ struct EventsDashboard: View {
 }
 
 #Preview {
-    EventsDashboard()
+    CreateUserForm()
 }
 
 func textColorChanger(title : String) -> Text{
@@ -79,7 +84,7 @@ struct customGraphCard: View {
         //            .frame(width: width, height: height)
             .frame(minHeight: height)
             .frame(maxWidth: width)
-            .foregroundStyle(Color(.yellow))
+            .foregroundStyle(Color(.white))
             .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 }
@@ -96,7 +101,7 @@ struct customEventCard: View {
     var body: some View {
         Rectangle()
             .frame(width: width, height: height)
-            .foregroundStyle(Color(.yellow))
+            .foregroundStyle(Color(.white))
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
                 HStack{
@@ -105,7 +110,7 @@ struct customEventCard: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 112, height: 150)
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                    
+                        .padding()
                     VStack(alignment: .leading){
                         //event name
                         Text("Event Name:")
@@ -119,9 +124,9 @@ struct customEventCard: View {
                                 Font.custom("DM Sans", size: 16)
                                     .weight(.bold)
                             )
-                            .frame(maxWidth: 150,maxHeight: 150)
-                        //                            .padding(.leading,45)
-                            .lineLimit(nil)
+                            .frame(maxWidth: .infinity,maxHeight: 150)
+                            //.padding()
+                            .lineLimit(2)
                             .fixedSize(horizontal: false, vertical: true)
                             .multilineTextAlignment(.leading)
                         //Event Details
@@ -138,16 +143,27 @@ struct customEventCard: View {
                         Text("Host Name")
                             .foregroundStyle(.gray)
                         Text("Kaleem Bhaiya")
-                    }//.padding(.leading, 15)
+                    }
+                   
                     .font(
                         Font.custom("DM Sans", size: 16)
                             .weight(.bold)
                     )
-                    .padding(.trailing, 45)//End of VStack for Event Details
+                //End of VStack for Event Details
                 }//End of HStack
             )
     }
 }
+
+
+//struct floatingButton : View {
+//    var body: some View {
+//        Rectangle()
+//            .frame(maxWidth: 227, maxHeight: 50)
+//            .background(Color(""))
+//    }
+//}
+
 
 struct EventAnalyticsCard: View {
     var body: some View {
@@ -173,7 +189,7 @@ struct EventAnalyticsCard: View {
                                                 height: 243)
                                 .padding(.trailing)
                                 //Today's Event Card
-                                customGraphCard(width: 275,
+                                customEventCard(width: 275,
                                                 height: 243)
                                 
                             }
@@ -263,3 +279,205 @@ struct EventAnalyticsCard: View {
     }
 }
 
+
+
+struct floatingEventButtonView: View {
+    @Binding var showPopover : Bool
+    var body: some View {
+        VStack{
+            Spacer()
+            HStack{
+                Spacer()
+                Button(action: {
+                    print("pressed")
+                    showPopover.toggle()
+                    
+                }, label: {
+                    CustomButton(systemImage: "books.vertical.fill",
+                                 width: 227,
+                                 height: 50,
+                                 title: "Create an Event",
+                                 colorName: "CustomButtonColor")
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .inset(by: -2)
+                            .stroke(Color("cardIconColor"), lineWidth: 4)
+                            
+                    )
+                }).sheet(isPresented: $showPopover, content: {
+                    CreateUserForm()
+                })
+                
+            }.padding([.trailing, .bottom], 90)
+        }
+    }
+}
+
+
+struct CreateUserForm : View {
+    @State private var eventName = ""
+    @State private var eventCategory = ""
+    @State private var description = ""
+    
+    var body: some View {
+        ZStack{
+            VStack(alignment: .leading){
+                Text("Create Event")
+                    .font(
+                        Font.custom("DM Sans", size: 36)
+                            .weight(.semibold)
+                    )
+                    .padding(.bottom, 25)
+
+                customFormField(title: "Event Name",
+                                eventName: eventName, 
+                                placeHolder: "Enter Event’s Title Name",
+                                width: 56)
+                customFormField(title: "Event Category:",
+                                eventName: eventCategory,
+                                placeHolder: "Select Event Category",
+                                width: 56)
+                customFormField(title: "Event Description",
+                                 eventName: description,
+                                 placeHolder: "Enter Event's Description",
+                                width: 105)
+                Text("Timing Details")
+                    .font(
+                    Font.custom("DM Sans", size: 20)
+                    .weight(.bold)
+                    )
+                    .padding(.top)
+                    .padding(.bottom, 50)
+                //timing details
+                timingDetails(title: "Date", width: 214, height: 60)
+                Spacer()
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                           
+        }
+        .padding()
+        
+    }
+}
+
+struct customFormField: View {
+   @State private var title : String
+    @State private var placeHolder : String
+    @State private var eventName : String
+    var width : Double
+    
+    
+    init(title: String, eventName: String, placeHolder: String, width: Double) {
+        self.title = title
+        self.eventName = eventName
+        self.placeHolder = placeHolder
+        self.width = width
+        
+    }
+    
+    var body: some View {
+        VStack(alignment : .leading){
+            Text(title)
+            .font(
+                Font.custom("DM Sans", size: 20)
+                    .weight(.bold)
+            )
+            .padding(.bottom, 10)
+        TextField(placeHolder, text: $eventName)
+            .padding(.leading)
+            .frame(maxWidth: 585, minHeight: width)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .inset(by: -2)
+                    .stroke(Color("CustomButtonColor"), lineWidth: 4)
+            )
+            .background(.textFormFieldBg)
+            .padding(.bottom, 20)
+        }
+    }
+}
+
+
+struct timingDetails : View {
+    
+    @State private var title : String
+    
+    var width : Double
+    var height : Double
+    
+    init(title: String, width: Double, height: Double) {
+        self.title = title
+        self.width = width
+        self.height = height
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading){
+            Text(title)
+                .font(
+                    Font.custom("DM Sans", size: 20)
+                        .weight(.bold)
+                )
+                .padding(.bottom, 10)
+                Rectangle()
+                .frame(maxWidth: width, maxHeight: height,alignment: .leading)
+                .overlay(
+                    HStack{
+                        Text(currentDate())
+                            .foregroundStyle(.customButton)
+                            .font(.system(size: 20))
+                        Spacer()
+                        Button(action: {
+                            showCalender()
+                            //MARK: here
+                        }, label: {
+                            Image(systemName: "calendar")
+                                .foregroundStyle(.customButton)
+                                .font(.system(size: 34))
+                        })
+                    }.padding()
+
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .inset(by: -2)
+                        .stroke(Color("CustomButtonColor"), lineWidth: 4)
+                )
+                
+                .foregroundStyle(.textFormFieldBg)
+        }
+    }
+}
+
+struct todayDate : View {
+    @State private var CurrentDate : String
+    var body: some View {
+        Text(currentDate())
+            .font(
+            Font.custom("DM Sans", size: 16)
+            .weight(.bold)
+            )
+            .foregroundColor(.customButton)
+          .frame(maxWidth: 100, alignment: .topLeading)
+    }
+}
+
+func currentDate() -> String {
+        let now = Date()
+        
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM, yyyy"
+        let dateString = dateFormatter.string(from: now)
+     
+        
+        return "\(dateString)"
+    }
+
+struct showCalender : View {
+    @State private var eventDate = Date()
+    var body: some View {
+        VStack{
+            DatePicker("Date", selection: $eventDate)
+        }
+    }
+}

@@ -214,7 +214,7 @@ struct CustomButton : View {
                 .foregroundColor(.white)
         }
         .padding(.all)
-        .frame(width: width, height: height)
+        .frame(maxWidth: width, maxHeight: height)
         .background(Color(colorName))
         .clipShape(RoundedRectangle(cornerRadius: 10))
     }
