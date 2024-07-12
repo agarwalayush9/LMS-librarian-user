@@ -137,27 +137,43 @@ class DataController: ObservableObject {
                     let bookCover = dict["bookCover"] as? String,
                     let bookTitle = dict["bookTitle"] as? String,
                     let author = dict["author"] as? String,
-                    let genreStrings = dict["genre"] as? [String],
+                    let genreString = dict["genre"] as? String,
                     let issuedDate = dict["issuedDate"] as? String,
                     let returnDate = dict["returnDate"] as? String,
-                    let status = dict["status"] as? String
+                    let status = dict["status"] as? String,
+                    let quantity = dict["quantity"] as? Int,
+                    let description = dict["description"] as? String,
+                    let publisher = dict["publisher"] as? String,
+                    let publishedDate = dict["publishedDate"] as? String,
+                    let pageCount = dict["pageCount"] as? Int,
+                    let averageRating = dict["averageRating"] as? Double
+                   
                 else {
                     print("Failed to parse book data.")
                     continue
                 }
 
-                // Convert genre strings to Genre enum array
-                let genres = genreStrings.compactMap { Genre(rawValue: $0) }
+                guard let genre = Genre(rawValue: genreString) else {
+                    print("Failed to parse genre.")
+                    continue
+                }
 
                 let book = Book(
                     bookCode: bookCode,
                     bookCover: bookCover,
                     bookTitle: bookTitle,
                     author: author,
-                    genre: genres,
+                    genre: genre,
                     issuedDate: issuedDate,
                     returnDate: returnDate,
-                    status: status
+                    status: status,
+                    quantity: quantity,
+                    description: description,
+                    publisher: publisher,
+                    publishedDate: publishedDate,
+                    pageCount: pageCount,
+                    averageRating: averageRating
+                   
                 )
 
                 books.append(book)
@@ -167,4 +183,5 @@ class DataController: ObservableObject {
             completion(.success(books))
         }
     }
+
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var scannedCode: String?
-    @State private var bookDetails: BookDetails?
+    @State private var bookDetails: Book?
     @State private var showAlert: Bool = false
     @State private var alertMessage: String = ""
 

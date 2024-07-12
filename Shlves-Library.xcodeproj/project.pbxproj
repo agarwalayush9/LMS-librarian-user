@@ -27,6 +27,9 @@
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
 		D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */; };
 		D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */; };
+		D0DC6C4C2C4135B0000C90F0 /* AddBookDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */; };
+		D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC6C4D2C4136FF000C90F0 /* AddBookOptionsView.swift */; };
+		D0DC6C502C41378D000C90F0 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */; };
 		D0EDBE782C36A31400EC06AB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D0EDBE772C36A31400EC06AB /* FirebaseDatabase */; };
 		D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EDBE792C36A38500EC06AB /* DataController.swift */; };
 		D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */; };
@@ -58,6 +61,9 @@
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookDetailsView.swift; sourceTree = "<group>"; };
+		D0DC6C4D2C4136FF000C90F0 /* AddBookOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookOptionsView.swift; sourceTree = "<group>"; };
+		D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		D0EDBE762C36A30100EC06AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0EDBE792C36A38500EC06AB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -118,6 +124,9 @@
 				B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */,
 				D0EDBE872C37260300EC06AB /* BookCatalogue.swift */,
 				737170702C3B465F009A3B05 /* UserRecord.swift */,
+				D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */,
+				D0DC6C4D2C4136FF000C90F0 /* AddBookOptionsView.swift */,
+				D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */,
 			);
 			name = Dashboard;
 			path = "Shlves-Library/Dashboard";
@@ -266,14 +275,17 @@
 				B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */,
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
 				B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */,
+				D0DC6C4C2C4135B0000C90F0 /* AddBookDetailsView.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 				73E8868D2C3FF89D000687DD /* ContentView.swift in Sources */,
 				73E886892C3FF892000687DD /* BookDetailView.swift in Sources */,
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
+				D0DC6C502C41378D000C90F0 /* CheckBoxView.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				D0EDBE882C37260300EC06AB /* BookCatalogue.swift in Sources */,
+				D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */,
 				73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
 				737170712C3B465F009A3B05 /* UserRecord.swift in Sources */,
@@ -410,7 +422,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
-				DEVELOPMENT_TEAM = 458RNVZ66L;
+				DEVELOPMENT_TEAM = KH6FV7B5AZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Shlves-Library/Info.plist";
@@ -441,7 +453,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
-				DEVELOPMENT_TEAM = 458RNVZ66L;
+				DEVELOPMENT_TEAM = KH6FV7B5AZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Shlves-Library/Info.plist";

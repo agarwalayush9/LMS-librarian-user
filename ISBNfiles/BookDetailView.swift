@@ -1,32 +1,41 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    let book: BookDetails
+    let book: Book
     @State private var quantity: Int = 1
+    @Environment(\.presentationMode) var presentationMode
     let dummyImage = UIImage(named: "dummyBookImage") // Add a dummy image to your assets
-
+    
+    // State for showing alerts
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             // Display book image or dummy image
-            if let imageUrl = book.imageUrl, let imageData = try? Data(contentsOf: imageUrl), let uiImage = UIImage(data: imageData) {
+            if let imageUrl = URL(string: book.bookCover), let imageData = try? Data(contentsOf: imageUrl), let uiImage = UIImage(data: imageData) {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 200)
                     .cornerRadius(10)
-            } else {
-                Image(uiImage: dummyImage!)
+            } else if let dummyImage = dummyImage {
+                Image(uiImage: dummyImage)
                     .resizable()
                     .scaledToFit()
                     .frame(height: 200)
                     .cornerRadius(10)
+            } else {
+                Color.gray
+                    .frame(height: 200)
+                    .cornerRadius(10)
             }
             
-            Text(book.title)
+            Text(book.bookTitle)
                 .font(.custom("DMSans-ExtraBold", size: 35))
             
-            if let authors = book.authors {
-                Text("Authors: \(authors.joined(separator: ", "))")
+            if !book.author.isEmpty {
+                Text("Authors: \(book.author)")
                     .font(.custom("DMSans_18pt-Bold", size: 18))
             }
             
@@ -45,10 +54,8 @@ struct BookDetailView: View {
                     .font(.custom("DMSans_18pt-Bold", size: 18))
             }
             
-            if let categories = book.categories {
-                Text("Categories: \(categories.joined(separator: ", "))")
-                    .font(.custom("DMSans_18pt-Bold", size: 18))
-            }
+            Text("Genre: \(book.genre.rawValue)") // Display genre using rawValue
+                .font(.custom("DMSans_18pt-Bold", size: 18))
             
             if let averageRating = book.averageRating {
                 Text("Average Rating: \(averageRating)")
@@ -62,7 +69,7 @@ struct BookDetailView: View {
             }
             
             Spacer()
-
+            
             HStack {
                 Button(action: {
                     if quantity > 1 {
@@ -88,11 +95,12 @@ struct BookDetailView: View {
                         .frame(width: 30, height: 30)
                         .foregroundColor(.green)
                 }
-
+                
                 Spacer()
                 
                 Button(action: {
-                    // Handle done action
+                    saveBook()
+                    
                 }) {
                     Text("Done")
                         .font(.custom("DMSans_18pt-Bold", size: 18))
@@ -105,21 +113,48 @@ struct BookDetailView: View {
             .padding()
         }
         .padding()
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+        }
+    }
+    
+    private func saveBook() {
+        DataController.shared.addBook(book) { result in
+            switch result {
+            case .success:
+                // Optionally handle success
+                DispatchQueue.main.async {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                print("Book saved successfully.")
+            case .failure(let error):
+                // Handle failure, show alert
+                showAlert = true
+                alertMessage = error.localizedDescription
+                print("Failed to save book: \(error.localizedDescription)")
+            }
+        }
     }
 }
 
 struct BookDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        BookDetailView(book: BookDetails(
-            title: "Sample Book",
-            authors: ["Author One", "Author Two"],
+        BookDetailView(book: Book(
+            id: UUID(),
+            bookCode: "1234567890",
+            bookCover: "https://example.com/book-cover.jpg", // Add a valid URL here to preview
+            bookTitle: "Sample Book",
+            author: "Author One",
+            genre: .Fiction,
+            issuedDate: "2023-01-01",
+            returnDate: "2023-02-01",
+            status: "Available",
+            quantity: nil,
             description: "This is a sample description of the book.",
             publisher: "Sample Publisher",
             publishedDate: "2023-01-01",
             pageCount: 300,
-            categories: ["Category One", "Category Two"],
-            averageRating: 4.5,
-            imageUrl: nil // Add a valid URL here to preview
+            averageRating: 4.5
         ))
     }
 }

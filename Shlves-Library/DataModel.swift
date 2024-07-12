@@ -28,15 +28,22 @@ struct User
 
 struct Book: Identifiable, Codable {
     var id = UUID()
-    let bookCode: String
+    var bookCode: String
     let bookCover: String
     let bookTitle: String
     let author: String
-    let genre: [Genre]
+    let genre: Genre
     let issuedDate: String
     let returnDate: String
     let status: String
     var quantity: Int?
+    var description: String?
+    let publisher: String?
+    let publishedDate: String?
+    let pageCount: Int?
+    let averageRating: Double?
+    
+    
     
     func toDictionary() -> [String: Any] {
             return [
@@ -45,10 +52,17 @@ struct Book: Identifiable, Codable {
                 "bookCover": bookCover,
                 "bookTitle": bookTitle,
                 "author": author,
-                "genre": genre.map { $0.rawValue },
+                "genre": genre.rawValue,
                 "issuedDate": issuedDate,
                 "returnDate": returnDate,
-                "status": status
+                "status": status,
+                "quantity": quantity ?? 0,
+                "description": description ?? "",
+                "publisher": publisher ?? "",
+                "publishedDate": publishedDate ?? "",
+                "pageCount": pageCount ?? 0,
+                "averageRating": averageRating ?? 0.0,
+                
             ]
         }
 }

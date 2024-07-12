@@ -1,16 +1,6 @@
 import Foundation
 
-struct BookDetails: Decodable {
-    let title: String
-    let authors: [String]?
-    let description: String?
-    let publisher: String?
-    let publishedDate: String?
-    let pageCount: Int?
-    let categories: [String]?
-    let averageRating: Double?
-    let imageUrl: URL? // New field for book image URL
-}
+
 
 enum APIError: Error {
     case invalidResponse
@@ -18,7 +8,7 @@ enum APIError: Error {
 }
 
 class BookAPI {
-    static func fetchDetails(isbn: String, completion: @escaping (Result<BookDetails, APIError>) -> Void) {
+    static func fetchDetails(isbn: String, completion: @escaping (Result<Book, APIError>) -> Void) {
         let baseUrl = "https://www.googleapis.com/books/v1/volumes"
         let queryItems = [
             URLQueryItem(name: "q", value: "isbn:\(isbn)")
@@ -45,19 +35,27 @@ class BookAPI {
             
             do {
                 let decodedData = try JSONDecoder().decode(GoogleBooksResponse.self, from: data)
-                if let book = decodedData.items?.first?.volumeInfo {
-                    let details = BookDetails(
-                        title: book.title,
-                        authors: book.authors,
-                        description: book.description,
-                        publisher: book.publisher,
-                        publishedDate: book.publishedDate,
-                        pageCount: book.pageCount,
-                        categories: book.categories,
-                        averageRating: book.averageRating,
-                        imageUrl: book.imageLinks?.thumbnail // Extract the image URL
-                    )
-                    completion(.success(details))
+                if let volumeInfo = decodedData.items?.first?.volumeInfo {
+                let bookCoverString = volumeInfo.imageLinks?.thumbnail?.absoluteString ?? ""
+                               
+                let book = Book(
+                                   bookCode: isbn, // Use ISBN as bookCode for example
+                                   bookCover: bookCoverString,
+                                   bookTitle: volumeInfo.title,
+                                   author: volumeInfo.authors?.joined(separator: ", ") ?? "Unknown Author",
+                                   genre: .Fiction, // Example genre
+                                   issuedDate: "2023-01-01", // Example issued date
+                                   returnDate: "2023-02-01", // Example return date
+                                   status: "Available", // Example status
+                                   quantity: nil, // Example quantity
+                                   description: volumeInfo.description,
+                                   publisher: volumeInfo.publisher,
+                                   publishedDate: volumeInfo.publishedDate,
+                                   pageCount: volumeInfo.pageCount,
+                                   averageRating: volumeInfo.averageRating
+                )
+                    
+                    completion(.success(book))
                 } else {
                     completion(.failure(.invalidResponse))
                 }
@@ -83,10 +81,9 @@ struct VolumeInfo: Decodable {
     let publisher: String?
     let publishedDate: String?
     let pageCount: Int?
-    let categories: [String]?
     let averageRating: Double?
     let imageLinks: ImageLinks? // New field for image links
-
+    
     struct ImageLinks: Decodable {
         let thumbnail: URL?
     }
