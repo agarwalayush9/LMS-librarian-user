@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+#Preview {
+    EventsDashboard()
+}
+
+
+//MARK: main view of this page
 struct EventsDashboard: View {
     @State private var menuOpened = false
     @State private var showPopover = false
@@ -55,7 +61,7 @@ struct EventsDashboard: View {
                     })
                 }
                 
-            }//Navigation bar ends    ~
+            }//Navigation bar ends    ~zek
         }
     }
     func toggleMenu() {
@@ -65,9 +71,6 @@ struct EventsDashboard: View {
     }
 }
 
-#Preview {
-    CreateNextUserForm()
-}
 
 
 //MARK: Custom card for showing Graph
@@ -281,7 +284,7 @@ struct floatingEventButtonView: View {
             HStack{
                 Spacer()
                 Button(action: {
-                    print("pressed")
+                    print("pressed1")
                     showPopover.toggle()
                     
                 }, label: {
@@ -305,38 +308,7 @@ struct floatingEventButtonView: View {
     }
 }
 
-//MARK: Custom Button for taking to next page in event Creation
-struct nextButton: View {
-    @Binding var nextPopOver1 : Bool
-    var body: some View {
-        VStack{
-            Spacer()
-            HStack{
-                Spacer()
-                Button(action: {
-                    print("pressed")
-                    nextPopOver1.toggle()
-                    
-                }, label: {
-                    CustomButton(systemImage: "",
-                                 width: 92,
-                                 height: 42,
-                                 title: "Next",
-                                 colorName: "CustomButtonColor")
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .inset(by: -2)
-                            .stroke(Color("cardIconColor"), lineWidth: 4)
-                            
-                    )
-                }).sheet(isPresented: $nextPopOver1, content: {
-                    CreateNextUserForm()
-                })
-                
-            }.padding([.trailing, .bottom], 90)
-        }
-    }
-}
+
 
 
 //MARK: User form for 1st Page
@@ -352,7 +324,7 @@ struct CreateUserForm : View {
     var body: some View {
         ZStack{
             VStack(alignment: .leading){
-                Text("Create Event")
+                Text("Create Event1")
                     .font(
                         Font.custom("DM Sans", size: 36)
                             .weight(.semibold)
@@ -399,8 +371,41 @@ struct CreateUserForm : View {
     }
 }
 
+//MARK: Custom Button for taking to next page in event Creation1
+struct nextButton: View {
+    @Binding var nextPopOver1 : Bool
+    var body: some View {
+        VStack{
+            Spacer()
+            HStack{
+                Spacer()
+                Button(action: {
+                    print("pressed2")
+                    nextPopOver1.toggle()
+                    
+                }, label: {
+                    CustomButton(systemImage: "",
+                                 width: 92,
+                                 height: 42,
+                                 title: "Next",
+                                 colorName: "CustomButtonColor")
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .inset(by: -2)
+                            .stroke(Color("cardIconColor"), lineWidth: 4)
+                            
+                    )
+                }).sheet(isPresented: $nextPopOver1, content: {
+                    CreateNextUserForm()
+                })
+                
+            }.padding([.trailing, .bottom], 90)
+        }
+    }
+}
+
 //MARK: User Form for 2nd Page
-struct CreateNextUserForm : View {
+struct CreateNextUserForm: View {
     @State private var eventName = ""
     @State private var eventCategory = ""
     @State private var description = ""
@@ -408,57 +413,161 @@ struct CreateNextUserForm : View {
     @State private var eventTime = ""
     @State private var eventDuration = ""
     @State private var isChecked = false
-    @State private var nextPopOver1 = false
+    @State private var nextPopOver2 = false
+    
     var body: some View {
-        ZStack{
-            VStack(alignment: .leading){
-                Text("Create Event")
-                    .font(
-                        Font.custom("DM Sans", size: 36)
-                            .weight(.semibold)
-                    )
-                    .padding([.top,.bottom], 25)
+        ZStack {
+            VStack(alignment: .leading) {
+                Text("Create Event2")
+                    .font(Font.custom("DM Sans", size: 36).weight(.semibold))
+                    .padding([.top, .bottom], 25)
 
-                customFormField(title: "Location",
-                                eventName: eventName,
-                                placeHolder: "Enter Event’s Location",
-                                width: 56)
-                customFormField(title: "Add Host",
-                                eventName: eventCategory,
-                                placeHolder: "Enter Host Name",
-                                width: 56)
-                customFormField(title: "Add any Special Guests",
-                                 eventName: description,
-                                 placeHolder: "Enter Special Guests Name",
-                                width: 105)
-                Text("Send Notificationsto Memers via ")
-                    .font(
-                    Font.custom("DM Sans", size: 20)
-                    .weight(.bold)
-                    )
+                customFormField(title: "Location", eventName: eventName, placeHolder: "Enter Event’s Location", width: 56)
+                customFormField(title: "Add Host", eventName: eventCategory, placeHolder: "Enter Host Name", width: 56)
+                customFormField(title: "Add any Special Guests", eventName: description, placeHolder: "Enter Special Guests Name", width: 105)
+                
+                Text("Send Notifications to Members via ")
+                    .font(Font.custom("DM Sans", size: 20).weight(.bold))
                     .foregroundStyle(.customButton)
                     .padding(.top)
                     .padding(.bottom, 25)
-                //timing details
-                HStack{
+
+                HStack {
                     CheckBoxView(isChecked: $isChecked)
                     Text("Push Notification")
                     Spacer()
                     CheckBoxView(isChecked: $isChecked)
-                    Text("Push Notification")
+                    Text("Email")
+                    Spacer()
+                    CheckBoxView(isChecked: $isChecked)
+                    Text("Phone Number")
+                    Spacer()
                 }
-                Spacer()
-                nextButton(nextPopOver1: $nextPopOver1)
-            }.padding(.leading, 40)
+                .padding(.bottom)
+
+                Text("Notifications to user things?")
+                    .font(Font.custom("DM Sans", size: 20).weight(.bold))
+                    .padding(.bottom)
+
+                VStack {
+                    HStack {
+                        CheckBoxView(isChecked: $isChecked)
+                        Text("at Approval of Event")
+                        Spacer()
+                        CheckBoxView(isChecked: $isChecked)
+                        Text("One Day before Event")
+                        Spacer()
+                    }
+                    .padding(.bottom)
+                    HStack {
+                        CheckBoxView(isChecked: $isChecked)
+                        Text("One hour Before Event")
+                        Spacer()
+                        CheckBoxView(isChecked: $isChecked)
+                            .overlay(
+                                Image(systemName: "plus")
+                                    .foregroundStyle(.customButton)
+                            )
+                        Text("At any Custom Time")
+                        Spacer()
+                    }
+                }
+                finalButton(nextPopOver2: $nextPopOver2)
+            }
+            .padding(.leading, 40)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-                           
         }
         .padding()
-        
     }
 }
 
+// MARK: final button struct
+struct finalButton: View {
+    @Binding var nextPopOver2: Bool
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                Button(action: {
+                    print("pressed3")
+                    nextPopOver2.toggle()
+                }, label: {
+                    CustomButton(systemImage: "", width: 92, height: 42, title: "Next", colorName: "CustomButtonColor")
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .inset(by: -2)
+                                .stroke(Color("cardIconColor"), lineWidth: 4)
+                        )
+                })
+                .sheet(isPresented: $nextPopOver2) {
+                    CreateFinalUserForm()
+                }
+            }
+            .padding([.trailing, .bottom], 90)
+        }
+    }
+}
 
+// MARK: CreateFinalUserForm
+struct CreateFinalUserForm: View {
+    @State private var eventName = ""
+    @State private var eventCategory = ""
+    @State private var description = ""
+    @State private var eventdate = ""
+    @State private var eventTime = ""
+    @State private var eventDuration = ""
+    @State private var isChecked = false
+    
+    var body: some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                Text("Create Event")
+                    .font(Font.custom("DM Sans", size: 36).weight(.semibold))
+                    .padding([.top, .bottom], 25)
+                
+                customFormField(title: "How Many Tickets to make available", eventName: eventName, placeHolder: "Enter the per ticket pricing of the Event", width: 56)
+                customFormField(title: "Quoted per Ticket Pricing", eventName: eventCategory, placeHolder: "Enter the per ticket pricing of the Event", width: 56)
+                
+                Text("Upload Photos or Videos/Thumbnail")
+                    .padding([.top,.bottom])
+                CustomButton(systemImage: "plus",
+                             width: 227,
+                             height: 50,
+                             title: "Create an Event",
+                             colorName: "CustomButtonColor")
+                CustomButton(systemImage: "plus", width: 148, height: 40, title: "Upload Media", colorName: "")
+                CustomButton(systemImage: "plus",
+                             width: 148,
+                             height: 40,
+                             title: "Uplaod Media",
+                             colorName: "blue")
+                customFormField(title: "Any Special Remarks to Admin", eventName: description, placeHolder: "Enter any remarks to send to the admin", width: 96)
+                
+                Button(action: {
+                    //what happens when pressed
+                }
+                       , label: {
+                    CustomButton(systemImage: "",
+                                 width: 209,
+                                 height: 42,
+                                 title: "Send For Approval",
+                                 colorName: "CustomButtonColor")
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .inset(by: -2)
+                                .stroke(Color("cardIconColor"), lineWidth: 4)
+                        )
+                })
+            }
+            Spacer()
+            .padding(.leading, 30)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .padding()
+    }
+}
 
 
 //MARK: struct for creation of Custom Form field
@@ -500,6 +609,7 @@ struct customFormField: View {
 }
 
 
+//MARK: timing Details ie. below text fields
 struct timingDetails : View {
     @State private var eventDate : String
     @State private var eventTime : String
@@ -611,6 +721,7 @@ struct timingDetails : View {
     }
 }
 
+//MARK: customize current date
 struct todayDate : View {
     @State private var CurrentDate : String
     var body: some View {
@@ -624,6 +735,8 @@ struct todayDate : View {
     }
 }
 
+
+//MARK: current date
 func currentDate() -> String {
         let now = Date()
         let dateFormatter = DateFormatter()
@@ -632,15 +745,9 @@ func currentDate() -> String {
         return "\(dateString)"
     }
 
-struct showCalender : View {
-   
-    var body: some View {
-        VStack{
-            
-        }
-    }
-}
 
+
+//MARK: current time
 func currentTime() -> String {
         let now = Date()
 
