@@ -20,6 +20,8 @@
 		B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */; };
 		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
+		D0B0FC7C2C43392D000188B7 /* FinalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0FC7B2C43392D000188B7 /* FinalButton.swift */; };
+		D0B0FC7E2C43397D000188B7 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B0FC7D2C43397D000188B7 /* NextButton.swift */; };
 		D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */; };
 		D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */; };
 		D0EDBE782C36A31400EC06AB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D0EDBE772C36A31400EC06AB /* FirebaseDatabase */; };
@@ -47,6 +49,8 @@
 		B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarOptions.swift; sourceTree = "<group>"; };
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
+		D0B0FC7B2C43392D000188B7 /* FinalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalButton.swift; sourceTree = "<group>"; };
+		D0B0FC7D2C43397D000188B7 /* NextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0EDBE762C36A30100EC06AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0EDBE792C36A38500EC06AB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				D0EDBE872C37260300EC06AB /* BookCatalogue.swift */,
 				737170702C3B465F009A3B05 /* UserRecord.swift */,
 				B18040942C3F09AE0035F9B3 /* EventsDashboard.swift */,
+				D0B0FC7B2C43392D000188B7 /* FinalButton.swift */,
+				D0B0FC7D2C43397D000188B7 /* NextButton.swift */,
 			);
 			name = Dashboard;
 			path = "Shlves-Library/Dashboard";
@@ -241,9 +247,11 @@
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
 				B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
+				D0B0FC7E2C43397D000188B7 /* NextButton.swift in Sources */,
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
+				D0B0FC7C2C43392D000188B7 /* FinalButton.swift in Sources */,
 				B18040952C3F09AE0035F9B3 /* EventsDashboard.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				D0EDBE882C37260300EC06AB /* BookCatalogue.swift in Sources */,

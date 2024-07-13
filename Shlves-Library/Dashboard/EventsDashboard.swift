@@ -16,6 +16,17 @@ import SwiftUI
 struct EventsDashboard: View {
     @State private var menuOpened = false
     @State private var showPopover = false
+    @State private var eventName = ""
+    @State private var eventCategory = ""
+    @State private var description = ""
+    @State private var eventDate = Date()
+    @State private var eventTime = Time(hours: 0, minutes: 0)
+    @State private var eventDuration = ""
+    @State private var address = ""
+    @State private var host = ""
+    @State private var specialGuest = ""
+    @State private var tickets = 0
+    @State private var fees = 0
     
     
     var body: some View {
@@ -371,38 +382,7 @@ struct CreateUserForm : View {
     }
 }
 
-//MARK: Custom Button for taking to next page in event Creation1
-struct nextButton: View {
-    @Binding var nextPopOver1 : Bool
-    var body: some View {
-        VStack{
-            Spacer()
-            HStack{
-                Spacer()
-                Button(action: {
-                    print("pressed2")
-                    nextPopOver1.toggle()
-                    
-                }, label: {
-                    CustomButton(systemImage: "",
-                                 width: 92,
-                                 height: 42,
-                                 title: "Next",
-                                 colorName: "CustomButtonColor")
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .inset(by: -2)
-                            .stroke(Color("cardIconColor"), lineWidth: 4)
-                            
-                    )
-                }).sheet(isPresented: $nextPopOver1, content: {
-                    CreateNextUserForm()
-                })
-                
-            }.padding([.trailing, .bottom], 90)
-        }
-    }
-}
+
 
 //MARK: User Form for 2nd Page
 struct CreateNextUserForm: View {
@@ -482,33 +462,6 @@ struct CreateNextUserForm: View {
 }
 
 // MARK: final button struct
-struct finalButton: View {
-    @Binding var nextPopOver2: Bool
-    
-    var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Spacer()
-                Button(action: {
-                    print("pressed3")
-                    nextPopOver2.toggle()
-                }, label: {
-                    CustomButton(systemImage: "", width: 92, height: 42, title: "Next", colorName: "CustomButtonColor")
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .inset(by: -2)
-                                .stroke(Color("cardIconColor"), lineWidth: 4)
-                        )
-                })
-                .sheet(isPresented: $nextPopOver2) {
-                    CreateFinalUserForm()
-                }
-            }
-            .padding([.trailing, .bottom], 90)
-        }
-    }
-}
 
 // MARK: CreateFinalUserForm
 struct CreateFinalUserForm: View {
@@ -567,6 +520,8 @@ struct CreateFinalUserForm: View {
         }
         .padding()
     }
+    
+    
 }
 
 

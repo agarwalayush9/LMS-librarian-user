@@ -87,6 +87,7 @@ struct Event {
     var imageName: String
     var fees: Int
     var revenue: Int
+    var status: String
     
     func toDictionary() -> [String: Any] {
         return [
@@ -104,18 +105,8 @@ struct Event {
             "tickets": tickets,
             "imageName": imageName,
             "fees": fees,
-            "revenue": revenue
-        ]
-    }
-}
-struct Location: Codable {
-    var latitude: Double
-    var longitude: Double
-    
-    func toDictionary() -> [String: Double] {
-        return [
-            "latitude": latitude,
-            "longitude": longitude
+            "revenue": revenue,
+            "status": status
         ]
     }
 }
