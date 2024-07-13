@@ -342,6 +342,7 @@ struct BookRequest : View {
     
     var body: some View {
         NavigationStack {
+            //Ebter for each here
             VStack {
                 HStack {
                     bookInfo(bookTitle: BookTitle,
@@ -386,6 +387,60 @@ struct BookRequest : View {
     }
 }
 
+//MARK: Return Book dataStructure
+struct ReturnBook : View {
+    @Environment(\.presentationMode) var presentationMode
+    var ISBN : String
+    var BookImage : String
+    var BookTitle : String
+    var AuthorName : String
+    var UserName : String
+    var UserID : String
+    var RequestedDate : String
+    var OverDuePeriod : String
+    var fine : Double
+    var body: some View {
+        NavigationStack {
+            //Ebter for each here
+            VStack {
+                HStack {
+                    bookInfo(bookTitle: BookTitle,
+                             authorName: AuthorName,
+                             ISBN: ISBN,
+                             imageName: BookImage)
+                        .padding(.leading)
+                    BookReturnCard(userName: UserName, RequestedDate: RequestedDate)
+                        .padding(.leading)
+                    userInfo(userName: "", OverDuePeriod: OverDuePeriod, Fine: fine)
+                        .padding(.leading)
+                    VStack {
+                        AorDCustomButton(
+                            width: 120,
+                            height: 28,
+                            title: "Approve",
+                            colorName: "ApproveButton",
+                            fontColor: "ApproveFontColor")
+                        
+                    }
+                }
+                .padding(.top)
+                .frame(maxWidth: .infinity, maxHeight: 140)
+                Spacer()
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                            .font(.headline)
+                    }
+                }
+            }
+            .padding(.top) // Add padding to the parent NavigationStack
+        }
+    }
+}
 
 #Preview(){
     LibrarianDashboard(isLoggedIn: .constant(true))
@@ -393,6 +448,23 @@ struct BookRequest : View {
 
 //MARK: book request Data
 struct BookRequestCard : View {
+    var userName : String
+    var RequestedDate: String
+    var body: some View {
+        HStack{
+            Text(userName)
+
+            VStack{
+                Text("Requested \n On")
+                    .padding()
+                Text("\(RequestedDate)")
+            }
+        }
+    }
+}
+
+//MARK: book return  Data
+struct BookReturnCard : View {
     var userName : String
     var RequestedDate: String
     var body: some View {

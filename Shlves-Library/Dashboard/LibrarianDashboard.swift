@@ -13,7 +13,8 @@ struct LibrarianDashboard: View {
     @State private var navigateToBookCatalogue = false
     @State private var navigateToUserRecord = false
     @Binding var isLoggedIn: Bool
-    @State private var isLendBooks = false
+    @State private var isRequestBooks = false
+    @State private var isReturnBooks = false
     
     var body: some View {
         NavigationStack {
@@ -121,7 +122,7 @@ struct LibrarianDashboard: View {
                             }
                             
                             Spacer()
-                            showTabBarButtons(isLendBooks: $isLendBooks)
+                            showTabBarButtons(isRequestBooks: $isRequestBooks, isReturnBooks: $isReturnBooks)
                         }
                         .padding([.top, .leading])
                        // .padding(.leading, 50)
@@ -198,16 +199,17 @@ struct LibrarianDashboard: View {
 }
 
 
-
+//MARK: Tab bar buttons
 struct showTabBarButtons : View {
     
-    @Binding var isLendBooks : Bool
+    @Binding var isRequestBooks : Bool
+    @Binding var isReturnBooks : Bool
     
     var body: some View {
         
         Button(action: {
         print("Request Book Pressed")
-            isLendBooks.toggle()
+            isRequestBooks.toggle()
             
     }, label: {
         CustomButton(systemImage: "",
@@ -215,7 +217,7 @@ struct showTabBarButtons : View {
                      height: 39,
                      title: "Book Request",
                      colorName: "CustomButtonColor")      })
-        .sheet(isPresented: $isLendBooks){
+        .sheet(isPresented: $isRequestBooks){
             
             //MARK: make for each here
             BookRequest(ISBN: "12345678",
@@ -229,38 +231,32 @@ struct showTabBarButtons : View {
 
     Button(action: {
         print("Return Book Pressed")
+        isReturnBooks.toggle()
     }, label: {
         CustomButton(systemImage: "",
                      width: 180,
                      height: 39,
                      title: "Return Book",
                      colorName: "CustomButtonColor")      })
+    .sheet(isPresented: $isReturnBooks, content: {
+        //MARK: make foreach here
+        ReturnBook(ISBN: "12345678",
+                    BookImage: "book_cover",
+                    BookTitle: "Soul",
+                    AuthorName: "zek",
+                    UserName: "Abhay",
+                    UserID: "224455",
+                    RequestedDate: "14-Jul-202",
+                   OverDuePeriod: "2",
+        fine: 40)
+
+    })
     .padding()
     }
 }
 
 
-//MARK: Lend Book form
-//This will be depricated
-struct BookRequestForm : View {
-    //@State private var BookCode : String
-    var body: some View {
-        ZStack {
-            VStack(alignment: .leading){
-                Text("Lend Books")
-                    .font(
-                    Font.custom("DM Sans", size: 32)
-                    .weight(.bold)
-                    )
-                //Spacer()
-                //
-            }
-        }
-    }
-}
-
-
-
+//MARK: Add bar Button Extension
 struct showAddBarExtension : View {
     @Binding var AddbuttonPressed : Bool
     var body: some View {
@@ -326,41 +322,3 @@ struct circleCancleButton : View {
     
 }
 
-//MARK: LendBookCustom field
-//This will be depricated most probably
-struct LendBookCustomField: View {
-   @State private var title : String
-    @State private var placeHolder : String
-    @State private var fieldData : String
-    var height : Double
-    
-    
-    init(title: String, fieldData: String, placeHolder: String, height: Double) {
-        self.title = title
-        self.fieldData = fieldData
-        self.placeHolder = placeHolder
-        self.height = height
-        
-    }
-    
-    var body: some View {
-        VStack(alignment : .leading){
-            Text(title)
-            .font(
-                Font.custom("DM Sans", size: 20)
-                    .weight(.bold)
-            )
-            .padding(.bottom, 10)
-        TextField(placeHolder, text: $fieldData)
-            .padding(.leading)
-            .frame(maxWidth: 585, minHeight: height)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .inset(by: -2)
-                    .stroke(Color("CustomButtonColor"), lineWidth: 4)
-            )
-            .background(.textFormFieldBg)
-            .padding(.bottom, 20)
-        }
-    }
-}
