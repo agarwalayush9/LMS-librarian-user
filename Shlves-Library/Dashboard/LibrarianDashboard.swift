@@ -14,6 +14,7 @@ struct LibrarianDashboard: View {
     @State private var navigateToUserRecord = false
     @Binding var isLoggedIn: Bool
     
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
@@ -231,6 +232,12 @@ struct showTabBarButtons : View {
 
 struct showAddBarExtension : View {
     @Binding var AddbuttonPressed : Bool
+    @State private var showingAddBookOptions = false
+    @State private var books: [Book] = []
+    
+    @State private var showingAddUserDetails = false
+    @State private var users = []
+    
     var body: some View {
         HStack{
             Button(action: {
@@ -246,21 +253,40 @@ struct showAddBarExtension : View {
             
             Button(action: {
                 print("Add User Pressed")
-            }, label: {
+                
+                showingAddUserDetails.toggle()
+                
+            }){
+                
                 CustomButton(systemImage: "person.fill.badge.plus",
                              width: 150,
                              height: 39,
                              title: "Add User",
-                             colorName: "CustomButtonColor")      })
+                             colorName: "CustomButtonColor")
+            }.sheet(isPresented: $showingAddUserDetails) {
+                AddUserDetailsView { newUser in
+                    users.append(newUser)
+                }
+            }
+            
             
             Button(action: {
                 print("Add Books Pressed")
-            }, label: {
+                
+                showingAddBookOptions.toggle()
+            }){
                 CustomButton(systemImage: "books.vertical.fill",
                              width: 180,
                              height: 39,
                              title: "Add Books",
-                             colorName: "CustomButtonColor")      })
+                             colorName: "CustomButtonColor")
+
+                }
+            .sheet(isPresented: $showingAddBookOptions) {
+                AddBookOptionsView(addBook: { newBook in
+                    books.append(newBook)
+                }, books: books)
+            }
             //    .padding()
         }
         .padding(.leading, 30)

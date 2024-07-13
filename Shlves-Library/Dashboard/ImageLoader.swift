@@ -12,7 +12,7 @@ struct AsyncImageLoader: View {
     private let placeholder: Image
     private let fallbackImage: Image
 
-    init(url: String, placeholder: Image = Image(systemName: "photo"), fallbackImage: Image = Image("book_cover")) {
+    init(url: String, placeholder: Image = Image(systemName: "photo"), fallbackImage: Image = Image("dummyBookImage")) {
         _loader = StateObject(wrappedValue: ImageLoader(url: url))
         self.placeholder = placeholder
         self.fallbackImage = fallbackImage

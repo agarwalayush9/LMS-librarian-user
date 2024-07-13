@@ -5,18 +5,20 @@ struct BooksCatalogue: View {
     @State private var showingAddBookOptions = false
     @State private var books: [Book] = []
     @State private var menuOpened = false
+    @State private var isLoading = false
+    @State private var selectedBook: Book?
     
     var body: some View {
         NavigationStack {
-            VStack {
-                ZStack {
-                    // Background view with blur effect when menu is opened
-                    backgroundView()
-                        .blur(radius: menuOpened ? 10 : 0)
-                        .animation(.easeInOut(duration: 0.25), value: menuOpened)
-                    
-                    // Main content stack
-                    VStack {
+            ZStack {
+                VStack {
+                    ZStack {
+                        // Background view with blur effect when menu is opened
+                        backgroundView()
+                            .blur(radius: menuOpened ? 10 : 0)
+                            .animation(.easeInOut(duration: 0.25), value: menuOpened)
+                        
+                        // Main content stack
                         ScrollView {
                             LazyVStack(alignment: .leading, spacing: 0) {
                                 // Header row
@@ -32,16 +34,25 @@ struct BooksCatalogue: View {
                                         .onTapGesture {
                                             toggleSelection(for: book)
                                         }
+                                        .onLongPressGesture {
+                                            selectedBook = book
+                                        }
                                         .transition(.slide)
                                 }
                             }
-                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(maxWidth: .infinity) // Ensuring LazyVStack takes full width
+                        }
+                        .frame(maxWidth: .infinity) // Ensuring ScrollView takes full width
+                        .refreshable {
+                            await refreshBooks()
                         }
                     }
+                    .frame(maxWidth: .infinity) // Ensuring ZStack takes full width
                     
                     // Floating Add button
-                    floatingAddButton()
+                    
                 }
+                .frame(maxWidth: .infinity) // Ensuring VStack takes full width
                 
                 // Side menu
                 if menuOpened {
@@ -49,6 +60,18 @@ struct BooksCatalogue: View {
                         .ignoresSafeArea()
                         .toolbar(.hidden, for: .navigationBar)
                 }
+                
+                if isLoading {
+                    ProgressView("Loading...")
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5)
+                        .padding().frame(width: 140, height: 80)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                        .shadow(radius: 10)
+                }
+                
+                floatingAddButton()
             }
             .navigationTitle("Book Catalogue".capitalized)
             .navigationBarTitleDisplayMode(.inline)
@@ -73,9 +96,15 @@ struct BooksCatalogue: View {
                 }
             }
             .onAppear {
-                fetchBooks()
+                Task {
+                    await fetchBooks()
+                }
+            }
+            .sheet(item: $selectedBook) { book in
+                BookDetailsView(book: book)
             }
         }
+        .frame(maxWidth: .infinity) // Ensuring NavigationStack takes full width
     }
     
     // MARK: - Subviews
@@ -117,6 +146,7 @@ struct BooksCatalogue: View {
         }
         .font(.headline)
         .padding(.horizontal)
+        .frame(maxWidth: .infinity)
         .transition(.slide)
     }
     
@@ -172,6 +202,7 @@ struct BooksCatalogue: View {
             .frame(maxWidth: 80, alignment: .leading)
         }
         .padding(.horizontal)
+        .frame(maxWidth: .infinity)
         .transition(.slide)
     }
     
@@ -210,9 +241,18 @@ struct BooksCatalogue: View {
     
     // MARK: - Private Functions
     
-    private func fetchBooks() {
+    private func refreshBooks() async {
+        isLoading = true
+        // Simulate network delay
+        try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
+        await fetchBooks()
+        isLoading = false
+    }
+    
+    private func fetchBooks() async {
+        isLoading = true
         // Call DataController to fetch books asynchronously
-        DataController.shared.fetchBooks { result in
+        await DataController.shared.fetchBooks { result in
             switch result {
             case .success(let fetchedBooks):
                 // Update local state with fetched books
@@ -221,6 +261,7 @@ struct BooksCatalogue: View {
                 print("Failed to fetch books: \(error.localizedDescription)")
                 // Handle error as needed
             }
+            isLoading = false
         }
     }
     
@@ -234,6 +275,32 @@ struct BooksCatalogue: View {
         } else {
             selectedBooks.insert(book.id)
         }
+    }
+}
+
+struct BookDetailsView: View {
+    let book: Book
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text(book.bookTitle)
+                .font(.largeTitle)
+                .padding()
+            
+            AsyncImageLoader(url: book.bookCover)
+                .frame(width: 150, height: 200)
+            
+            Text("Author: \(book.author)")
+            Text("Genre: \(book.genre.rawValue)")
+            Text("Issued Date: \(book.issuedDate)")
+            Text("Return Date: \(book.returnDate)")
+            Text("Status: \(book.status)")
+                .foregroundColor(book.status == "Issued" ? .red : .green)
+            Text("Quantity: \(book.quantity ?? 1)") // Display the quantity
+            
+            Spacer()
+        }
+        .padding()
     }
 }
 

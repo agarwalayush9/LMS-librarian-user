@@ -39,9 +39,9 @@ struct EditUserDetailsView: View {
                 TextField("Username", text: $username)
                 TextField("Email ID", text: $emailID)
                 Picker("Membership", selection: $membership) {
+                    Text("Bronze").tag("Bronze")
                     Text("Silver").tag("Silver")
                     Text("Gold").tag("Gold")
-                    Text("Platinum").tag("Platinum")
                 }
                 TextField("Phone Number", text: $phoneNumber)
                     .keyboardType(.numberPad)
@@ -142,9 +142,9 @@ struct AddUserDetailsView: View {
                 TextField("Username", text: $username)
                 TextField("Email ID", text: $emailID)
                 Picker("Membership", selection: $membership) {
+                    Text("Bronze").tag("Bronze")
                     Text("Silver").tag("Silver")
                     Text("Gold").tag("Gold")
-                    Text("Platinum").tag("Platinum")
                 }
                 TextField("Phone Number", text: $phoneNumber)
                     .keyboardType(.numberPad)
