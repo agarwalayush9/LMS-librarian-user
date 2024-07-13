@@ -30,6 +30,7 @@
 		D0DC6C4C2C4135B0000C90F0 /* AddBookDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */; };
 		D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC6C4D2C4136FF000C90F0 /* AddBookOptionsView.swift */; };
 		D0DC6C502C41378D000C90F0 /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */; };
+		D0DC6C522C4268D0000C90F0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC6C512C4268D0000C90F0 /* ImageLoader.swift */; };
 		D0EDBE782C36A31400EC06AB /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = D0EDBE772C36A31400EC06AB /* FirebaseDatabase */; };
 		D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EDBE792C36A38500EC06AB /* DataController.swift */; };
 		D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */; };
@@ -64,6 +65,7 @@
 		D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookDetailsView.swift; sourceTree = "<group>"; };
 		D0DC6C4D2C4136FF000C90F0 /* AddBookOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookOptionsView.swift; sourceTree = "<group>"; };
 		D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
+		D0DC6C512C4268D0000C90F0 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		D0EDBE762C36A30100EC06AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0EDBE792C36A38500EC06AB /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */,
 				D0DC6C4D2C4136FF000C90F0 /* AddBookOptionsView.swift */,
 				D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */,
+				D0DC6C512C4268D0000C90F0 /* ImageLoader.swift */,
 			);
 			name = Dashboard;
 			path = "Shlves-Library/Dashboard";
@@ -283,6 +286,7 @@
 				D0DC6C502C41378D000C90F0 /* CheckBoxView.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
+				D0DC6C522C4268D0000C90F0 /* ImageLoader.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				D0EDBE882C37260300EC06AB /* BookCatalogue.swift in Sources */,
 				D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */,

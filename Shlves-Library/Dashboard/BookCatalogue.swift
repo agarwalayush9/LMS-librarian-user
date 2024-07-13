@@ -138,10 +138,7 @@ struct BooksCatalogue: View {
             
             Text(book.bookCode)
                 .frame(maxWidth: .infinity, alignment: .center)
-            Image(book.bookCover)
-                .resizable()
-                .frame(width: 80, height: 115)
-                .cornerRadius(5)
+            AsyncImageLoader(url: book.bookCover)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text(book.bookTitle)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -214,18 +211,18 @@ struct BooksCatalogue: View {
     // MARK: - Private Functions
     
     private func fetchBooks() {
-            // Call DataController to fetch books asynchronously
-            DataController.shared.fetchBooks { result in
-                switch result {
-                case .success(let fetchedBooks):
-                    // Update local state with fetched books
-                    self.books = fetchedBooks
-                case .failure(let error):
-                    print("Failed to fetch books: \(error.localizedDescription)")
-                    // Handle error as needed
-                }
+        // Call DataController to fetch books asynchronously
+        DataController.shared.fetchBooks { result in
+            switch result {
+            case .success(let fetchedBooks):
+                // Update local state with fetched books
+                self.books = fetchedBooks
+            case .failure(let error):
+                print("Failed to fetch books: \(error.localizedDescription)")
+                // Handle error as needed
             }
         }
+    }
     
     private func toggleMenu() {
         menuOpened.toggle()
