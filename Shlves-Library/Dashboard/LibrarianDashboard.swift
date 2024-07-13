@@ -13,6 +13,7 @@ struct LibrarianDashboard: View {
     @State private var navigateToBookCatalogue = false
     @State private var navigateToUserRecord = false
     @Binding var isLoggedIn: Bool
+    @State private var isLendBooks = false
     
     var body: some View {
         NavigationStack {
@@ -120,7 +121,7 @@ struct LibrarianDashboard: View {
                             }
                             
                             Spacer()
-                            showTabBarButtons()
+                            showTabBarButtons(isLendBooks: $isLendBooks)
                         }
                         .padding([.top, .leading])
                        // .padding(.leading, 50)
@@ -155,13 +156,6 @@ struct LibrarianDashboard: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     // start here
-//                    Button(action: {
-//                        // Add action for books vertical button
-//                        navigateToUserRecord = true
-//                    }, label: {
-//                        Image(systemName: "books.vertical")
-//                            .foregroundColor(Color.black)
-//                    })
                     HStack{
                                             Button(action: {
                                                 // Add action for books vertical button
@@ -206,17 +200,33 @@ struct LibrarianDashboard: View {
 
 
 struct showTabBarButtons : View {
+    
+    @Binding var isLendBooks : Bool
+    
     var body: some View {
         
         Button(action: {
-        print("Lend Book Pressed")
+        print("Request Book Pressed")
+            isLendBooks.toggle()
+            
     }, label: {
         CustomButton(systemImage: "",
-                     width: 150,
+                     width: 180,
                      height: 39,
-                     title: "Lend Book",
+                     title: "Book Request",
                      colorName: "CustomButtonColor")      })
-    
+        .sheet(isPresented: $isLendBooks){
+            
+            //MARK: make for each here
+            BookRequest(ISBN: "12345678",
+                        BookImage: "book_cover",
+                        BookTitle: "Soul",
+                        AuthorName: "zek",
+                        UserName: "Abhay",
+                        UserID: "224455",
+                        RequestedDate: "14-Jul-202")
+        }
+
     Button(action: {
         print("Return Book Pressed")
     }, label: {
@@ -228,6 +238,28 @@ struct showTabBarButtons : View {
     .padding()
     }
 }
+
+
+//MARK: Lend Book form
+//This will be depricated
+struct BookRequestForm : View {
+    //@State private var BookCode : String
+    var body: some View {
+        ZStack {
+            VStack(alignment: .leading){
+                Text("Lend Books")
+                    .font(
+                    Font.custom("DM Sans", size: 32)
+                    .weight(.bold)
+                    )
+                //Spacer()
+                //
+            }
+        }
+    }
+}
+
+
 
 struct showAddBarExtension : View {
     @Binding var AddbuttonPressed : Bool
@@ -291,4 +323,44 @@ struct circleCancleButton : View {
 
 #Preview {
     LibrarianDashboard(isLoggedIn: .constant(true))
+    
+}
+
+//MARK: LendBookCustom field
+//This will be depricated most probably
+struct LendBookCustomField: View {
+   @State private var title : String
+    @State private var placeHolder : String
+    @State private var fieldData : String
+    var height : Double
+    
+    
+    init(title: String, fieldData: String, placeHolder: String, height: Double) {
+        self.title = title
+        self.fieldData = fieldData
+        self.placeHolder = placeHolder
+        self.height = height
+        
+    }
+    
+    var body: some View {
+        VStack(alignment : .leading){
+            Text(title)
+            .font(
+                Font.custom("DM Sans", size: 20)
+                    .weight(.bold)
+            )
+            .padding(.bottom, 10)
+        TextField(placeHolder, text: $fieldData)
+            .padding(.leading)
+            .frame(maxWidth: 585, minHeight: height)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .inset(by: -2)
+                    .stroke(Color("CustomButtonColor"), lineWidth: 4)
+            )
+            .background(.textFormFieldBg)
+            .padding(.bottom, 20)
+        }
+    }
 }

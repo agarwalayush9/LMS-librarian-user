@@ -176,7 +176,7 @@ struct overDueBooksDetailData : View {
 
     }
 }
-
+//MARK: Newly arrived Books Structure
 struct NewlyArrivedBooksDetailData : View {
     let data = NewlyArrivedBooks.newlyArrivedBook
     var body: some View {
@@ -194,6 +194,31 @@ struct NewlyArrivedBooksDetailData : View {
         }
     }
 }
+
+//MARK: Custom Button for Approval and Decline
+struct AorDCustomButton : View {
+    
+    var width : CGFloat
+    var height : CGFloat
+    var title : String
+    var colorName : String
+    var fontColor : String
+    var body: some View {
+        HStack{
+            Text(title)
+                .font(
+                Font.custom("DM Sans", size: 20)
+                .weight(.bold)
+                )
+                .foregroundColor(Color(fontColor))
+        }
+        .padding(.all)
+        .frame(maxWidth: width, maxHeight: height)
+        .background(Color(colorName))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+//MARK: Custom Button Structure
 struct CustomButton : View {
     
     var systemImage : String
@@ -278,6 +303,7 @@ struct showingDetailsForOverDueDetails : View {
     }
 }
 
+//MARK: newly arrived book Data
 struct showingDetailsForNewlyArrivedBooks : View {
     
     var ISBN : String
@@ -303,6 +329,77 @@ struct showingDetailsForNewlyArrivedBooks : View {
 }
 
 
+//MARK: Book request dataStructure
+struct BookRequest : View {
+    
+    var ISBN : String
+    var BookImage : String
+    var BookTitle : String
+    var AuthorName : String
+    var UserName : String
+    var UserID : String
+    var RequestedDate : String
+    
+    var body: some View {
+        //MARK: make this a for each to show data
+        VStack{
+            
+            HStack{
+                
+                bookInfo(bookTitle: BookTitle,
+                         authorName: AuthorName,
+                         ISBN: ISBN,
+                         imageName: BookImage)
+                .padding(.leading)
+                BookRequestCard(userName: UserName, RequestedDate: RequestedDate)
+                    .padding(.leading)
+                VStack{
+                    AorDCustomButton(
+                                 width: 100,
+                                 height: 28,
+                                 title: "Approve",
+                                 colorName: "ApproveButton", 
+                                 fontColor: "ApproveFontColor")
+                    .padding(.bottom)
+                    AorDCustomButton(
+                                 width: 100,
+                                 height: 28,
+                                 title: "Decline",
+                                 colorName: "DeclineButton", 
+                                 fontColor: "DeclineFontColor")
+                    
+                }
+            }
+            .padding(.top)
+            .frame(maxWidth: .infinity, maxHeight: 62)
+            .background(.blue)
+            Spacer()
+        }
+    }
+}
+
+#Preview(){
+    LibrarianDashboard(isLoggedIn: .constant(true))
+}
+
+//MARK: book request Data
+struct BookRequestCard : View {
+    var userName : String
+    var RequestedDate: String
+    var body: some View {
+        HStack{
+            Text(userName)
+
+            VStack{
+                Text("Requested On")
+                    .padding()
+                Text("\(RequestedDate)")
+            }
+        }
+    }
+}
+
+//MARK: Book Circulation Card
 struct BookCirculationCardData : View {
     
     var bookTitle : String
@@ -320,6 +417,7 @@ struct BookCirculationCardData : View {
     }
 }
 
+//MARK: user Info Structure
 struct userInfo : View {
     var userName : String
     var OverDuePeriod: String
@@ -343,6 +441,20 @@ struct userInfo : View {
     }
 }
 
+
+//MARK: user Info for Book Reservation Structure
+struct UserInfoforBookReservation : View {
+    var userName : String
+    var OverDuePeriod: String
+    var Fine : Double
+    var body: some View {
+        HStack{
+            Text(userName)
+        }
+    }
+}
+
+//MARK: newly Arrived BookS Quantity Info
 struct NewlyArrivedBooksQuantityInfo : View {
     
     var ArrivedDate : String
