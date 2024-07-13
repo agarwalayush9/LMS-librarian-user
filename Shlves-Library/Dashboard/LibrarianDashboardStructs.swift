@@ -331,7 +331,7 @@ struct showingDetailsForNewlyArrivedBooks : View {
 
 //MARK: Book request dataStructure
 struct BookRequest : View {
-    
+    @Environment(\.presentationMode) var presentationMode
     var ISBN : String
     var BookImage : String
     var BookTitle : String
@@ -341,42 +341,51 @@ struct BookRequest : View {
     var RequestedDate : String
     
     var body: some View {
-        //MARK: make this a for each to show data
-        VStack{
-            
-            HStack{
-                
-                bookInfo(bookTitle: BookTitle,
-                         authorName: AuthorName,
-                         ISBN: ISBN,
-                         imageName: BookImage)
-                .padding(.leading)
-                BookRequestCard(userName: UserName, RequestedDate: RequestedDate)
-                    .padding(.leading)
-                VStack{
-                    AorDCustomButton(
-                                 width: 100,
-                                 height: 28,
-                                 title: "Approve",
-                                 colorName: "ApproveButton", 
-                                 fontColor: "ApproveFontColor")
-                    .padding(.bottom)
-                    AorDCustomButton(
-                                 width: 100,
-                                 height: 28,
-                                 title: "Decline",
-                                 colorName: "DeclineButton", 
-                                 fontColor: "DeclineFontColor")
-                    
+        NavigationStack {
+            VStack {
+                HStack {
+                    bookInfo(bookTitle: BookTitle,
+                             authorName: AuthorName,
+                             ISBN: ISBN,
+                             imageName: BookImage)
+                        .padding(.leading)
+                    BookRequestCard(userName: UserName, RequestedDate: RequestedDate)
+                        .padding(.leading)
+                    VStack {
+                        AorDCustomButton(
+                            width: 120,
+                            height: 28,
+                            title: "Approve",
+                            colorName: "ApproveButton",
+                            fontColor: "ApproveFontColor")
+                        .padding(.bottom)
+                        AorDCustomButton(
+                            width: 120,
+                            height: 28,
+                            title: "Decline",
+                            colorName: "DeclineButton",
+                            fontColor: "DeclineFontColor")
+                    }
+                }
+                .padding(.top)
+                .frame(maxWidth: .infinity, maxHeight: 140)
+                Spacer()
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                            .font(.headline)
+                    }
                 }
             }
-            .padding(.top)
-            .frame(maxWidth: .infinity, maxHeight: 62)
-            .background(.blue)
-            Spacer()
+            .padding(.top) // Add padding to the parent NavigationStack
         }
     }
 }
+
 
 #Preview(){
     LibrarianDashboard(isLoggedIn: .constant(true))
