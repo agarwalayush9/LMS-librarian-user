@@ -26,7 +26,7 @@ struct User
         }
 }
 
-struct Book: Identifiable, Codable {
+struct Book: Identifiable, Codable, Equatable {
     var id = UUID()
     var bookCode: String
     var bookCover: String
@@ -42,29 +42,31 @@ struct Book: Identifiable, Codable {
     var publishedDate: String?
     var pageCount: Int?
     var averageRating: Double?
-    
-    
-    
+
     func toDictionary() -> [String: Any] {
-            return [
-                "id": id.uuidString,
-                "bookCode": bookCode,
-                "bookCover": bookCover,
-                "bookTitle": bookTitle,
-                "author": author,
-                "genre": genre.rawValue,
-                "issuedDate": issuedDate,
-                "returnDate": returnDate,
-                "status": status,
-                "quantity": quantity ?? 0,
-                "description": description ?? "",
-                "publisher": publisher ?? "",
-                "publishedDate": publishedDate ?? "",
-                "pageCount": pageCount ?? 0,
-                "averageRating": averageRating ?? 0.0,
-                
-            ]
-        }
+        return [
+            "id": id.uuidString,
+            "bookCode": bookCode,
+            "bookCover": bookCover,
+            "bookTitle": bookTitle,
+            "author": author,
+            "genre": genre.rawValue,
+            "issuedDate": issuedDate,
+            "returnDate": returnDate,
+            "status": status,
+            "quantity": quantity ?? 0,
+            "description": description ?? "",
+            "publisher": publisher ?? "",
+            "publishedDate": publishedDate ?? "",
+            "pageCount": pageCount ?? 0,
+            "averageRating": averageRating ?? 0.0,
+        ]
+    }
+
+    // Conformance to Equatable
+    static func == (lhs: Book, rhs: Book) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 enum Genre: String, Codable, CaseIterable {
@@ -83,10 +85,11 @@ enum Genre: String, Codable, CaseIterable {
     case ScienceFiction
     case Literature
 }
+
 struct Time: Codable {
     var hours: Int
     var minutes: Int
-    
+
     func toDictionary() -> [String: Int] {
         return [
             "hours": hours,

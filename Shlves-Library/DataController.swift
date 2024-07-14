@@ -123,7 +123,12 @@ class DataController: ObservableObject {
             "issuedDate": book.issuedDate,
             "returnDate": book.returnDate,
             "status": book.status,
-            "quantity": book.quantity ?? 1
+            "quantity": book.quantity ?? 1,
+            "description": book.description,
+            "publisher": book.publisher,
+            "publishedDate": book.publishedDate,
+            "pageCount": book.pageCount,
+            "averageRating": book.averageRating
         ]
 
         // Save book data to Realtime Database

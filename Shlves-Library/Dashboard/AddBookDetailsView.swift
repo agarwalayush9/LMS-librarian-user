@@ -78,17 +78,18 @@ struct AddBookDetailsView: View {
                         returnDate: "2024-06-01",
                         status: "Available",
                         quantity: quantityValue,
-                        description: nil, // You can set other properties as needed
-                        publisher: nil,
-                        publishedDate: nil,
-                        pageCount: nil,
-                        averageRating: nil
+                        description: "new book added", // You can set other properties as needed
+                        publisher: "",
+                        publishedDate: "",
+                        pageCount: 0,
+                        averageRating: 0.0
                     )
                     
                     DataController.shared.addBook(newBook) { result in
                         switch result {
                         case .success:
                             addBook(newBook)
+                            print("book added to database successfully")
                             presentationMode.wrappedValue.dismiss()
                         case .failure(let error):
                             print("Failed to add book: \(error.localizedDescription)")
