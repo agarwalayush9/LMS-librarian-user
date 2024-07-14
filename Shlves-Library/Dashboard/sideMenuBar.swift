@@ -50,15 +50,30 @@ struct menuContent: View {
                                 .weight(.bold)
                                 )){
                                 VStack(alignment: .leading, spacing: 15){
-                                    ForEach(item.menuItem){ idi in
-                                        HStack{
-                                            Image(idi.optionIcon)
-                                                .frame(width: 24, height: 24)
-                                            Text(idi.option)
-                                                .font(Font.custom("DM Sans", size: 17))
+                                    ForEach(item.menuItem) { idi in
+                                        if idi.isClickable {
+                                            NavigationLink(destination: idi.destination.navigationBarBackButtonHidden(true)) {
+                                                HStack {
+                                                    Image(idi.optionIcon)
+                                                        .frame(width: 24, height: 24)
+                                                    Text(idi.option)
+                                                        .font(Font.custom("DM Sans", size: 17))
+                                                }
+                                                .padding(.horizontal, 16)
+                                                .cornerRadius(8)
+                                            }
+                                            .buttonStyle(PlainButtonStyle()) // Prevent default button styling
+                                        } else {
+                                            HStack {
+                                                Image(idi.optionIcon)
+                                                    .frame(width: 24, height: 24)
+                                                Text(idi.option)
+                                                    .font(Font.custom("DM Sans", size: 17))
+                                            }
+                                            .padding(.horizontal, 16)
+                                            .cornerRadius(8)
                                         }
                                     }
-                                    .listRowSeparator(.hidden)
                                 }
                             }
                         }

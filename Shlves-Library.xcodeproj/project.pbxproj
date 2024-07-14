@@ -18,11 +18,13 @@
 		73E886972C4064A9000687DD /* DMSans_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886962C4064A9000687DD /* DMSans_18pt-Bold.ttf */; };
 		73E886992C406572000687DD /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886982C406572000687DD /* DMSans-Bold.ttf */; };
 		73E8869B2C406629000687DD /* DMSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E8869A2C406629000687DD /* DMSans-ExtraBold.ttf */; };
+		B14A30E72C43E65B004B36AD /* EventsDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30E62C43E65B004B36AD /* EventsDashboard.swift */; };
+		B14A30EB2C43E879004B36AD /* FinalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30EA2C43E879004B36AD /* FinalButton.swift */; };
+		B14A30ED2C43E88B004B36AD /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30EC2C43E88B004B36AD /* NextButton.swift */; };
 		B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */; };
 		B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */; };
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
 		B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */; };
-		B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */; };
 		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
 		D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */; };
@@ -54,11 +56,13 @@
 		73E886962C4064A9000687DD /* DMSans_18pt-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans_18pt-Bold.ttf"; sourceTree = "<group>"; };
 		73E886982C406572000687DD /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		73E8869A2C406629000687DD /* DMSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		B14A30E62C43E65B004B36AD /* EventsDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsDashboard.swift; sourceTree = "<group>"; };
+		B14A30EA2C43E879004B36AD /* FinalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalButton.swift; sourceTree = "<group>"; };
+		B14A30EC2C43E88B004B36AD /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
 		B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideBaroptionData.swift; sourceTree = "<group>"; };
 		B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardAnalyticsData.swift; sourceTree = "<group>"; };
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
 		B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboard.swift; sourceTree = "<group>"; };
-		B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarOptions.swift; sourceTree = "<group>"; };
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -118,7 +122,9 @@
 		B1BEB40E2C359FB300ED5C01 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				B1BEB40C2C359FB300ED5C01 /* SideBarOptions.swift */,
+				B14A30EC2C43E88B004B36AD /* NextButton.swift */,
+				B14A30EA2C43E879004B36AD /* FinalButton.swift */,
+				B14A30E62C43E65B004B36AD /* EventsDashboard.swift */,
 				B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */,
 				B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */,
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,
@@ -277,7 +283,7 @@
 				73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */,
 				B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */,
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
-				B1BEB4102C359FB300ED5C01 /* SideBarOptions.swift in Sources */,
+				B14A30ED2C43E88B004B36AD /* NextButton.swift in Sources */,
 				D0DC6C4C2C4135B0000C90F0 /* AddBookDetailsView.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 				73E8868D2C3FF89D000687DD /* ContentView.swift in Sources */,
@@ -289,6 +295,8 @@
 				D0DC6C522C4268D0000C90F0 /* ImageLoader.swift in Sources */,
 				FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */,
 				D0EDBE882C37260300EC06AB /* BookCatalogue.swift in Sources */,
+				B14A30E72C43E65B004B36AD /* EventsDashboard.swift in Sources */,
+				B14A30EB2C43E879004B36AD /* FinalButton.swift in Sources */,
 				D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */,
 				73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
