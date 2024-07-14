@@ -109,14 +109,28 @@ class DataController: ObservableObject {
         return duplicateBook != nil
     }
 
-    private func saveBookToDatabase(_ book: Book, completion: @escaping (Result<Void, Error>) -> Void) {
-        let bookDictionary = book.toDictionary()
-        database.child("books").child(book.bookCode).setValue(bookDictionary) { error, _ in
+    func saveBookToDatabase(_ book: Book, completion: @escaping (Result<Void, Error>) -> Void) {
+        let ref = Database.database().reference()
+        let bookRef = ref.child("books").child(book.id.uuidString)
+
+        // Convert book to dictionary
+        let bookData: [String: Any] = [
+            "bookCode": book.bookCode,
+            "bookCover": book.bookCover,
+            "bookTitle": book.bookTitle,
+            "author": book.author,
+            "genre": book.genre.rawValue,
+            "issuedDate": book.issuedDate,
+            "returnDate": book.returnDate,
+            "status": book.status,
+            "quantity": book.quantity ?? 1
+        ]
+
+        // Save book data to Realtime Database
+        bookRef.setValue(bookData) { error, _ in
             if let error = error {
-                print("Failed to save book: \(error.localizedDescription)")
                 completion(.failure(error))
             } else {
-                print("Book saved successfully.")
                 completion(.success(()))
             }
         }
@@ -183,5 +197,9 @@ class DataController: ObservableObject {
             completion(.success(books))
         }
     }
+    
+    
+    
+    
 
 }

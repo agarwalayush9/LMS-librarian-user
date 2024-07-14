@@ -29,19 +29,19 @@ struct User
 struct Book: Identifiable, Codable {
     var id = UUID()
     var bookCode: String
-    let bookCover: String
-    let bookTitle: String
-    let author: String
-    let genre: Genre
-    let issuedDate: String
-    let returnDate: String
-    let status: String
+    var bookCover: String
+    var bookTitle: String
+    var author: String
+    var genre: Genre
+    var issuedDate: String
+    var returnDate: String
+    var status: String
     var quantity: Int?
     var description: String?
-    let publisher: String?
-    let publishedDate: String?
-    let pageCount: Int?
-    let averageRating: Double?
+    var publisher: String?
+    var publishedDate: String?
+    var pageCount: Int?
+    var averageRating: Double?
     
     
     
@@ -67,7 +67,7 @@ struct Book: Identifiable, Codable {
         }
 }
 
-enum Genre: String, Codable {
+enum Genre: String, Codable, CaseIterable {
     case Horror
     case Mystery
     case Fiction

@@ -1,5 +1,32 @@
 import SwiftUI
 
+struct EditBookView: View {
+  @Environment(\.presentationMode) var presentationMode
+  @State private var editedBook: Book
+
+  init(book: Book) {
+    _editedBook = State(wrappedValue: book)
+  }
+
+  var body: some View {
+    NavigationView {
+      Form {
+        TextField("Book Code", text: $editedBook.bookCode)
+        TextField("Book Title", text: $editedBook.bookTitle)
+        TextField("Author", text: $editedBook.author)
+        // ... similar TextFields for other editable properties
+        Button("Save") {
+          // Update book details using DataController
+          // Dismiss edit view
+          presentationMode.wrappedValue.dismiss()
+        }
+      }
+      .navigationTitle("Edit Book")
+    }
+  }
+}
+
+
 struct BooksCatalogue: View {
     @State private var selectedBooks = Set<UUID>()
     @State private var showingAddBookOptions = false
@@ -37,7 +64,7 @@ struct BooksCatalogue: View {
                                         .onLongPressGesture {
                                             selectedBook = book
                                         }
-                                        .transition(.slide)
+                                        .transition(.scale)
                                 }
                             }
                             .frame(maxWidth: .infinity) // Ensuring LazyVStack takes full width
@@ -100,9 +127,18 @@ struct BooksCatalogue: View {
                     await fetchBooks()
                 }
             }
+            
             .sheet(item: $selectedBook) { book in
-                BookDetailsView(book: book)
+              EditBookView(book: book)
+                .onDisappear {
+                  // Update books array with edited book details (if saved)
+                  if let index = books.firstIndex(where: { $0.id == book.id }) {
+                      books[index] = selectedBook ?? book
+                  }
+                }
             }
+
+            
         }
         .frame(maxWidth: .infinity) // Ensuring NavigationStack takes full width
     }
@@ -187,17 +223,14 @@ struct BooksCatalogue: View {
             HStack {
                 Button(action: {
                     // Action for edit button
+                    selectedBook = book
                 }) {
                     Image(systemName: "pencil")
                         .foregroundColor(.blue)
+                        .frame(width: 70,alignment: .center)
+                        .fontWeight(.bold)
                 }
-                
-                Button(action: {
-                    // Action for more options
-                }) {
-                    Image(systemName: "ellipsis")
-                        .foregroundColor(.blue)
-                }
+       
             }
             .frame(maxWidth: 80, alignment: .leading)
         }
