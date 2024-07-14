@@ -21,7 +21,6 @@
 		B14A30E72C43E65B004B36AD /* EventsDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30E62C43E65B004B36AD /* EventsDashboard.swift */; };
 		B14A30EB2C43E879004B36AD /* FinalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30EA2C43E879004B36AD /* FinalButton.swift */; };
 		B14A30ED2C43E88B004B36AD /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30EC2C43E88B004B36AD /* NextButton.swift */; };
-		B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */; };
 		B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */; };
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
 		B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */; };
@@ -59,7 +58,6 @@
 		B14A30E62C43E65B004B36AD /* EventsDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsDashboard.swift; sourceTree = "<group>"; };
 		B14A30EA2C43E879004B36AD /* FinalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalButton.swift; sourceTree = "<group>"; };
 		B14A30EC2C43E88B004B36AD /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
-		B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sideBaroptionData.swift; sourceTree = "<group>"; };
 		B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardAnalyticsData.swift; sourceTree = "<group>"; };
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
 		B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboard.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 				B14A30EC2C43E88B004B36AD /* NextButton.swift */,
 				B14A30EA2C43E879004B36AD /* FinalButton.swift */,
 				B14A30E62C43E65B004B36AD /* EventsDashboard.swift */,
-				B16B8DEA2C35A47D0025DBFC /* sideBaroptionData.swift */,
 				B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */,
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,
 				B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */,
@@ -281,7 +278,6 @@
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
 				B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */,
 				73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */,
-				B16B8DEB2C35A47D0025DBFC /* sideBaroptionData.swift in Sources */,
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
 				B14A30ED2C43E88B004B36AD /* NextButton.swift in Sources */,
 				D0DC6C4C2C4135B0000C90F0 /* AddBookDetailsView.swift in Sources */,
