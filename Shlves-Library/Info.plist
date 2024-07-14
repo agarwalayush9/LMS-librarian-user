@@ -21,5 +21,7 @@
 		<string>DMSans-Bold.ttf</string>
 		<string>DMSans-ExtraBold.ttf</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 </dict>
 </plist>
