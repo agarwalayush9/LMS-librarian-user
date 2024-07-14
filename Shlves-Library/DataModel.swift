@@ -83,3 +83,14 @@ enum Genre: String, Codable, CaseIterable {
     case ScienceFiction
     case Literature
 }
+struct Time: Codable {
+    var hours: Int
+    var minutes: Int
+    
+    func toDictionary() -> [String: Int] {
+        return [
+            "hours": hours,
+            "minutes": minutes
+        ]
+    }
+}

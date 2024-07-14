@@ -32,10 +32,12 @@ struct Analytics : Identifiable, Equatable{
 
 
 // struct for menu Items
-struct MenuItem: Identifiable {
+struct MenuItem: Identifiable{
     var id: String { option }
     var optionIcon : String
     var option: String
+    var destination: AnyView
+    var isClickable: Bool
 }
 
 
@@ -45,27 +47,26 @@ struct MenuItem: Identifiable {
 struct Sections : Identifiable{
     var id : String{sectionHeader}
     var sectionHeader : String
-    var menuItem : [MenuItem] = []
+    var menuItem : [MenuItem]
     
     static var section : [Sections]{
         [
-            Sections(sectionHeader: "OverView", menuItem: [
-                MenuItem(optionIcon:"majesticons_library-line", option: "Library"),
-                MenuItem(optionIcon: "complaint", option: "Users Queries"),
-                MenuItem(optionIcon:"round-event-note", option: "Manage Events"),
-                MenuItem(optionIcon: "users-outline", option: "Manage Users")
-            ]),
-            Sections(sectionHeader: "Books", menuItem:[
-                MenuItem(optionIcon:"books-02", option: "Books Catalogue"),
-                MenuItem(optionIcon:"bookshelf-01", option: "Books Circulation"),
-                MenuItem(optionIcon:"clock-bill-16-regular", option: "Books Overdues/Fines"),
-                MenuItem(optionIcon:"bill", option: "Fine Management")
-                
-            ] )
-        ]
+                    Sections(sectionHeader: "OverView", menuItem: [
+                        MenuItem(optionIcon: "majesticons_library-line", option: "Dashboard", destination: AnyView(EmptyView()), isClickable: true),
+                        MenuItem(optionIcon: "complaint", option: "complaint", destination: AnyView(EmptyView()), isClickable: false),
+                        MenuItem(optionIcon: "events", option: "Manage Events", destination: AnyView(EventsDashboard()), isClickable: false),
+                        MenuItem(optionIcon: "users", option: "Manage Users", destination: AnyView(EmptyView()), isClickable: false),
+//                        MenuItem(optionIcon: "UserQueries", option: "User Queries", destination: AnyView(EmptyView()), isClickable: false),
+                    ]),
+                    Sections(sectionHeader: "Books", menuItem: [
+                        MenuItem(optionIcon: "books", option: "Books Catalogue", destination: AnyView(BooksCatalogue( )), isClickable: true),
+                        MenuItem(optionIcon: "bookshelf", option: "Books Circulation", destination: AnyView(EmptyView()), isClickable: false),
+                        MenuItem(optionIcon: "overdue", option: "Books Overdues/Fines", destination: AnyView(EmptyView()), isClickable: false),
+                        MenuItem(optionIcon: "bill", option: "Fine Management", destination: AnyView(EmptyView()), isClickable: true)
+                    ])
+                ]
     }
 }
-
 
 
 struct OverDueBookDetails : Identifiable, Equatable{
