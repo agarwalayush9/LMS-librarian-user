@@ -17,7 +17,7 @@ import SwiftUI
 class UserFormViewModel: ObservableObject {
     @Published var eventName = ""
     @Published var eventCategory = ""
-    @Published var description = ""
+    @Published var eventDescription = ""
     @Published var eventDate = ""
     @Published var eventTime = ""
     @Published var eventDuration = ""
@@ -32,10 +32,40 @@ class UserFormViewModel: ObservableObject {
     @Published var nextPopOver2 = false
 }
 
+
+
+//MARK: struct for creation of Custom Form field 1
+struct customFormField1: View {
+    var title: String
+    var placeholder: String
+    var width: Double
+    @Binding var text: String
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text(title)
+                .font(Font.custom("DM Sans", size: 20).weight(.bold))
+                .padding(.bottom, 10)
+            
+            TextField(placeholder, text: $text)
+                .padding(.leading)
+                .frame(maxWidth: 585, minHeight: width)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .inset(by: -2)
+                        .stroke(Color("CustomButtonColor"), lineWidth: 4)
+                )
+                .background(Color("textFormFieldBg"))
+                .padding(.bottom, 20)
+        }
+    }
+}
+
+
 // MARK: - CreateUserForm
 struct CreateUserForm: View {
     @ObservedObject var viewModel: UserFormViewModel
-    
+
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -43,33 +73,37 @@ struct CreateUserForm: View {
                     .font(Font.custom("DM Sans", size: 36).weight(.semibold))
                     .padding([.top, .bottom], 25)
 
-                customFormField(title: "Event Name", 
-                                eventName: viewModel.eventName,
-                                placeHolder: "Enter Event’s Title Name",
-                                width: 56)
-                
-                customFormField(title: "Event Category:", 
-                                eventName: viewModel.eventCategory,
-                                placeHolder: "Select Event Category",
-                                width: 56)
-                customFormField(title: "Event Description", 
-                                eventName: viewModel.description,
-                                placeHolder: "Enter Event's Description", width: 105)
-                
+                customFormField1(title: "Event Name",
+                                 placeholder: "Enter Event’s Title Name",
+                                 width: 56,
+                                 text: $viewModel.eventName)
+
+                customFormField1(title: "Event Category:",
+                                 placeholder: "Select Event Category",
+                                 width: 56,
+                                 text: $viewModel.eventCategory)
+
+                customFormField1(title: "Event Description",
+                                 placeholder: "Enter Event's Description",
+                                 width: 105,
+                                 text: $viewModel.eventDescription)
+
                 Text("Timing Details")
                     .font(Font.custom("DM Sans", size: 20).weight(.bold))
                     .padding(.top)
                     .padding(.bottom, 25)
 
                 HStack {
-                    timingDetails(eventDate: currentDate(), 
-                                  eventTime: currentTime(),
-                                  eventDuration: viewModel.eventTime)
+                    timingDetails(eventDate: $viewModel.eventDate,
+                                  eventTime: $viewModel.eventTime,
+                                  eventDuration: $viewModel.eventDuration)
                 }
+
                 HStack {
                     CheckBoxView(isChecked: $viewModel.isChecked)
                     Text("The event will take place on \(viewModel.eventDate) at \(viewModel.eventTime) for \(viewModel.eventDuration) hours")
                 }
+
                 Spacer()
                 nextButton(nextPopOver1: $viewModel.nextPopOver1)
             }
@@ -79,6 +113,7 @@ struct CreateUserForm: View {
         .padding()
     }
 }
+
 
 // MARK: - CreateNextUserForm
 struct CreateNextUserForm: View {
@@ -187,7 +222,7 @@ struct CreateFinalUserForm: View {
                 CustomButton(systemImage: "plus", width: 148, height: 40, title: "Upload Media", colorName: "blue")
                 
                 customFormField(title: "Any Special Remarks to Admin", 
-                                eventName: viewModel.specialRemark, 
+                                eventName: viewModel.specialRemark,
                                 placeHolder: "Enter any remarks to send to the admin",
                                 width: 96)
                 
@@ -205,6 +240,138 @@ struct CreateFinalUserForm: View {
             Spacer()
                 .padding(.leading, 30)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .padding()
+    }
+}
+
+//MARK: CREATE FORM 2
+struct CreateNextUserForm: View {
+    @ObservedObject var viewModel: UserFormViewModel
+    
+    var body: some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                Text("Create Event2")
+                    .font(Font.custom("DM Sans", size: 36).weight(.semibold))
+                    .padding([.top, .bottom], 25)
+
+                customFormField1(title: "Location",
+                                 placeholder: "Enter Event’s Location",
+                                 width: 56,
+                                 text: $viewModel.eventLocation)
+
+                customFormField1(title: "Add Host",
+                                 placeholder: "Enter Host Name",
+                                 width: 56,
+                                 text: $viewModel.eventHost)
+
+                customFormField1(title: "Add any Special Guests",
+                                 placeholder: "Enter Special Guests Name",
+                                 width: 105,
+                                 text: $viewModel.eventGuest)
+
+                Text("Send Notifications to Members via ")
+                    .font(Font.custom("DM Sans", size: 20).weight(.bold))
+                    .foregroundStyle(.customButton)
+                    .padding(.top)
+                    .padding(.bottom, 25)
+
+                HStack {
+                    CheckBoxView(isChecked: $viewModel.isChecked)
+                    Text("Push Notification")
+                    Spacer()
+                    CheckBoxView(isChecked: $viewModel.isChecked)
+                    Text("Email")
+                    Spacer()
+                    CheckBoxView(isChecked: $viewModel.isChecked)
+                    Text("Phone Number")
+                    Spacer()
+                }
+                .padding(.bottom)
+
+                Text("Notifications to user things?")
+                    .font(Font.custom("DM Sans", size: 20).weight(.bold))
+                    .padding(.bottom)
+
+                VStack {
+                    HStack {
+                        CheckBoxView(isChecked: $viewModel.isChecked)
+                        Text("at Approval of Event")
+                        Spacer()
+                        CheckBoxView(isChecked: $viewModel.isChecked)
+                        Text("One Day before Event")
+                        Spacer()
+                    }
+                    .padding(.bottom)
+                    HStack {
+                        CheckBoxView(isChecked: $viewModel.isChecked)
+                        Text("One hour Before Event")
+                        Spacer()
+                        CheckBoxView(isChecked: $viewModel.isChecked)
+                            .overlay(
+                                Image(systemName: "plus")
+                                    .foregroundStyle(.customButton)
+                            )
+                        Text("At any Custom Time")
+                        Spacer()
+                    }
+                }
+                finalButton(nextPopOver2: $viewModel.nextPopOver2)
+            }
+            .padding(.leading, 40)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .padding()
+    }
+}
+
+//MARK: final form
+struct CreateFinalUserForm: View {
+    @ObservedObject var viewModel: UserFormViewModel
+    
+    var body: some View {
+        ZStack {
+            VStack(alignment: .leading) {
+                Text("Create Event")
+                    .font(Font.custom("DM Sans", size: 36).weight(.semibold))
+                    .padding([.top, .bottom], 25)
+
+                customFormField1(title: "How Many Tickets to make available",
+                                 placeholder: "Enter the number of tickets",
+                                 width: 56,
+                                 text: $viewModel.numberOfTickets)
+
+                customFormField1(title: "Quoted per Ticket Pricing",
+                                 placeholder: "Enter the per ticket pricing of the Event",
+                                 width: 56,
+                                 text: $viewModel.ticketPrice)
+
+                Text("Upload Photos or Videos/Thumbnail")
+                    .padding([.top, .bottom])
+
+                CustomButton(systemImage: "plus", width: 227, height: 50, title: "Create an Event", colorName: "CustomButtonColor")
+                CustomButton(systemImage: "plus", width: 148, height: 40, title: "Upload Media", colorName: "")
+                CustomButton(systemImage: "plus", width: 148, height: 40, title: "Upload Media", colorName: "blue")
+
+                customFormField1(title: "Any Special Remarks to Admin",
+                                 placeholder: "Enter any remarks to send to the admin",
+                                 width: 96,
+                                 text: $viewModel.specialRemark)
+
+                Button(action: {
+                    // what happens when pressed
+                }) {
+                    CustomButton(systemImage: "", width: 209, height: 42, title: "Send For Approval", colorName: "CustomButtonColor")
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .inset(by: -2)
+                                .stroke(Color("cardIconColor"), lineWidth: 4)
+                        )
+                }
+            }
+            .padding(.leading, 40)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding()
     }
