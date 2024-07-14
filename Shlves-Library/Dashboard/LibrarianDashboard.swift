@@ -221,7 +221,7 @@ struct showTabBarButtons : View {
             isRequestBooks.toggle()
     }, label: {
         CustomButton(systemImage: "",
-                     width: 170,
+                     width: 200,
                      height: 39,
                      title: "Book Requests",
                      colorName: "CustomButtonColor")      })
@@ -243,7 +243,7 @@ struct showTabBarButtons : View {
                 isReturnBooks.toggle()
             }, label: {
                 CustomButton(systemImage: "",
-                             width: 180,
+                             width: 220,
                              height: 39,
                              title: "Return Requests",
                              colorName: "CustomButtonColor")      })

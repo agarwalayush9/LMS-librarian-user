@@ -83,6 +83,23 @@ struct EventsDashboard: View {
 }
 
 
+//MARK: Calender View
+struct CalendarView: View {
+    @State private var selectedDate = Date()
+    
+    var body: some View {
+        VStack {
+            DatePicker(
+                "Select Date",
+                selection: $selectedDate,
+                displayedComponents: [.date]
+            )
+            .datePickerStyle(GraphicalDatePickerStyle())
+            .padding()
+        }
+    }
+}
+
 
 //MARK: Custom card for showing Graph
 struct customGraphCard: View {
@@ -162,13 +179,6 @@ struct customEventCard: View {
 }
 
 
-//struct floatingButton : View {
-//    var body: some View {
-//        Rectangle()
-//            .frame(maxWidth: 227, maxHeight: 50)
-//            .background(Color(""))
-//    }
-//}
 
 //MARK: skeleton of whole page
 struct EventAnalyticsCard: View {
@@ -186,6 +196,22 @@ struct EventAnalyticsCard: View {
                             //Event Revenue Details Card
                             customGraphCard(width: 740,
                                             height: 250)
+//                            .overlay(
+//                                GeometryReader( geometry in
+//                                                VStack {
+//                                                    Text("Graph or other content")
+//                                                        .font(.title)
+//                                                        .padding()
+//                                                    
+//                                                    CalendarView()
+//                                                        .frame(width: geometry.size.width - 20, height: geometry.size.height - 20)
+//                                                        .background(Color.white)
+//                                                        .cornerRadius(10)
+//                                                        .shadow(radius: 5)
+//                                                        .padding()
+//                                                }
+//                                              )
+//                            )
                             
                             
                             //MARK: Line 2
@@ -224,6 +250,14 @@ struct EventAnalyticsCard: View {
                             customGraphCard(width: 344 ,
                                             height: 285)
                             .padding([.leading, .trailing])
+                            .overlay(
+                                GeometryReader { geometry in
+                                    CalendarView()
+                                        .frame(width: geometry.size.width - 40, height: geometry.size.height - 40)
+                                    // Leave some padding inside the overlay
+                                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                                }
+                            )
                             HStack{
                                 Text("Upcoming Events")
                                     .font(
@@ -234,7 +268,8 @@ struct EventAnalyticsCard: View {
                                     .font(
                                         Font.custom("DMSans-Medium", size: 14)
                                     ).foregroundStyle(Color("CustomButtonColor"))
-                            }.padding([.leading, .trailing])
+                            }.padding([.leading, .trailing, .top])
+                            
                             
                             //MARK: beneath will be two closest upcoming events only 2
                             
