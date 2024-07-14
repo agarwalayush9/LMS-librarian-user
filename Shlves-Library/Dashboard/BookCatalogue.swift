@@ -1,5 +1,58 @@
 import SwiftUI
 
+struct SearchBar: UIViewRepresentable {
+    @Binding var text: String
+
+    class Coordinator: NSObject, UISearchBarDelegate {
+        @Binding var text: String
+
+        init(text: Binding<String>) {
+            _text = text
+        }
+
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            text = searchText
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(text: $text)
+    }
+
+    func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
+        let searchBar = UISearchBar(frame: .zero)
+        searchBar.delegate = context.coordinator
+        searchBar.backgroundImage = UIImage() // Removes the top and bottom lines
+
+        // Set background color
+        searchBar.barTintColor = UIColor(red: 255/255, green: 246/255, blue: 227/255, alpha: 1.0)
+        searchBar.searchTextField.backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 227/255, alpha: 1.0)
+
+        
+        searchBar.placeholder = "Search by Book Code, Book or Author"
+        
+        // Customize search icon color
+        if let searchTextField = searchBar.value(forKey: "searchField") as? UITextField {
+            if let leftView = searchTextField.leftView as? UIImageView {
+                leftView.tintColor = UIColor(red: 0.32, green: 0.23, blue: 0.06, alpha: 1.0)
+                leftView.image = leftView.image?.withRenderingMode(.alwaysTemplate)
+            }
+            // Add border to the search text field
+            searchTextField.layer.borderColor = UIColor(red: 0.32, green: 0.23, blue: 0.06, alpha: 1.0).cgColor
+            searchTextField.layer.borderWidth = 2.0
+            searchTextField.layer.cornerRadius = 10.0
+            searchTextField.layer.masksToBounds = true
+        }
+
+        return searchBar
+    }
+
+    func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
+        uiView.text = text
+    }
+}
+
+
 struct EditBookDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var editedBook: Book
@@ -12,17 +65,40 @@ struct EditBookDetailView: View {
         NavigationView {
             Form {
                 Section(header: Text("Basic Details")) {
-                    TextField("ISBN Code", text: $editedBook.bookCode)
-                    TextField("Book Title", text: $editedBook.bookTitle)
-                    TextField("Author", text: $editedBook.author)
+                    HStack {
+                        Text("ISBN Code:")
+                            .fontWeight(.bold)
+                        TextField("ISBN Code", text: $editedBook.bookCode)
+                    }
+                    HStack {
+                        Text("Book Title:")
+                            .fontWeight(.bold)
+                        TextField("Book Title", text: $editedBook.bookTitle)
+                    }
+                    HStack {
+                        Text("Author:")
+                            .fontWeight(.bold)
+                        TextField("Author", text: $editedBook.author)
+                    }
                 }
 
                 Section(header: Text("Additional Details")) {
-                    //TextField("Genre/Category", text: $editedBook.genre.rawValue)
-                    TextField("Issued Date", text: $editedBook.issuedDate)
-                    TextField("Return Date", text: $editedBook.returnDate)
-                    TextField("Quantity", value: $editedBook.quantity, formatter: NumberFormatter())
-                    
+                    HStack {
+                        Text("Issued Date:")
+                            .fontWeight(.bold)
+                        TextField("Issued Date", text: $editedBook.issuedDate)
+                    }
+                    HStack {
+                        Text("Return Date:")
+                            .fontWeight(.bold)
+                        TextField("Return Date", text: $editedBook.returnDate)
+                    }
+                    HStack {
+                        Text("Quantity:")
+                            .fontWeight(.bold)
+                        TextField("Quantity", value: $editedBook.quantity, formatter: NumberFormatter())
+                    }
+
                     if let url = URL(string: editedBook.bookCover) {
                         AsyncImage(url: url) { image in
                             image.resizable()
@@ -41,10 +117,17 @@ struct EditBookDetailView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
 
-                Button("Save") {
+                Button(action: {
                     // Update book details using DataController
                     // Dismiss edit view
                     presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Save")
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color(red: 0.32, green: 0.23, blue: 0.06))
+                        .cornerRadius(10)
                 }
             }
             .navigationTitle("Edit Book Details")
@@ -59,21 +142,34 @@ struct BooksCatalogue: View {
     @State private var menuOpened = false
     @State private var isLoading = false
     @State private var selectedBook: Book?
+    @State private var searchText = ""
+
+    var filteredBooks: [Book] {
+        if searchText.isEmpty {
+            return books
+        } else {
+            return books.filter { $0.bookTitle.contains(searchText) || $0.author.contains(searchText) || $0.bookCode.contains(searchText) }
+        }
+    }
 
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
+                    SearchBar(text: $searchText)
+                        .padding(.horizontal)
+
                     ZStack {
                         backgroundView()
                             .blur(radius: menuOpened ? 10 : 0)
                             .animation(.easeInOut(duration: 0.25), value: menuOpened)
-                        
+
                         ScrollView {
                             LazyVStack(alignment: .leading, spacing: 0) {
                                 headerRow()
+                                    .padding(.top)
                                 
-                                ForEach(books) { book in
+                                ForEach(filteredBooks) { book in
                                     bookRow(book)
                                         .background(selectedBooks.contains(book.id) ? Color(red: 255/255, green: 246/255, blue: 227/255) : Color.clear)
                                         .border(Color(red: 0.32, green: 0.23, blue: 0.06), width: selectedBooks.contains(book.id) ? 2 : 0)
@@ -98,13 +194,13 @@ struct BooksCatalogue: View {
                     .frame(maxWidth: .infinity)
                 }
                 .frame(maxWidth: .infinity)
-                
+
                 if menuOpened {
                     sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30, menuOpened: menuOpened, toggleMenu: toggleMenu)
                         .ignoresSafeArea()
                         .toolbar(.hidden, for: .navigationBar)
                 }
-                
+
                 if isLoading {
                     ProgressView("Loading...")
                         .progressViewStyle(CircularProgressViewStyle())
@@ -114,7 +210,7 @@ struct BooksCatalogue: View {
                         .cornerRadius(10)
                         .shadow(radius: 10)
                 }
-                
+
                 floatingAddButton()
             }
             .navigationTitle("Book Catalogue".capitalized)
@@ -144,7 +240,7 @@ struct BooksCatalogue: View {
                     await fetchBooks()
                 }
             }
-            
+
             .sheet(item: $selectedBook) { book in
                 EditBookDetailView(book: book)
                     .onDisappear {
@@ -172,7 +268,7 @@ struct BooksCatalogue: View {
                 )
             )
             .frame(width: 50, alignment: .center)
-            
+
             Text("Book Code")
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text("Book Cover")
@@ -197,7 +293,7 @@ struct BooksCatalogue: View {
         .frame(maxWidth: .infinity)
         .transition(.slide)
     }
-    
+
     private func bookRow(_ book: Book) -> some View {
         HStack {
             CheckBoxView(
@@ -213,7 +309,7 @@ struct BooksCatalogue: View {
                 )
             )
             .frame(width: 50, alignment: .center)
-            
+
             Text(book.bookCode)
                 .frame(maxWidth: .infinity, alignment: .center)
             AsyncImageLoader(url: book.bookCover)
@@ -231,14 +327,14 @@ struct BooksCatalogue: View {
             Text(book.status)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .foregroundColor(book.status == "Issued" ? .red : .green)
-            
+
             HStack {
                 Button(action: {
                     selectedBook = book
                 }) {
                     Image(systemName: "pencil")
                         .foregroundColor(.blue)
-                        .frame(width: 70,alignment: .center)
+                        .frame(width: 70, alignment: .center)
                         .fontWeight(.bold)
                 }
             }
@@ -248,7 +344,7 @@ struct BooksCatalogue: View {
         .frame(maxWidth: .infinity)
         .transition(.slide)
     }
-    
+
     private func floatingAddButton() -> some View {
         VStack {
             Spacer()
@@ -288,7 +384,7 @@ struct BooksCatalogue: View {
         await fetchBooks()
         isLoading = false
     }
-    
+
     private func fetchBooks() async {
         isLoading = true
         await DataController.shared.fetchBooks { result in
@@ -301,11 +397,11 @@ struct BooksCatalogue: View {
             isLoading = false
         }
     }
-    
+
     private func toggleMenu() {
         menuOpened.toggle()
     }
-    
+
     private func toggleSelection(for book: Book) {
         if selectedBooks.contains(book.id) {
             selectedBooks.remove(book.id)
@@ -317,16 +413,16 @@ struct BooksCatalogue: View {
 
 struct BookDetailsView: View {
     let book: Book
-    
+
     var body: some View {
         VStack(spacing: 20) {
             Text(book.bookTitle)
                 .font(.largeTitle)
                 .padding()
-            
+
             AsyncImageLoader(url: book.bookCover)
                 .frame(width: 150, height: 200)
-            
+
             Text("Author: \(book.author)")
             Text("Genre: \(book.genre.rawValue)")
             Text("Issued Date: \(book.issuedDate)")
@@ -334,7 +430,7 @@ struct BookDetailsView: View {
             Text("Status: \(book.status)")
                 .foregroundColor(book.status == "Issued" ? .red : .green)
             Text("Quantity: \(book.quantity ?? 1)")
-            
+
             Spacer()
         }
         .padding()
