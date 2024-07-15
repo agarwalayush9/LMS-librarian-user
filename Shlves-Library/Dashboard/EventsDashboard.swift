@@ -36,7 +36,7 @@ struct EventsDashboard: View {
                 EventAnalyticsCard()
                 //This is to be the last part of z Stack
                 if menuOpened {
-                    sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30,
+                    sideMenu( width: UIScreen.main.bounds.width * 0.30,
                              menuOpened: menuOpened,
                              toggleMenu: toggleMenu)
                     .ignoresSafeArea()

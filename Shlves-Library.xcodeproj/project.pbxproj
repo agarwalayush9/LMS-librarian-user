@@ -26,6 +26,7 @@
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
 		B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */; };
 		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
+		B1E339F42C452F6D00CF1E27 /* Graphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E339F32C452F6D00CF1E27 /* Graphs.swift */; };
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
 		D0B9B10C2C35A567009521D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */; };
 		D0B9B1102C35AB3B009521D5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0B9B10F2C35AB3B009521D5 /* FirebaseAuth */; };
@@ -41,6 +42,7 @@
 		FD87DC8A2C356BFD00553DC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC892C356BFD00553DC0 /* Assets.xcassets */; };
 		FD87DC8D2C356BFD00553DC0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */; };
 		FD87DC942C356C2A00553DC0 /* gitignore.txt in Resources */ = {isa = PBXBuildFile; fileRef = FD87DC932C356C2A00553DC0 /* gitignore.txt */; };
+		FDBC5E9D2C451F69004F0890 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBC5E9C2C451F69004F0890 /* AuthManager.swift */; };
 		FDEA9C9E2C36818E0042367B /* RegisterPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEA9C9D2C36818E0042367B /* RegisterPage.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +66,7 @@
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
 		B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboard.swift; sourceTree = "<group>"; };
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
+		B1E339F32C452F6D00CF1E27 /* Graphs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphs.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
 		D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookDetailsView.swift; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 		FD87DC892C356BFD00553DC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD87DC8C2C356BFD00553DC0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FD87DC932C356C2A00553DC0 /* gitignore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gitignore.txt; sourceTree = "<group>"; };
+		FDBC5E9C2C451F69004F0890 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		FDEA9C9D2C36818E0042367B /* RegisterPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +140,7 @@
 				D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */,
 				D0DC6C512C4268D0000C90F0 /* ImageLoader.swift */,
 				B164E01E2C451FB200EF50AB /* Eventform.swift */,
+				B1E339F32C452F6D00CF1E27 /* Graphs.swift */,
 			);
 			name = Dashboard;
 			path = "Shlves-Library/Dashboard";
@@ -181,6 +186,7 @@
 				FD87DC8B2C356BFD00553DC0 /* Preview Content */,
 				D0EDBE792C36A38500EC06AB /* DataController.swift */,
 				D0EDBE7B2C36A3E000EC06AB /* DataModel.swift */,
+				FDBC5E9C2C451F69004F0890 /* AuthManager.swift */,
 			);
 			path = "Shlves-Library";
 			sourceTree = "<group>";
@@ -279,10 +285,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
+				FDBC5E9D2C451F69004F0890 /* AuthManager.swift in Sources */,
 				B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */,
 				73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */,
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
 				B14A30ED2C43E88B004B36AD /* NextButton.swift in Sources */,
+				B1E339F42C452F6D00CF1E27 /* Graphs.swift in Sources */,
 				D0DC6C4C2C4135B0000C90F0 /* AddBookDetailsView.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
 				73E8868D2C3FF89D000687DD /* ContentView.swift in Sources */,

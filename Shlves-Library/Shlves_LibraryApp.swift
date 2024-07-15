@@ -19,15 +19,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct Shlves_LibraryApp: App {
     // Register AppDelegate for Firebase setup
-    @State private var isLoggedIn: Bool = UserDefaults.standard.bool(forKey: "isLoggedIn")
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var authManager = AuthManager()
+    
     var body: some Scene {
         WindowGroup {
-            if isLoggedIn {
-                        LibrarianDashboard(isLoggedIn: $isLoggedIn)
-                    } else {
-                        LoginPageView(isLoggedIn: $isLoggedIn) 
-                    }
+            if authManager.isLoggedIn {
+                LibrarianDashboard()
+                    .environmentObject(authManager)
+            } else {
+                LoginPageView()
+                    .environmentObject(authManager)
+            }
        }
     }
 }

@@ -2,7 +2,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginPageView: View {
-    @Binding var isLoggedIn: Bool
+    @EnvironmentObject var authManager: AuthManager
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var rememberMe: Bool = false
@@ -23,7 +23,7 @@ struct LoginPageView: View {
     var body: some View {
         HStack {
             if navigateToRegister {
-                RegisterPage(isLoggedIn: $isLoggedIn)
+                RegisterPage()
             } else {
                 // Left side image
                 Image("librarian")
@@ -176,15 +176,14 @@ struct LoginPageView: View {
     }
     
     func login() {
-        Auth.auth().signIn(withEmail: email, password: password) { firebaseResult, error in
-            if let e = error {
-                errorMessage = e.localizedDescription
-                showAlert = true
-                print(e)
-            } else {
+        authManager.signIn(email: email, password: password) { result in
+            switch result {
+            case .success:
                 print("Login successful")
-                isLoggedIn = true
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            case .failure(let error):
+                errorMessage = error.localizedDescription
+                showAlert = true
+                print(error.localizedDescription)
             }
         }
     }
@@ -233,6 +232,6 @@ struct LoginPageView: View {
 
 struct LoginPageView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginPageView(isLoggedIn: .constant(false))
+        LoginPageView()
     }
 }

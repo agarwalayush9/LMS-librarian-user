@@ -12,7 +12,6 @@ struct LibrarianDashboard: View {
      @State private var AddButtonPressed = false
     @State private var navigateToBookCatalogue = false
     @State private var navigateToUserRecord = false
-    @Binding var isLoggedIn: Bool
     @State private var isRequestBooks = false
        @State private var isReturnBooks = false
     
@@ -133,7 +132,7 @@ struct LibrarianDashboard: View {
 
 
                 if menuOpened {
-                    sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30,
+                    sideMenu(width: UIScreen.main.bounds.width * 0.30,
                              menuOpened: menuOpened,
                              toggleMenu: toggleMenu)
                     .ignoresSafeArea()
@@ -379,5 +378,5 @@ struct circleCancleButton : View {
 }
 
 #Preview {
-    LibrarianDashboard(isLoggedIn: .constant(true))
+    LibrarianDashboard()
 }
