@@ -251,6 +251,19 @@ struct showTabBarButtons : View {
         fine: 40)
 
     })
+        
+        Button(action: {
+        print("")
+            isRequestBooks.toggle()
+            
+        }, label: {
+            CustomButton(systemImage: "",
+                         width: 180,
+                         height: 39,
+                         title: "Book Request",
+                         colorName: "CustomButtonColor")
+        })
+        
     .padding()
     }
 }
