@@ -196,7 +196,7 @@ struct BooksCatalogue: View {
                 .frame(maxWidth: .infinity)
 
                 if menuOpened {
-                    sideMenu(isLoggedIn: .constant(true), width: UIScreen.main.bounds.width * 0.30, menuOpened: menuOpened, toggleMenu: toggleMenu)
+                    sideMenu(width: UIScreen.main.bounds.width * 0.30, menuOpened: menuOpened, toggleMenu: toggleMenu)
                         .ignoresSafeArea()
                         .toolbar(.hidden, for: .navigationBar)
                 }

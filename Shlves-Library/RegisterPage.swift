@@ -12,7 +12,6 @@ struct RegisterPage: View {
     @State private var alertMessage = ""
     @State private var isRegistrationSuccessful = false
     @State private var showDashboard = false
-    @Binding var isLoggedIn: Bool
     
     // Realtime validation state
     @State private var isNameValid = true
@@ -136,7 +135,7 @@ struct RegisterPage: View {
                             .foregroundColor(.red)
                             .font(.caption)
                         
-                        NavigationLink(destination: LoginPageView(isLoggedIn: $isLoggedIn), isActive: $isRegistrationSuccessful) {
+                        NavigationLink(destination: LoginPageView(), isActive: $isRegistrationSuccessful) {
                             EmptyView()
                         }
                         
@@ -278,6 +277,6 @@ struct RegisterPage: View {
 
 struct RegisterPage_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterPage(isLoggedIn: .constant(false))
+        RegisterPage()
     }
 }
