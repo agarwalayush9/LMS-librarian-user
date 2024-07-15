@@ -16,6 +16,7 @@ struct LibrarianDashboard: View {
     @State private var isRequestBooks = false
        @State private var isReturnBooks = false
     
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
@@ -216,6 +217,32 @@ struct showTabBarButtons : View {
     
     var body: some View {
         
+        
+        //Add event
+        Button(action: {
+        print("Add Event Pressed")
+            isRequestBooks.toggle()
+    }, label: {
+        NavigationLink(destination: EventFormView()) {
+            CustomButton(systemImage: "",
+                         width: 170,
+                         height: 39,
+                         title: "Add Event",
+                         colorName: "CustomButtonColor")   
+        }
+           })
+        .sheet(isPresented: $isRequestBooks){
+                    
+                    //MARK: make for each here
+                    BookRequest(ISBN: "12345678",
+                                BookImage: "book_cover",
+                                BookTitle: "Soul",
+                                AuthorName: "zek",
+                                UserName: "Abhay",
+                                UserID: "224455",
+                                RequestedDate: "14-Jul-202")
+                }
+        
         Button(action: {
         print("Request Book Pressed")
             isRequestBooks.toggle()
@@ -322,6 +349,8 @@ struct showAddBarExtension : View {
                 }, books: books)
             }
             //    .padding()
+            
+            
         }
         .padding(.leading, 30)
     }

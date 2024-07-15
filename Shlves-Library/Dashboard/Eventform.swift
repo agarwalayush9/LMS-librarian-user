@@ -33,7 +33,7 @@ struct EventFormView: View {
                 TextField("Number of Tickets", text: $numberOfTickets)
                 TextField("Price of Tickets", text: $priceOfTickets)
             }
-
+            
             Section {
                 Button(action: submitForm) {
                     Text("Submit")
