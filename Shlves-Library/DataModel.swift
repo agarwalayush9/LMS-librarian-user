@@ -86,10 +86,56 @@ enum Genre: String, Codable, CaseIterable {
     case Literature
 }
 
+struct Event {
+    var id = UUID()
+    var name: String
+    var host: String
+    var date: Date
+    var time: Date
+    var address: String
+    var duration: String
+    var description: String
+    var registeredMembers: [User]
+    var tickets: Int
+    var imageName: String
+    var fees: Int
+    var revenue: Int
+    var status: String
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "name": name,
+            "host": host,
+            "date": date.timeIntervalSince1970, // Convert Date to TimeInterval
+            "time": time.timeIntervalSince1970,
+            "address": address,
+            "duration": duration,
+            "description": description,
+            "registeredMembers": registeredMembers.map { $0.toDictionary() },
+            "tickets": tickets,
+            "imageName": imageName,
+            "fees": fees,
+            "revenue": revenue,
+            "status": status
+        ]
+    }
+}
+struct Location: Codable {
+    var latitude: Double
+    var longitude: Double
+    
+    func toDictionary() -> [String: Double] {
+        return [
+            "latitude": latitude,
+            "longitude": longitude
+        ]
+    }
+}
+
 struct Time: Codable {
     var hours: Int
     var minutes: Int
-
+    
     func toDictionary() -> [String: Int] {
         return [
             "hours": hours,
@@ -97,3 +143,4 @@ struct Time: Codable {
         ]
     }
 }
+

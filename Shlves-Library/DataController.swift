@@ -204,7 +204,39 @@ class DataController: ObservableObject {
     }
     
     
-    
+    func addEvent(_ event: Event, completion: @escaping (Result<Void, Error>) -> Void) {
+        let eventID = event.id.uuidString
+        
+        // Check if the event ID already exists
+        database.child("events").child(eventID).observeSingleEvent(of: .value) { snapshot in
+            if snapshot.exists() {
+                // Event ID already exists
+                completion(.failure(NSError(domain: "", code: 1, userInfo: [NSLocalizedDescriptionKey: "Event ID is already in use."])))
+            } else {
+                // Add the event to the database
+                self.saveEventToDatabase(event) { result in
+                    completion(result)
+                }
+            }
+        }
+    }
+
+    private func saveEventToDatabase(_ event: Event, completion: @escaping (Result<Void, Error>) -> Void) {
+        let eventID = event.id.uuidString
+        let eventDictionary = event.toDictionary()
+        
+        // Save event to database
+        database.child("events").child(eventID).setValue(eventDictionary) { error, _ in
+            if let error = error {
+                print("Failed to save event: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                print("Event saved successfully.")
+                completion(.success(()))
+            }
+        }
+    }
+
     
 
 }

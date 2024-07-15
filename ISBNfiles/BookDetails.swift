@@ -47,12 +47,12 @@ class BookAPI {
                                    issuedDate: "2023-01-01", // Example issued date
                                    returnDate: "2023-02-01", // Example return date
                                    status: "Available", // Example status
-                                   quantity: nil, // Example quantity
-                                   description: volumeInfo.description,
-                                   publisher: volumeInfo.publisher,
-                                   publishedDate: volumeInfo.publishedDate,
-                                   pageCount: volumeInfo.pageCount,
-                                   averageRating: volumeInfo.averageRating
+                                   quantity: 1, // Example quantity
+                                   description: volumeInfo.description ?? "",
+                                   publisher: volumeInfo.publisher ?? "",
+                                   publishedDate: volumeInfo.publishedDate ?? "",
+                                   pageCount: volumeInfo.pageCount ?? 0,
+                                   averageRating: volumeInfo.averageRating ?? 0.0
                 )
                     
                     completion(.success(book))
