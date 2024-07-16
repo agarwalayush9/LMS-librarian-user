@@ -15,10 +15,12 @@ struct EventFormView: View {
     @State private var eventDuration = ""
     @State private var eventLocation = ""
     @State private var hostName = ""
+    @State private var eventDescription = ""
     @State private var numberOfTickets = 0
     @State private var priceOfTickets = 0
     @State private var showAlert = false
     @State private var alertMessage = ""
+    
 
     let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -36,6 +38,7 @@ struct EventFormView: View {
                 TextField("Event Duration", text: $eventDuration)
                 TextField("Event Location", text: $eventLocation)
                 TextField("Host Name", text: $hostName)
+                TextField("Event Description", text: $eventDescription)
                 TextField("Number of Tickets", value: $numberOfTickets, formatter: numberFormatter)
                 TextField("Price of Tickets", value: $priceOfTickets, formatter: numberFormatter)
             }
@@ -61,6 +64,7 @@ struct EventFormView: View {
         print("Event Duration: \(eventDuration)")
         print("Event Location: \(eventLocation)")
         print("Host Name: \(hostName)")
+        print("event Description: \(eventDescription)")
         print("Number of Tickets: \(numberOfTickets)")
         print("Price of Tickets: \(priceOfTickets)")
         
