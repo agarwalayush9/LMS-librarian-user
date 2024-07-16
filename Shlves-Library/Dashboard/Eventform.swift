@@ -64,7 +64,7 @@ struct EventFormView: View {
         print("Number of Tickets: \(numberOfTickets)")
         print("Price of Tickets: \(priceOfTickets)")
         
-        let newEvent = Event(name: eventName, host: hostName, date: eventDate, time: eventTime, address: eventLocation, duration: eventDuration, description: "", registeredMembers: [], tickets: numberOfTickets, imageName: "event_image", fees: priceOfTickets, revenue: 0, status: "Pending")
+        let newEvent = Event(name: eventName, host: hostName, date: eventDate, time: eventTime, address: eventLocation, duration: eventDuration, description: "", registeredMembers: [], tickets: numberOfTickets, imageName: "event_image", fees: priceOfTickets, revenue: (priceOfTickets * priceOfTickets), status: "Pending")
         
         DataController.shared.addEvent(newEvent) { result in
             switch result {

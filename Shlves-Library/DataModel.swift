@@ -19,9 +19,7 @@ struct User
                 "lastName": lastName,
                 "email": email,
                 "phoneNumber": phoneNumber,
-                "status": "Approval Pending",
-                "userId": "********",
-                "password": "********",
+
             ]
         }
 }

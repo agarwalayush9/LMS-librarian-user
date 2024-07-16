@@ -238,7 +238,83 @@ class DataController: ObservableObject {
     }
     
     
+    func fetchTotalRevenue(completion: @escaping (Result<Int, Error>) -> Void) {
+            database.child("events").observeSingleEvent(of: .value) { snapshot in
+                guard let eventsDict = snapshot.value as? [String: [String: Any]] else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
+                    return
+                }
+
+                var totalRevenue: Int = 0
+
+                for (_, dict) in eventsDict {
+                    guard let revenue = dict["revenue"] as? Int else {
+                        print("Failed to parse event revenue.")
+                        continue
+                    }
+
+                    totalRevenue += revenue
+                }
+
+                print("Total revenue: \(totalRevenue)")
+                completion(.success(totalRevenue))
+            }
+        }
+
     
+    func fetchNumberOfBooks(completion: @escaping (Result<Int, Error>) -> Void) {
+        database.child("books").observeSingleEvent(of: .value) { snapshot, error in
+            if let error = error {
+                completion(.failure(error as! Error))
+                return
+            }
+            
+            guard let snapshotDict = snapshot.value as? [String: Any] else {
+                // If there are no books or the snapshot cannot be casted to [String: Any]
+                completion(.success(0))
+                return
+            }
+            
+            // Get the count of children under "books" node
+            let numberOfBooks = snapshotDict.count
+            completion(.success(numberOfBooks))
+        }
+    }
+    
+    
+    func fetchNumberOfMembers(completion: @escaping (Result<Int, Error>) -> Void) {
+        database.child("members").observeSingleEvent(of: .value) { snapshot, error in
+            if let error = error {
+                completion(.failure(error as! Error))
+                return
+            }
+            
+            guard let snapshotDict = snapshot.value as? [String: Any] else {
+                // If there are no books or the snapshot cannot be casted to [String: Any]
+                completion(.success(0))
+                return
+            }
+            
+            // Get the count of children under "books" node
+            let numberOfBooks = snapshotDict.count
+            completion(.success(numberOfBooks))
+        }
+    }
+    
+    
+    func fetchNumberOfEvents(completion: @escaping (Result<Int, Error>) -> Void) {
+        database.child("events").observeSingleEvent(of: .value) { snapshot in
+            guard let snapshotDict = snapshot.value as? [String: Any] else {
+                completion(.success(0))
+                return
+            }
+            
+            let numberOfEvents = snapshotDict.count
+            completion(.success(numberOfEvents))
+            print(numberOfEvents)
+        }
+    }
+
     func fetchLastFourBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
         database.child("books")
             .queryOrderedByKey()

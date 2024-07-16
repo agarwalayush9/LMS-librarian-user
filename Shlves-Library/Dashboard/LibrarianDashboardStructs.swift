@@ -93,15 +93,93 @@ struct card : View {
 
 
 struct DashboardAnalytics : View {
-    let data = Analytics.analytics
+    @State private var analytics = Analytics.analytics
+    @State private var isLoading = false // Track loading state
+    
     var body: some View {
-        ForEach(data){ datunm in
-            card(title: datunm.title,
-                 value: datunm.value,
-                 salesDifferencePercentage: datunm.salesDifferencePercentage)
+        VStack {
+            if isLoading {
+                ProgressView("Fetching data...") // Show progress view while loading
+                    .progressViewStyle(CircularProgressViewStyle())
+            } else {
+                ScrollView {
+                    HStack {
+                        ForEach(analytics) { data in
+                            card(title: data.title,
+                                 value: data.value,
+                                 salesDifferencePercentage: data.salesDifferencePercentage)
+                                .padding()
+                        }
+                    }
+                }
+            }
+        }
+        .onAppear {
+            isLoading = true // Start loading indicator
+            fetchAndUpdateBooks()
+            fetchAndUpdateEvents()
+            fetchAndUpdateRevenue()
+            fetchAndUpdateMembers()
+        }
+    }
+    
+    func fetchAndUpdateBooks() {
+        DataController.shared.fetchNumberOfBooks { result in
+            isLoading = false // Stop loading indicator
+            switch result {
+            case .success(let count):
+                Analytics.updateTotalBooks(count: count)
+                self.analytics = Analytics.analytics // Update the local state with the latest data
+            case .failure(let error):
+                print("Failed to fetch number of books: \(error.localizedDescription)")
+                // Handle error if needed
+            }
+        }
+    }
+    
+    func fetchAndUpdateEvents() {
+        DataController.shared.fetchNumberOfEvents { result in
+            isLoading = false // Stop loading indicator
+            switch result {
+            case .success(let count):
+                Analytics.updateTotalEvents(count: count)
+                self.analytics = Analytics.analytics // Update the local state with the latest data
+            case .failure(let error):
+                print("Failed to fetch number of events: \(error.localizedDescription)")
+                // Handle error if needed
+            }
+        }
+    }
+    
+    func fetchAndUpdateRevenue() {
+        DataController.shared.fetchTotalRevenue { result in
+            isLoading = false // Stop loading indicator
+            switch result {
+            case .success(let count):
+                Analytics.updateTotalRevenue(count: count)
+                self.analytics = Analytics.analytics // Update the local state with the latest data
+            case .failure(let error):
+                print("Failed to fetch revenue: \(error.localizedDescription)")
+                // Handle error if needed
+            }
+        }
+    }
+    
+    func fetchAndUpdateMembers() {
+        DataController.shared.fetchNumberOfMembers { result in
+            isLoading = false // Stop loading indicator
+            switch result {
+            case .success(let count):
+                Analytics.updateTotalMembers(count: count)
+                self.analytics = Analytics.analytics // Update the local state with the latest data
+            case .failure(let error):
+                print("Failed to fetch number of members: \(error.localizedDescription)")
+                // Handle error if needed
+            }
         }
     }
 }
+
 
 struct cardData : View {
     
@@ -112,7 +190,7 @@ struct cardData : View {
     var body: some View {
         HStack {
             VStack {
-                Text("$\(String(format: "%.2f", value))")
+                Text("\(String(format: "%.0f", value))")
                   .font(
                     Font.custom("DM Sans", size: 32)
                       .weight(.bold)
