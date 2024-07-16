@@ -16,7 +16,7 @@ struct Analytics : Identifiable, Equatable{
     var value : Double
     var salesDifferencePercentage : Double
     
-    static var analytics : [Analytics]{
+    static var analytics : [Analytics] =
         [
             Analytics(title: "Today's Revenue", value: 221, salesDifferencePercentage: 2.5),
             Analytics(title: "New Members", value: 221, salesDifferencePercentage: 2.5),
@@ -25,8 +25,17 @@ struct Analytics : Identifiable, Equatable{
             Analytics(title: "Today's Revenue", value: 221, salesDifferencePercentage: 2.5),
             Analytics(title: "New Members", value: 221, salesDifferencePercentage: 2.5),
             Analytics(title: "Books Issued", value: 221, salesDifferencePercentage: 2.5),
-            Analytics(title: "Lost or Damaged Books", value: 221, salesDifferencePercentage: 2.5),
+            
         ]
+    
+    
+    static func updateTotalBooks(count: Int) {
+        if let index = analytics.firstIndex(where: { $0.title == "Total Books" }) {
+            analytics[index].value = Double(count)
+        } else {
+            let totalBooksAnalytics = Analytics(title: "Total Books", value: Double(count), salesDifferencePercentage: 0)
+            analytics.append(totalBooksAnalytics)
+        }
     }
 }
 
@@ -115,42 +124,53 @@ struct OverDueBookDetails : Identifiable, Equatable{
 
 var SideBarOptionList = [""]
 
-struct NewlyArrivedBooks : Identifiable, Equatable{
+struct NewlyArrivedBooks: Identifiable, Equatable {
+    var id: String { bookCode }
+    var bookCode: String
+    var bookCover: String
+    var bookTitle: String
+    var author: String
+    var genre: Genre
+    var issuedDate: String
+    var returnDate: String
+    var status: String
+    var quantity: Int
+    var description: String
+    var publisher: String
+    var publishedDate: String
+    var pageCount: Int
+    var averageRating: Double
+
+    static var newlyArrivedBooks: [NewlyArrivedBooks] = []
     
-    var id : String{ISBN}
-    var ISBN : String
-    var imageName : String
-    var BookTitle : String
-    var AuthorName : String
-    var Quantity : Int
-    var ArivedDate : String
-    
-    static var newlyArrivedBook : [NewlyArrivedBooks]{
-        [
-            NewlyArrivedBooks(ISBN: "#4235532",
-                              imageName: "BookCover",
-                              BookTitle: "Soul",
-                              AuthorName: "Zek",
-                              Quantity: 60,
-                              ArivedDate: "23 Jun 2024"),
-            NewlyArrivedBooks(ISBN: "#4235532",
-                              imageName: "BookCover",
-                              BookTitle: "Soul",
-                              AuthorName: "Zek",
-                              Quantity: 60,
-                              ArivedDate: "23 Jun 2024"),
-            NewlyArrivedBooks(ISBN: "#4235532",
-                              imageName: "BookCover",
-                              BookTitle: "Soul",
-                              AuthorName: "Zek",
-                              Quantity: 60,
-                              ArivedDate: "23 Jun 2024"),
-            NewlyArrivedBooks(ISBN: "#4235532",
-                              imageName: "BookCover",
-                              BookTitle: "Soul",
-                              AuthorName: "Zek",
-                              Quantity: 60,
-                              ArivedDate: "23 Jun 2024"),
-        ]
+    static func fetchNewlyArrivedBooks(completion: @escaping () -> Void) {
+        DataController.shared.fetchLastFourBooks { result in
+            switch result {
+            case .success(let books):
+                // Convert Book to NewlyArrivedBooks if necessary
+                newlyArrivedBooks = books.map { book in
+                    NewlyArrivedBooks(
+                        bookCode: book.bookCode,
+                        bookCover: book.bookCover,
+                        bookTitle: book.bookTitle,
+                        author: book.author,
+                        genre: book.genre,
+                        issuedDate: book.issuedDate,
+                        returnDate: book.returnDate,
+                        status: book.status,
+                        quantity: book.quantity ?? 0,
+                        description: book.description ?? "",
+                        publisher: book.publisher ?? "",
+                        publishedDate: book.publishedDate ?? "",
+                        pageCount: book.pageCount ?? 0,
+                        averageRating: book.averageRating ?? 0.0
+                    )
+                }
+                completion()
+            case .failure(let error):
+                print("Failed to fetch books: \(error.localizedDescription)")
+                completion()
+            }
+        }
     }
 }

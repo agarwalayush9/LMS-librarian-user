@@ -229,24 +229,27 @@ struct overDueBooksDetailData : View {
     }
 }
 
-struct NewlyArrivedBooksDetailData : View {
-    let data = NewlyArrivedBooks.newlyArrivedBook
+struct NewlyArrivedBooksDetailData: View {
+    @State private var books: [NewlyArrivedBooks] = []
+
     var body: some View {
-        VStack{
-            ForEach(data){ datum in
-                showingDetailsForNewlyArrivedBooks(
-                                ISBN: datum.ISBN,
-                               imageName: datum.imageName,
-                               BookTitle: datum.BookTitle,
-                               AuthorName: datum.AuthorName,
-                                Quantity: datum.Quantity,
-                                ArivedDate: datum.ArivedDate
-                                           )}
+        VStack {
+            ForEach(books) { book in
+                showingDetailsForNewlyArrivedBooks(ISBN: book.bookCode, imageName: book.bookCover, BookTitle: book.bookTitle, AuthorName: book.author, Quantity: book.quantity, ArivedDate: book.issuedDate)
                 .padding(.top, 8)
+            }
+        }
+        .onAppear {
+            fetchNewlyArrivedBooks()
+        }
+    }
+    
+    private func fetchNewlyArrivedBooks() {
+        NewlyArrivedBooks.fetchNewlyArrivedBooks {
+            self.books = NewlyArrivedBooks.newlyArrivedBooks
         }
     }
 }
-
 struct AorDCustomButton : View {
     
     var width : CGFloat

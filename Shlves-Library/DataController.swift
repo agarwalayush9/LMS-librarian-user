@@ -236,7 +236,69 @@ class DataController: ObservableObject {
             }
         }
     }
-
     
+    
+    
+    func fetchLastFourBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
+        database.child("books")
+            .queryOrderedByKey()
+            .queryLimited(toLast: 4)
+            .observe(.value) { snapshot in
+                guard let booksDict = snapshot.value as? [String: [String: Any]] else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
+                    return
+                }
+
+                var books: [Book] = []
+
+                for (_, dict) in booksDict {
+                    guard
+                        let bookCode = dict["bookCode"] as? String,
+                        let bookCover = dict["bookCover"] as? String,
+                        let bookTitle = dict["bookTitle"] as? String,
+                        let author = dict["author"] as? String,
+                        let genreString = dict["genre"] as? String,
+                        let issuedDate = dict["issuedDate"] as? String,
+                        let returnDate = dict["returnDate"] as? String,
+                        let status = dict["status"] as? String,
+                        let quantity = dict["quantity"] as? Int,
+                        let description = dict["description"] as? String,
+                        let publisher = dict["publisher"] as? String,
+                        let publishedDate = dict["publishedDate"] as? String,
+                        let pageCount = dict["pageCount"] as? Int,
+                        let averageRating = dict["averageRating"] as? Double
+                    else {
+                        print("Failed to parse book data.")
+                        continue
+                    }
+
+                    guard let genre = Genre(rawValue: genreString) else {
+                        print("Failed to parse genre.")
+                        continue
+                    }
+
+                    let book = Book(
+                        bookCode: bookCode,
+                        bookCover: bookCover,
+                        bookTitle: bookTitle,
+                        author: author,
+                        genre: genre,
+                        issuedDate: issuedDate,
+                        returnDate: returnDate,
+                        status: status,
+                        quantity: quantity,
+                        description: description,
+                        publisher: publisher,
+                        publishedDate: publishedDate,
+                        pageCount: pageCount,
+                        averageRating: averageRating
+                    )
+
+                    books.append(book)
+                }
+
+                completion(.success(books))
+            }
+    }
 
 }
