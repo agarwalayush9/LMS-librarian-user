@@ -164,36 +164,40 @@ struct BooksCatalogue: View {
     @State private var selectedGenre: Genre? = nil
 
     var filteredBooks: [Book] {
-            var filtered = books
-            
-            // Apply genre filter if selected
-            if let genre = selectedGenre {
-                filtered = filtered.filter { $0.genre == genre }
-            }
-            
-            // Apply search text filter
-            if !searchText.isEmpty {
-                filtered = filtered.filter {
-                    $0.bookTitle.localizedCaseInsensitiveContains(searchText) ||
-                    $0.author.localizedCaseInsensitiveContains(searchText) ||
-                    $0.bookCode.localizedCaseInsensitiveContains(searchText)
-                }
-            }
-            
-            return filtered
+        var filtered = books
+        
+        // Apply genre filter if selected
+        if let genre = selectedGenre {
+            filtered = filtered.filter { $0.genre == genre }
         }
+        
+        // Apply search text filter
+        if !searchText.isEmpty {
+            filtered = filtered.filter {
+                $0.bookTitle.localizedCaseInsensitiveContains(searchText) ||
+                $0.author.localizedCaseInsensitiveContains(searchText) ||
+                $0.bookCode.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+        
+        return filtered
+    }
 
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
-                   HStack {
+                    HStack {
                         SearchBar(text: $searchText)
                             .padding(.horizontal)
                             .frame(height: 70)
                         
                         // Genre filter dropdown
                         Menu {
+                            Button("Clear Filter") {
+                                selectedGenre = nil
+                            }
+                            Divider()
                             ForEach(Genre.allCases, id: \.self) { genre in
                                 Button(genre.rawValue.capitalized) {
                                     selectedGenre = genre
@@ -293,6 +297,8 @@ struct BooksCatalogue: View {
         }
         .frame(maxWidth: .infinity)
     }
+
+
 
     private func headerRow() -> some View {
         HStack {
