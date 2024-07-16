@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		737170712C3B465F009A3B05 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737170702C3B465F009A3B05 /* UserRecord.swift */; };
+		73BCEC0B2C4648A400F7D3D4 /* ComplaintsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */; };
 		73E886892C3FF892000687DD /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886862C3FF892000687DD /* BookDetailView.swift */; };
 		73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886872C3FF892000687DD /* BarCodeScannerView.swift */; };
 		73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886882C3FF892000687DD /* BookDetails.swift */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		737170702C3B465F009A3B05 /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsPage.swift; sourceTree = "<group>"; };
 		73E886862C3FF892000687DD /* BookDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		73E886872C3FF892000687DD /* BarCodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeScannerView.swift; sourceTree = "<group>"; };
 		73E886882C3FF892000687DD /* BookDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetails.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			children = (
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
 				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
+				73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */,
 				73E8868F2C4062B8000687DD /* Fonts */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				73E8868E2C405835000687DD /* ISBNfiles */,
@@ -308,6 +311,7 @@
 				D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */,
 				73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
+				73BCEC0B2C4648A400F7D3D4 /* ComplaintsPage.swift in Sources */,
 				737170712C3B465F009A3B05 /* UserRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

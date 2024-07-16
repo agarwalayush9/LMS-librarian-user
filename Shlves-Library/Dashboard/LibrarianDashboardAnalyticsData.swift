@@ -53,7 +53,7 @@ struct Sections : Identifiable{
         [
             Sections(sectionHeader: "OverView", menuItem: [
                 MenuItem(optionIcon: "Library", option: "Dashboard", destination: AnyView(LibrarianDashboard()), isClickable: true),
-                MenuItem(optionIcon: "Complaints", option: "Complaints", destination: AnyView(EmptyView()), isClickable: false),
+                MenuItem(optionIcon: "Complaints", option: "Complaints", destination: AnyView(ComplaintsView()), isClickable: true),
                 MenuItem(optionIcon: "ManageEvents", option: "Events Dashboard", destination: AnyView(EventsDashboard()), isClickable: true),
                 MenuItem(optionIcon: "MakePayouts", option: "Make Payouts", destination: AnyView(EmptyView()), isClickable: false),
                 MenuItem(optionIcon: "UserQueries", option: "User Queries", destination: AnyView(EmptyView()), isClickable: false),
