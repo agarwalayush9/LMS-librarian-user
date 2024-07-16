@@ -184,9 +184,22 @@ struct EventAnalyticsCard: View {
                                 )
                             
                             //Event Revenue Details Card
-                            customGraphCard(width: 740,
-                                            height: 250)
-                            
+                            customGraphCard(width: 740, height: 400)
+                                           .overlay(
+                                               GeometryReader { geometry in
+                                                   VStack {
+                                                       Text("Event Revenue Details")
+                                                           .font(.title)
+                                                           .padding(.top)
+                                                       
+                                                       EventAreaGraphView()
+                                                           .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
+                                                           .padding(.bottom)
+                                                   }
+                                                   .frame(width: geometry.size.width, height: geometry.size.height)
+                                               }
+                                           )
+                                           .frame(width: 740, height: 250)
                             
                             //MARK: Line 2
                             HStack{
