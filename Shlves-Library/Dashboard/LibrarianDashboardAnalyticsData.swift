@@ -62,7 +62,7 @@ struct Sections : Identifiable{
                 MenuItem(optionIcon: "BooksCatalogue", option: "Books Catalogue", destination: AnyView(BooksCatalogue( )), isClickable: true),
                 MenuItem(optionIcon: "BooksCirculation", option: "Books Circulation", destination: AnyView(EmptyView()), isClickable: false),
                 MenuItem(optionIcon: "BookOverdues", option: "Books Overdues/Fines", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "FineManagement", option: "Fine Management", destination: AnyView(EmptyView()), isClickable: false)
+               
             ])
                 ]
     }
