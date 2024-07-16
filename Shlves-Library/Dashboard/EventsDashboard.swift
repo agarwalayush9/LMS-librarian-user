@@ -224,23 +224,39 @@ struct EventAnalyticsCard: View {
                                 
                             }.padding(.top, 20)
                             //MARK: Line 3
+                            
+                            
                             HStack{
                                 //Tickets status Card
-                                customGraphCard(width: 275,
+                                customGraphCard(width: 375,
                                                 height: 243)
+                                .overlay(
+                                    GeometryReader{ geometry in
+                                        VStack(alignment: .leading) {
+                                            
+                                            
+                                            PieChartDisplayView()
+                                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
+                                                .padding(.bottom)
+                                        }
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                    }
+                                )
+
                                 .padding(.trailing)
                                 
                                 // Ticket sales
-                                customGraphCard(width: 442,
+                                customGraphCard(width: 377,
                                                 height: 243)
                                 .overlay(
                                     GeometryReader{ geometry in
                                         VStack(alignment: .leading) {
                                             VStack(alignment: .leading){
                                                 Text("Tickets Sales")
-                                                    .font(.title)
-                                                    .padding(.top)
-                                            }
+                                                    .font(
+                                                    Font.custom("DM Sans", size: 16)
+                                                    .weight(.bold)
+                                                    )                                            }
                                             .padding(.top,20)
                                             Spacer()
                                             VStack{

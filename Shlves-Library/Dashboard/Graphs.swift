@@ -244,6 +244,132 @@ struct BarGraph: View {
         .padding()
     }
 }
+//MARK: Pie chart for Ticket Status
+
+
+import SwiftUI
+
+struct TicketStatus: Identifiable {
+    let id = UUID()
+    let category: String
+    let value: Double
+    let color: Color
+}
+
+class TicketViewModel: ObservableObject {
+    @Published var tickets: [TicketStatus] = []
+    
+    init() {
+        fetchData()
+    }
+    
+    func fetchData() {
+        tickets = [
+            TicketStatus(category: "Availed", value: 500, color: .customButton),
+            TicketStatus(category: "Remaining", value: 200, color: .librarianDashboardTabBar),
+            TicketStatus(category: "Cancelled", value: 100, color: .pieLesser)
+        ]
+    }
+}
+
+struct PieSliceView: View {
+    var startAngle: Angle
+    var endAngle: Angle
+    var color: Color
+    
+    var body: some View {
+        GeometryReader { geometry in
+            let size = min(geometry.size.width, geometry.size.height)
+            let path = Path { path in
+                path.move(to: CGPoint(x: size / 2, y: size / 2))
+                path.addArc(
+                    center: CGPoint(x: size / 2, y: size / 2),
+                    radius: size / 2,
+                    startAngle: startAngle,
+                    endAngle: endAngle,
+                    clockwise: false
+                )
+            }
+            path.fill(self.color)
+        }
+    }
+}
+
+struct PieChartView: View {
+    var data: [TicketStatus]
+    
+    private func calculateAngles() -> [Angle] {
+        let total = data.reduce(0) { $0 + $1.value }
+        var angles: [Angle] = []
+        var currentAngle: Double = -90
+        
+        for entry in data {
+            let angle = entry.value / total * 360
+            angles.append(.degrees(currentAngle))
+            currentAngle += angle
+        }
+        angles.append(.degrees(currentAngle))
+        
+        return angles
+    }
+    
+    var body: some View {
+        let angles = calculateAngles()
+        
+        return ZStack {
+            ForEach(0..<data.count, id: \.self) { index in
+                PieSliceView(
+                    startAngle: angles[index],
+                    endAngle: angles[index + 1],
+                    color: data[index].color
+                )
+            }
+        }
+    }
+}
+
+struct PieChartDisplayView: View {
+    @StateObject private var viewModel = TicketViewModel()
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Ticket Status")
+                .font(.title2)
+                .bold()
+                .padding(.bottom, 10)
+            
+            HStack {
+                PieChartView(data: viewModel.tickets)
+                    .frame(width: 150, height: 150)
+                    .padding(.trailing, 10)
+                
+                VStack(alignment: .leading) {
+                    ForEach(viewModel.tickets) { ticket in
+                        HStack {
+                            Circle()
+                                .fill(ticket.color)
+                                .frame(width: 15, height: 15)
+                            VStack(alignment: .leading) {
+                                Text("\(ticket.category):")
+                                Text("\(ticket.value, specifier: "%.0f")")
+                                    .font(.caption)
+                            }
+                        }
+                    }
+                }
+            }
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+
+
+#Preview{
+    PieChartDisplayView()
+}
+
 
 
 // Preview provider for the main view
@@ -251,6 +377,6 @@ struct BarGraph: View {
     BarGraph()
 }
 
-#Preview{
-    EventsDashboard()
-}
+//#Preview(){
+//    EventsDashboard()
+//}
