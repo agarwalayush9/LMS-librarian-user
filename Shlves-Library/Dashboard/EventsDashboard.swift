@@ -32,8 +32,16 @@ struct EventsDashboard: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                //calling main screen struct
-                EventAnalyticsCard()
+                VStack(alignment: .leading){
+                    Text("Manage Events")
+                        .font(
+                        Font.custom("DM Sans", size: 52)
+                        .weight(.medium)
+                        ).padding(.leading, 52)
+                        .padding(.top)
+                    //calling main screen struct
+                    EventAnalyticsCard()
+                }
                 //This is to be the last part of z Stack
                 if menuOpened {
                     sideMenu( width: UIScreen.main.bounds.width * 0.30,
@@ -49,7 +57,7 @@ struct EventsDashboard: View {
             }
             .background(Color("dashboardbg"))
             //navigation Bar Mark ~zek
-            .navigationTitle("Manager Events")
+            .navigationTitle("Manage Events")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
@@ -178,19 +186,15 @@ struct EventAnalyticsCard: View {
                 HStack{
                     ScrollView {
                         VStack(alignment: .leading){
-                            Text("Manage Events")
-                                .font(
-                                    Font.custom("DMSans-Medium", size: 52)
-                                )
                             
                             //Event Revenue Details Card
                             customGraphCard(width: 740, height: 400)
                                            .overlay(
                                                GeometryReader { geometry in
-                                                   VStack {
+                                                   VStack(alignment: .leading) {
                                                        Text("Event Revenue Details")
                                                            .font(.title)
-                                                           .padding(.top)
+                                                           .padding([.top, .bottom])
                                                        
                                                        EventAreaGraphView()
                                                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
@@ -211,7 +215,7 @@ struct EventAnalyticsCard: View {
                                 customEventCard(width: 275,
                                                 height: 243)
                                 
-                            }
+                            }.padding(.top, 80)
                             //MARK: Line 3
                             HStack{
                                 //Tickets status Card
@@ -281,7 +285,7 @@ struct EventAnalyticsCard: View {
                             
                         }
                     }.padding([.leading, .trailing], 30)
-                        .padding(.top, 54)
+                        
                     Spacer()
                 }
                 

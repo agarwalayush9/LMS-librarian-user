@@ -12,15 +12,15 @@ struct AreaGraphs: View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
-
-struct eventData : Identifiable{
+//MARK: for event revenue  data
+struct eventRevenueData : Identifiable{
     var id = UUID()
     var date : Date
     var ticketCount : Int
     var ticketPrice : Int
 }
 class EventViewModel: ObservableObject {
-    @Published var events = [eventData]()
+    @Published var events = [eventRevenueData]()
     
     init() {
         fetchData()
@@ -29,11 +29,11 @@ class EventViewModel: ObservableObject {
     func fetchData() {
         // Generate sample data
         events = [
-            eventData(date: Date(), ticketCount: 100, ticketPrice: 50),
-            eventData(date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, ticketCount: 150, ticketPrice: 60),
-            eventData(date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, ticketCount: 200, ticketPrice: 70),
-            eventData(date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!, ticketCount: 120, ticketPrice: 55),
-            eventData(date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!, ticketCount: 180, ticketPrice: 65)
+            eventRevenueData(date: Date(), ticketCount: 100, ticketPrice: 50),
+            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, ticketCount: 150, ticketPrice: 60),
+            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, ticketCount: 200, ticketPrice: 70),
+            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!, ticketCount: 120, ticketPrice: 55),
+            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!, ticketCount: 180, ticketPrice: 65)
         ]
     }
 }
@@ -47,7 +47,7 @@ struct EventAreaGraphView: View {
                     x: .value("Date", event.date), y: .value("Revenue", event.ticketCount * event.ticketPrice)
                 )
                 .interpolationMethod(.catmullRom)
-                .foregroundStyle(.linearGradient(colors: [.blue.opacity(0.8), .blue.opacity(0.2)], startPoint: .top, endPoint: .bottom))
+                .foregroundStyle(.linearGradient(colors: [.librarianDashboardTabBar.opacity(0.8), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom))
             }
             .chartXAxis {
                 AxisMarks(position: .bottom)
@@ -68,6 +68,3 @@ struct EventAreaGraphView_Previews: PreviewProvider {
     }
 }
 
-#Preview {
-    AreaGraphs()
-}
