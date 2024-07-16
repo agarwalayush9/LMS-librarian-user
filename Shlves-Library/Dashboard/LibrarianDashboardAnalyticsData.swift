@@ -100,6 +100,119 @@ struct Sections : Identifiable{
 }
 
 
+//MARK: here 
+struct UpcomingEvent: Identifiable {
+    var id = UUID()
+    var name: String
+    var host: String
+    var date: Date
+    var time: Date
+    var address: String
+    var duration: String
+    var description: String
+    var registeredMembers: [User]
+    var tickets: Int
+    var imageName: String
+    var fees: Int
+    var revenue: Int
+    var status: String
+
+    static var upcomingEvents: [UpcomingEvent] = []
+
+    static func fetchUpcomingEvents(completion: @escaping () -> Void) {
+        DataController.shared.fetchUpcomingEvents { result in
+            switch result {
+            case .success(let events):
+                upcomingEvents = events.map { event in
+                    UpcomingEvent(
+                        name: event.name,
+                        host: event.host,
+                        date: event.date,
+                        time: event.time,
+                        address: event.address,
+                        duration: event.duration,
+                        description: event.description,
+                        registeredMembers: event.registeredMembers,
+                        tickets: event.tickets,
+                        imageName: event.imageName,
+                        fees: event.fees,
+                        revenue: event.revenue,
+                        status: event.status
+                    )
+                }
+                print("Fetched Upcoming Events: \(upcomingEvents)")
+                
+                    
+                
+                completion()
+            case .failure(let error):
+                print("Failed to fetch upcoming events: \(error.localizedDescription)")
+                completion()
+            }
+        }
+    }
+}
+
+//from here
+
+import SwiftUI
+
+struct UpcomingEventListView: View {
+    @State private var events: [UpcomingEvent] = []
+
+    var body: some View {
+        VStack {
+            ForEach(events) { event in
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(event.name)
+                        .font(.headline)
+                    Text("Host: \(event.host)")
+                        .font(.subheadline)
+                    Text("Date: \(formattedDate(event.date))")
+                        .font(.subheadline)
+                    Text("Image: \(event.imageName)")
+                        .font(.subheadline)
+                    Text("Ticket Price: $\(event.fees)")
+                        .font(.subheadline)
+                    Text("Status: \(event.status)")
+                        .font(.subheadline)
+                }
+                .padding()
+                .background(Color.gray.opacity(0.1))
+                .cornerRadius(8)
+                .padding(.vertical, 4)
+            }
+        }
+        .onAppear {
+            fetchEvents()
+        }
+    }
+
+    private func fetchEvents() {
+        UpcomingEvent.fetchUpcomingEvents {
+            // Update state variable to trigger view refresh
+            self.events = UpcomingEvent.upcomingEvents
+        }
+    }
+
+    private func formattedDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
+    }
+}
+
+struct UpcomingEventListView_Previews: PreviewProvider {
+    static var previews: some View {
+        UpcomingEventListView()
+    }
+}
+
+
+//to here
+
+
 struct OverDueBookDetails : Identifiable, Equatable{
     
     var id : String{ISBN}

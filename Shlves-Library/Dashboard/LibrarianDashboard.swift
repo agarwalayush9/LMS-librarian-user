@@ -64,7 +64,8 @@ struct LibrarianDashboard: View {
 
                             HStack {
                                 VStack {
-                                    overDueBooksDetailData()
+                                    //overDueBooksDetailData()
+                                    UpcomingEventsData()
                                         .padding(.top, 80)
                                 }
                                 .background(
@@ -75,6 +76,7 @@ struct LibrarianDashboard: View {
                                 Spacer()
 
                                 VStack {
+                                    
                                     NewlyArrivedBooksDetailData()
                                         .padding(.top, 80)
                                 }
@@ -100,7 +102,14 @@ struct LibrarianDashboard: View {
                                 //MARK: make this button a struct
                                 Button(action: {
                                     withAnimation(.easeInOut) {
+                                        
+                                        
                                         AddButtonPressed.toggle()
+                                        UpcomingEvent.fetchUpcomingEvents {
+                                            print("Events have been fetched")
+                                            print(UpcomingEvent.upcomingEvents) // This should print the fetched events
+                                        }
+                            
                                         
                                         //AddButtonPressed.toggle()
                                     }
@@ -375,6 +384,10 @@ struct circleCancleButton : View {
                     .foregroundStyle(.white)
                     )
     }
+}
+
+#Preview {
+    LibrarianDashboard()
 }
 
 #Preview {

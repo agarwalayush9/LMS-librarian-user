@@ -7,11 +7,35 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 
 
 
 import SwiftUI
+
+
+import SwiftUI
+import Combine
+
+class UpcomingEventViewModel: ObservableObject {
+    @Published var upcomingEvents: [UpcomingEvent] = []
+
+    init() {
+        print("UpcomingEventViewModel initialized")
+    }
+
+    func fetchUpcomingEvents() {
+        print("fetchUpcomingEvents called")
+        UpcomingEvent.fetchUpcomingEvents { [weak self] in
+            DispatchQueue.main.async {
+                self?.upcomingEvents = UpcomingEvent.upcomingEvents
+                print("Fetched \(UpcomingEvent.upcomingEvents.count) events")
+            }
+        }
+    }
+}
+
 
 // MARK: - UserFormViewModel
 
@@ -57,6 +81,9 @@ struct customFormField1: View {
 
 
 //MARK: final form
+
+
+
 
 
 
@@ -307,6 +334,129 @@ struct overDueBooksDetailData : View {
     }
 }
 
+//MARK: Upcoming Event Detail Data
+//struct UpcomingEventDetailView: View {
+//    @StateObject private var viewModel = UpcomingEventViewModel()
+//
+//    var body: some View {
+//        VStack {
+//            ForEach(viewModel.upcomingEvents) { event in
+//                UpcomingEventView(event: event)
+//                    .padding(.top, 8)
+//            }
+//        }
+//        .onAppear {
+//            print("UpcomingEventDetailView appeared")
+//            viewModel.fetchUpcomingEvents()
+//        }
+//        .onDisappear {
+//            print("UpcomingEventDetailView disappeared")
+//        }
+//    }
+//}
+
+
+//struct UpcomingEventView: View {
+//    var event: UpcomingEvent
+//
+//    var body: some View {
+//        
+//        var name = event.name
+//        var host = event.host
+//        var date = event.date
+//        var time = event.time
+//        var address = event.address
+//        var duration = event.duration
+//        var description = event.description
+//        var registeredMembers = event.registeredMembers
+//        var tickets = event.tickets
+//        var imageName = event.imageName
+//        var fees = event.fees
+//        var revenue = event.revenue
+//        var status = event.status
+//        
+//        VStack {
+//            HStack{
+//                eventInfo(eventName: name,
+//                          eventDate: date,
+//                          ticketPrice: fees,
+//                          imageName: imageName,
+//                          status: status)
+//                .padding()
+//            }
+//        }
+//        
+//        
+//    }
+//
+//    private var formattedDate: String {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateStyle = .medium
+//        return dateFormatter.string(from: event.date)
+//    }
+//
+//    private var formattedTime: String {
+//        let timeFormatter = DateFormatter()
+//        timeFormatter.timeStyle = .short
+//        return timeFormatter.string(from: event.time)
+//    }
+//}
+
+
+//struct for eventInfo
+struct eventInfo : View{
+    
+    var eventName : String
+    var eventDate : Date
+    var ticketPrice : Int
+    var imageName : String
+    var status : String
+    var body: some View {
+        HStack(spacing : 20){
+        Rectangle()
+            .foregroundColor(.clear)
+            .frame(width: 79, height: 125)
+            .background(
+                Image(imageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 79, height: 125)
+                    .clipped()
+                
+            )
+            .padding(.bottom, 12)
+            Text(eventName)
+            Text("\(eventDate)")
+            Text("\(ticketPrice)")
+            Text(status)
+            
+            
+        }
+    }
+}
+
+
+//MARK: upcoming events detailData
+struct UpcomingEventsData: View{
+    @State private var events : [UpcomingEvent] = []
+    
+    var body : some View{
+        VStack{
+            ForEach(events){ event in
+                showingDetailForUpcomingEvents(
+                    eventName: event.name,
+                    imageName: event.imageName,
+                    eventDate: event.date,
+                    fees: event.fees,
+                    status: event.status)
+                .padding(.top, 8)
+            }
+        }
+        
+    }
+}
+
+//MARK: newly arrived Books
 struct NewlyArrivedBooksDetailData: View {
     @State private var books: [NewlyArrivedBooks] = []
 
@@ -436,6 +586,32 @@ struct showingDetailsForOverDueDetails : View {
     }
 }
 
+//MARK: for showing data of upcoming events
+struct showingDetailForUpcomingEvents : View {
+    
+    var eventName : String
+    var imageName : String
+    var eventDate: Date
+    var fees : Int
+    var status : String
+    
+    var body: some View {
+        VStack {
+            HStack{
+                eventInfo(eventName: eventName,
+                          eventDate: eventDate,
+                          ticketPrice: fees,
+                          imageName: imageName,
+                          status: status)
+            }
+        }
+    }
+}
+
+
+
+
+//MARK: for showing data of newly arrived books
 struct showingDetailsForNewlyArrivedBooks : View {
     
     var ISBN : String

@@ -37,13 +37,15 @@ class BookAPI {
                 let decodedData = try JSONDecoder().decode(GoogleBooksResponse.self, from: data)
                 if let volumeInfo = decodedData.items?.first?.volumeInfo {
                 let bookCoverString = volumeInfo.imageLinks?.thumbnail?.absoluteString ?? ""
+                    
+                    let randomGenre = Genre.allCases.randomElement() ?? .Fiction
                                
                 let book = Book(
                                    bookCode: isbn, // Use ISBN as bookCode for example
                                    bookCover: bookCoverString,
                                    bookTitle: volumeInfo.title,
                                    author: volumeInfo.authors?.joined(separator: ", ") ?? "Unknown Author",
-                                   genre: .Fiction, // Example genre
+                                   genre: randomGenre, // Example genre
                                    issuedDate: "2023-01-01", // Example issued date
                                    returnDate: "2023-02-01", // Example return date
                                    status: "Available", // Example status

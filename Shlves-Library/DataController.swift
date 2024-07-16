@@ -111,7 +111,7 @@ class DataController: ObservableObject {
 
     func saveBookToDatabase(_ book: Book, completion: @escaping (Result<Void, Error>) -> Void) {
         let ref = Database.database().reference()
-        let bookRef = ref.child("books").child(book.id.uuidString)
+        let bookRef = ref.child("books").child(book.bookCode)
 
         // Convert book to dictionary
         let bookData: [String: Any] = [
@@ -314,7 +314,122 @@ class DataController: ObservableObject {
             print(numberOfEvents)
         }
     }
+    
+    
+    func fetchUpcomingEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
+        database.child("events")
+            .queryOrdered(byChild: "date")
+            .queryLimited(toLast: 4)
+            .observeSingleEvent(of: .value) { snapshot in
+                guard let eventsDict = snapshot.value as? [String: [String: Any]] else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
+                    return
+                }
 
+                do {
+                    let events = try self.parseEvents(from: eventsDict)
+                    completion(.success(events))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+    }
+
+    
+   
+    private func parseEvent(from dict: [String: Any]) throws -> Event? {
+        // Extract values with conditional binding
+        guard
+            let name = dict["name"] as? String,
+            let host = dict["host"] as? String,
+            let dateInterval = dict["date"] as? TimeInterval,
+            let timeInterval = dict["time"] as? TimeInterval,
+            let address = dict["address"] as? String,
+            let duration = dict["duration"] as? String,
+            let description = dict["description"] as? String,
+            let tickets = dict["tickets"] as? Int,
+            let imageName = dict["imageName"] as? String,
+            let fees = dict["fees"] as? Int,
+            let revenue = dict["revenue"] as? Int,
+            let status = dict["status"] as? String
+        else {
+            // Print missing or invalid keys
+            let keyMissing = [
+                "name": dict["name"],
+                "host": dict["host"],
+                "dateInterval": dict["dateInterval"],
+                "timeInterval": dict["timeInterval"],
+                "address": dict["address"],
+                "duration": dict["duration"],
+                "description": dict["description"],
+                "tickets": dict["tickets"],
+                "imageName": dict["imageName"],
+                "fees": dict["fees"],
+                "revenue": dict["revenue"],
+                "status": dict["status"]
+            ]
+            
+            print("Failed to parse event data. Missing or invalid key/value: \(keyMissing)")
+            return nil
+        }
+
+        // Parse date and time
+        let date = Date(timeIntervalSince1970: dateInterval)
+        let time = Date(timeIntervalSince1970: timeInterval)
+
+        // Parse registered members if available
+        var registeredMembers: [User] = []
+        if let registeredMembersArray = dict["registeredMembers"] as? [[String: Any]] {
+            for memberDict in registeredMembersArray {
+                guard
+                    let name = memberDict["name"] as? String,
+                    let email = memberDict["email"] as? String,
+                    let lastName = memberDict["lastName"] as? String,
+                    let phoneNumber = memberDict["phoneNumber"] as? Int
+                else {
+                    print("Failed to parse registered member data.")
+                    continue
+                }
+                let user = User(name: name, lastName: lastName, email: email, phoneNumber: phoneNumber)
+                registeredMembers.append(user)
+            }
+        }
+
+        // Return Event object
+        return Event(
+            name: name,
+            host: host,
+            date: date,
+            time: time,
+            address: address,
+            duration: duration,
+            description: description,
+            registeredMembers: registeredMembers,
+            tickets: tickets,
+            imageName: imageName,
+            fees: fees,
+            revenue: revenue,
+            status: status
+        )
+    }
+
+
+    private func parseEvents(from eventsDict: [String: [String: Any]]) throws -> [Event] {
+        var events: [Event] = []
+
+        for (_, dict) in eventsDict {
+            if let event = try parseEvent(from: dict) {
+                events.append(event)
+            }
+        }
+
+        // Sort events by date and time descending
+        events.sort { $0.date > $1.date || ($0.date == $1.date && $0.time > $1.time) }
+
+        return events
+    }
+
+    
     func fetchLastFourBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
         database.child("books")
             .queryOrderedByKey()
