@@ -170,14 +170,6 @@ struct customEventCard: View {
 }
 
 
-//struct floatingButton : View {
-//    var body: some View {
-//        Rectangle()
-//            .frame(maxWidth: 227, maxHeight: 50)
-//            .background(Color(""))
-//    }
-//}
-
 //MARK: skeleton of whole page
 struct EventAnalyticsCard: View {
     var body: some View {
@@ -188,7 +180,7 @@ struct EventAnalyticsCard: View {
                         VStack(alignment: .leading){
                             
                             //Event Revenue Details Card
-                            customGraphCard(width: 740, height: 400)
+                            customGraphCard(width: 740, height: 250)
                                            .overlay(
                                                GeometryReader { geometry in
                                                    VStack(alignment: .leading) {
@@ -209,7 +201,7 @@ struct EventAnalyticsCard: View {
                             HStack{
                                 // Total Event Visitors Card
                                 customGraphCard(width: 442,
-                                                height: 300)
+                                                height: 243)
                                 .overlay(
                                     GeometryReader{ geometry in
                                         VStack(alignment: .leading) {
@@ -230,7 +222,7 @@ struct EventAnalyticsCard: View {
 //                                customEventCard(width: 275,
 //                                                height: 243)
                                 
-                            }.padding(.top, 80)
+                            }.padding(.top, 20)
                             //MARK: Line 3
                             HStack{
                                 //Tickets status Card
@@ -238,13 +230,33 @@ struct EventAnalyticsCard: View {
                                                 height: 243)
                                 .padding(.trailing)
                                 
-                                // Total Event Visitors Card
+                                // Ticket sales
                                 customGraphCard(width: 442,
                                                 height: 243)
+                                .overlay(
+                                    GeometryReader{ geometry in
+                                        VStack(alignment: .leading) {
+                                            VStack(alignment: .leading){
+                                                Text("Tickets Sales")
+                                                    .font(.title)
+                                                    .padding(.top)
+                                            }
+                                            .padding(.top,20)
+                                            Spacer()
+                                            VStack{
+                                                BarGraph()
+                                                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.4)
+                                                    .padding(.bottom)
+                                            }
+                                            
+                                        }
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                    }
+                                )
                             }
                             
                         }
-                        .padding([.leading,.top] ,54)
+                        .padding([.leading] ,54)
                         
                         
                     }
@@ -303,7 +315,7 @@ struct EventAnalyticsCard: View {
                         
                     Spacer()
                 }
-                
+                .padding(.bottom, 40)
                 HStack{
                     BookCirculationCard(minHeight: 200, title: "All Events Listing")
                     BookCirculationCard(minHeight: 200, title: "All Events Registration by Users")
@@ -316,6 +328,7 @@ struct EventAnalyticsCard: View {
         }
     }
 }
+
 
 
 // MARK: Floating Button on Event DashBoard

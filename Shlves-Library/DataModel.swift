@@ -120,6 +120,9 @@ struct Event {
         ]
     }
 }
+
+
+
 struct Location: Codable {
     var latitude: Double
     var longitude: Double

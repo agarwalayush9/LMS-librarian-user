@@ -9,12 +9,13 @@ import SwiftUI
 import Charts
 
 //MARK: for event revenue  data
-struct eventRevenueData : Identifiable{
+struct eventRevenueData: Identifiable {
     var id = UUID()
-    var date : Date
-    var ticketCount : Int
-    var ticketPrice : Int
+    var date: Date
+    var ticketCount: Int
+    var ticketPrice: Int
 }
+
 class eventRevenueViewModel: ObservableObject {
     @Published var events = [eventRevenueData]()
     
@@ -33,6 +34,7 @@ class eventRevenueViewModel: ObservableObject {
         ]
     }
 }
+
 struct EventAreaGraphView: View {
     @StateObject private var viewModel = eventRevenueViewModel()
 
@@ -40,13 +42,11 @@ struct EventAreaGraphView: View {
         VStack {
             Chart(viewModel.events) { event in
                 AreaMark(
-                    x: .value("Date", event.date), y: .value("Revenue", event.ticketCount * event.ticketPrice)
+                    x: .value("Date", event.date),
+                    y: .value("Revenue", event.ticketCount * event.ticketPrice)
                 )
-                
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.linearGradient(colors: [.librarianDashboardTabBar.opacity(0.8), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom))
-                
-                
             }
             .chartXAxis {
                 AxisMarks(position: .bottom)
@@ -54,8 +54,9 @@ struct EventAreaGraphView: View {
             .chartYAxis {
                 AxisMarks(position: .leading)
             }
-            .frame(height: 300)
-            .padding()
+            .frame(height: 150) // Reduced height
+            .padding(.horizontal) // Reduced padding
+            .padding(.vertical, 10)
         }
     }
 }
@@ -67,7 +68,8 @@ struct EventAreaGraphView_Previews: PreviewProvider {
 }
 
 
-//Data and Graph for Line chart for no. of visitor in events
+
+// MARK: Data and Graph for Line chart for no. of visitor in events
 struct VisitorData: Identifiable {
     let id = UUID()
     let date: Date
@@ -83,20 +85,13 @@ class EventVisitorViewData: ObservableObject {
     
     func fetchData() {
         visitors = [
-            VisitorData(date: Date().addingTimeInterval(-6*24*60*60),
-                        visitors: 239),
-            VisitorData(date: Date().addingTimeInterval(-5*24*60*60),
-                        visitors: 252),
-            VisitorData(date: Date().addingTimeInterval(-4*24*60*60),
-                        visitors: 315),
-            VisitorData(date: Date().addingTimeInterval(-3*24*60*60),
-                        visitors: 198),
-            VisitorData(date: Date().addingTimeInterval(-2*24*60*60),
-                        visitors: 148),
-            VisitorData(date: Date().addingTimeInterval(-1*24*60*60),
-                        visitors: 68),
-            VisitorData(date: Date(),
-                        visitors: 183)
+            VisitorData(date: Date().addingTimeInterval(-6*24*60*60), visitors: 239),
+            VisitorData(date: Date().addingTimeInterval(-5*24*60*60), visitors: 252),
+            VisitorData(date: Date().addingTimeInterval(-4*24*60*60), visitors: 315),
+            VisitorData(date: Date().addingTimeInterval(-3*24*60*60), visitors: 198),
+            VisitorData(date: Date().addingTimeInterval(-2*24*60*60), visitors: 148),
+            VisitorData(date: Date().addingTimeInterval(-1*24*60*60), visitors: 68),
+            VisitorData(date: Date(), visitors: 183)
         ]
     }
 }
@@ -111,11 +106,11 @@ struct VisitorLineChartView: View {
                 y: .value("Visitors", entry.visitors)
             )
             .foregroundStyle(.brown)
-            AreaMark(x: .value("Date", entry.date),
-                     y: .value("Visitors", entry.visitors))
-            .foregroundStyle(.linearGradient(colors: [.librarianDashboardTabBar.opacity(0.8), .white.opacity(0.2)],
-                                             startPoint: .top,
-                                             endPoint: .bottom))
+            AreaMark(
+                x: .value("Date", entry.date),
+                y: .value("Visitors", entry.visitors)
+            )
+            .foregroundStyle(.linearGradient(colors: [.librarianDashboardTabBar.opacity(0.8), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom))
         }
         .chartXAxis {
             AxisMarks(values: .stride(by: .day)) { value in
@@ -131,8 +126,9 @@ struct VisitorLineChartView: View {
                 AxisValueLabel()
             }
         }
-        .frame(height: 243)
-        .padding()
+        .frame(height: 150) // Reduced height
+        .padding(.horizontal) // Reduced padding
+        .padding(.vertical, 10)
     }
 }
 
@@ -142,19 +138,119 @@ struct LineChart: View {
     var body: some View {
         VStack {
             VisitorLineChartView(data: eventVisitorViewData.visitors)
-                .padding()
-            
+                .padding(.horizontal) // Reduced padding
+                .padding(.vertical, 10)
+
             Spacer()
         }
     }
 }
 
 
-
-
 #Preview("Line Chart"){
     LineChart()
 }
 
-//Data and Graph for Bar chart for no. of visitor in events
+//MARK: Data and Graph for Bar chart for no. of visitor in events
 
+struct TicketData: Identifiable {
+    let id = UUID()
+    let day: String
+    let ticketsSold: Int
+    let ticketsAvailable: Int
+}
+
+class EventTicketSalesData: ObservableObject {
+    @Published var tickets: [TicketData] = []
+    
+    init() {
+        fetchData()
+    }
+    
+    func fetchData() {
+        tickets = [
+            TicketData(day: "Mon", ticketsSold: 150, ticketsAvailable: 80),
+            TicketData(day: "Tue", ticketsSold: 120, ticketsAvailable: 60),
+            TicketData(day: "Wed", ticketsSold: 170, ticketsAvailable: 50),
+            TicketData(day: "Thu", ticketsSold: 100, ticketsAvailable: 45),
+            TicketData(day: "Fri", ticketsSold: 130, ticketsAvailable: 50),
+            TicketData(day: "Sat", ticketsSold: 140, ticketsAvailable: 70),
+            TicketData(day: "Sun", ticketsSold: 160, ticketsAvailable: 90)
+        ]
+    }
+}
+
+struct BarChartView: View {
+    var data: [TicketData]
+    let maxTickets = 200 // Assuming the max tickets for scaling
+
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 8) {
+            ForEach(data) { entry in
+                VStack {
+                    HStack(alignment: .bottom, spacing: 4) {
+                        // Ticket Sold
+                        VStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.customButton)
+                                .frame(width: 15, height: CGFloat(entry.ticketsSold) / CGFloat(maxTickets) * 100)
+                        }
+                        
+                        // Ticket Available
+                        VStack {
+                            RoundedRectangle(cornerRadius: 5)
+                                .fill(Color.librarianDashboardTabBar)
+                                .frame(width: 15, height: CGFloat(entry.ticketsAvailable) / CGFloat(maxTickets) * 100)
+                        }
+                    }
+
+                    Text(entry.day)
+                        .font(.caption2)
+                        
+                }
+            }
+        }
+        .padding()
+    }
+}
+
+struct BarGraph: View {
+    @StateObject private var viewModel = EventTicketSalesData()
+
+    var body: some View {
+        VStack {
+            HStack {
+                HStack {
+                    Circle()
+                        .fill(Color.customButton)
+                        .frame(width: 15, height: 15)
+                    Text("200 Ticket Sold")
+                        .font(.caption2)
+                }
+                
+                HStack {
+                    Circle()
+                        .fill(Color.librarianDashboardTabBar)
+                        .frame(width: 15, height: 15)
+                    Text("330 Ticket Available")
+                        .font(.caption2)
+                }
+            }
+           
+            BarChartView(data: viewModel.tickets)
+            
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+
+// Preview provider for the main view
+#Preview("bar graph"){
+    BarGraph()
+}
+
+#Preview{
+    EventsDashboard()
+}
