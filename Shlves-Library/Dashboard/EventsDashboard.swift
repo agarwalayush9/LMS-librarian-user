@@ -57,7 +57,7 @@ struct EventsDashboard: View {
             }
             .background(Color("dashboardbg"))
             //navigation Bar Mark ~zek
-            .navigationTitle("Manage Events")
+            .navigationTitle("Lms")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
@@ -209,11 +209,26 @@ struct EventAnalyticsCard: View {
                             HStack{
                                 // Total Event Visitors Card
                                 customGraphCard(width: 442,
-                                                height: 243)
+                                                height: 300)
+                                .overlay(
+                                    GeometryReader{ geometry in
+                                        VStack(alignment: .leading) {
+                                            Text("Number of visitors")
+                                                .font(.title)
+                                                .padding([.top, .bottom])
+                                            
+                                            LineChart()
+                                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
+                                                .padding(.bottom)
+                                        }
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                    }
+                                )
+                                
                                 .padding(.trailing)
                                 //Today's Event Card
-                                customEventCard(width: 275,
-                                                height: 243)
+//                                customEventCard(width: 275,
+//                                                height: 243)
                                 
                             }.padding(.top, 80)
                             //MARK: Line 3
