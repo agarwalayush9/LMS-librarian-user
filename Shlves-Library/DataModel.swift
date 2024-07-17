@@ -126,7 +126,7 @@ struct Member {
 }
 
 struct Event: Identifiable {
-    var id = UUID()
+    var id: String = UUID().uuidString
     var name: String
     var host: String
     var date: Date
