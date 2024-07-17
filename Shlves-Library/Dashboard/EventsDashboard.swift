@@ -259,8 +259,8 @@ struct EventAnalyticsCard: View {
                                                GeometryReader { geometry in
                                                    VStack(alignment: .leading) {
                                                        Text("Event Revenue Details")
-                                                           .font(.title)
-                                                           .padding([.top, .bottom])
+                                                           .font(Font.custom("DMSans_18pt-Medium", size: 32))
+                                                        .padding(.top,20)
                                                        
                                                        EventAreaGraphView()
                                                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
@@ -269,8 +269,8 @@ struct EventAnalyticsCard: View {
                                                    .frame(width: geometry.size.width, height: geometry.size.height)
                                                }
                                            )
-                                           .frame(width: 740, height: 250)
-                                           .padding(.bottom, 40)
+                                           .frame(width: 740, height: 300)
+                                           .padding(.bottom, 20)
                             //MARK: Line 2
                             HStack{
                                 // Total Event Visitors Card
