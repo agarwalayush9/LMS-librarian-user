@@ -47,7 +47,8 @@ struct LibrarianDashboard: View {
                                 }
                                 VStack(alignment: .leading, spacing: 20) {
                                     AnalyticHeader(title: "Main Analytics Below")
-                                    ScrollView(.horizontal, showsIndicators: false) {
+                                    ScrollView(.horizontal, showsIndicators: false) 
+                                    {
                                         HStack(spacing: 20) {
                                             DashboardAnalytics()
                                         }
