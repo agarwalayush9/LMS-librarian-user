@@ -153,7 +153,7 @@ struct RegisterPage: View {
                                     showAlert = true
                                 } else {
                                     // Proceed with registration
-                                    let user = User(name: name, lastName: lastName, email: email, phoneNumber: Int(phoneNumber)!)
+                                    let user = User(firstName: name, lastName: lastName, email: email, phoneNumber: Int(phoneNumber)!)
                                     
                                     DataController.shared.addUser(user) { result in
                                         switch result {

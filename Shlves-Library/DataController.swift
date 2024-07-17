@@ -46,24 +46,24 @@ class DataController: ObservableObject {
     
     func generateDummyEvents() -> [Event] {
         let users = [
-            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
-            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
+            Member(firstName: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            Member(firstName: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
         ]
         
         let users1 = [
-            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
-            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
-            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
-            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
+            Member(firstName: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            Member(firstName: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
+            Member(firstName: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            Member(firstName: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
         ]
         
         let users2 = [
-            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
-            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
-            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
-            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
-            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
-            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
+            Member(firstName: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            Member(firstName: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
+            Member(firstName: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            Member(firstName: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
+            Member(firstName: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            Member(firstName: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
         ]
         
         let events = [
@@ -500,11 +500,11 @@ class DataController: ObservableObject {
             }
         }
     
-    func fetchRegisteredMembers(completion: @escaping (Result<[User], Error>) -> Void) {
+    func fetchRegisteredMembers(completion: @escaping (Result<[Member], Error>) -> Void) {
             fetchAllEvents { result in
                 switch result {
                 case .success(let events):
-                    var registeredUsers: [User] = []
+                    var registeredUsers: [Member] = []
                     for event in events {
                         registeredUsers.append(contentsOf: event.registeredMembers)
                     }
@@ -667,7 +667,7 @@ class DataController: ObservableObject {
         let time = Date(timeIntervalSince1970: timeInterval)
 
         // Parse registered members if available
-        var registeredMembers: [User] = []
+        var registeredMembers: [Member] = []
         if let registeredMembersArray = dict["registeredMembers"] as? [[String: Any]] {
             for memberDict in registeredMembersArray {
                 guard
@@ -679,7 +679,7 @@ class DataController: ObservableObject {
                     print("Failed to parse registered member data.")
                     continue
                 }
-                let user = User(name: name, lastName: lastName, email: email, phoneNumber: phoneNumber)
+                let user = Member(firstName: name, lastName: lastName, email: email, phoneNumber: phoneNumber)
                 registeredMembers.append(user)
             }
         }
