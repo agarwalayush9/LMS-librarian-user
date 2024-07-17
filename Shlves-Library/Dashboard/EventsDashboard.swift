@@ -106,6 +106,79 @@ struct customGraphCard: View {
     }
 }
 
+
+
+
+//MARK: Custom card for today's event
+struct TodaysEventCustomCard : View{
+    var width : Double
+    var height : Double
+  
+    
+    var body: some View {
+        Rectangle()
+            .frame(width: width, height: height)
+            .foregroundStyle(Color(.white))
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .overlay(
+                VStack (alignment: .leading){
+                    Text("Event Name:")
+                        .font(
+                            Font.custom("DMSansBold", size: 12)
+                        )
+                        .foregroundStyle(.gray)
+                        .padding(.leading)
+                    Text("California Art Festival 2023 Dana Point 29-30")
+                        .font(
+                            Font.custom("DM Sans", size: 16)
+                                .weight(.bold)
+                        )
+                        .frame(maxWidth: .infinity,maxHeight: 150)
+                        //.padding()
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.leading)
+                    HStack{
+                    
+                        Image("book_cover")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 79, height: 96)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .padding()
+                        VStack(alignment: .leading){
+                            //Event Details
+                            Text("Event Details:")
+                                .foregroundStyle(.gray)
+                            HStack{
+                                Image(systemName: "calendar")
+                                Text("11 JULY 2024")
+                            }
+                            HStack{
+                                Image(systemName: "mappin")
+                                Text("Shelves Library")
+                            }
+                            Text("Host Name")
+                                .foregroundStyle(.gray)
+                            Text("Kaleem Bhaiya")
+                        }
+                       
+                        .font(
+                            Font.custom("DM Sans", size: 16)
+                                .weight(.bold)
+                        )
+                    //End of VStack for Event Details
+                    }//END OF VSTACK
+                }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: 40)
+                //End of VStack
+            )
+    }
+}
+
+
+
 //MARK: Custom Card for event
 struct customEventCard: View {
     var width : Double
@@ -220,8 +293,8 @@ struct EventAnalyticsCard: View {
                                 
                                 .padding(.trailing)
                                 //Today's Event Card
-//                                customEventCard(width: 275,
-//                                                height: 243)
+                                TodaysEventCustomCard(width: 295,
+                                                height: 243)
                                 
                             }
                             .padding(.bottom, 25)
@@ -257,9 +330,10 @@ struct EventAnalyticsCard: View {
                                             VStack(alignment: .leading){
                                                 Text("Tickets Sales")
                                                     .font(
-                                                    Font.custom("DM Sans", size: 16)
-                                                    .weight(.bold)
-                                                    )                                            }
+                                                        Font.custom("DM Sans", size: 17)
+                                                            .weight(.bold)
+                                                    )
+                                            }
                                             .padding(.top,20)
                                             Spacer()
                                             VStack{
