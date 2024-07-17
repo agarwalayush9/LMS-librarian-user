@@ -814,5 +814,29 @@ class DataController: ObservableObject {
                 completion(.success(books))
             }
     }
+    
+    func fetchNotifications(completion: @escaping (Result<[Notification], Error>) -> Void) {
+            let notificationsRef = database.child("notifications")
+
+            notificationsRef.observeSingleEvent(of: .value) { snapshot in
+                guard let notificationsDict = snapshot.value as? [String: Any] else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No notifications found."])))
+                    return
+                }
+
+                var notifications: [Notification] = []
+                for (_, value) in notificationsDict {
+                    if let notificationDict = value as? [String: String],
+                       let title = notificationDict["title"],
+                       let message = notificationDict["message"] {
+                        let notification = Notification(title: title, message: message)
+                        notifications.append(notification)
+                    }
+                }
+
+                completion(.success(notifications))
+            }
+        }
+
 
 }

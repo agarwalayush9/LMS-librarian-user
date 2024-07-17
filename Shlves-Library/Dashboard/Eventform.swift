@@ -164,10 +164,10 @@ struct EventFormView: View {
         DataController.shared.addPendingEvent(newEvent) { result in
             switch result {
             case .success:
-                alertMessage = "Event added successfully."
+                alertMessage = "Permission sent to Admin."
                 showAlert = true
             case .failure(let error):
-                alertMessage = "Failed to add event: \(error.localizedDescription)"
+                alertMessage = "Failed to send permission: \(error.localizedDescription)"
                 showAlert = true
             }
         }

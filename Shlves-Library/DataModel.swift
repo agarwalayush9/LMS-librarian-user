@@ -90,7 +90,6 @@ struct Member {
     var email: String
     var phoneNumber: Int
     var subscriptionPlan: String?
-    var registeredEvents: [Event]?
     var genre: [Genre]?
 
     // Additional methods or properties as needed
@@ -117,9 +116,6 @@ struct Member {
             dictionary["genre"] = genre.map { $0.rawValue }
         }
 
-        if let registeredEvents = registeredEvents {
-            dictionary["registeredEvents"] = registeredEvents.map { $0.toDictionary() }
-        }
 
         return dictionary
     }
@@ -182,6 +178,20 @@ struct Time: Codable {
         return [
             "hours": hours,
             "minutes": minutes
+        ]
+    }
+}
+
+struct Notification: Identifiable{
+    var id = UUID()
+    
+    var title: String
+    var message: String
+
+    func toDictionary() -> [String: Any] {
+        return [
+            "title": title,
+            "message": message
         ]
     }
 }

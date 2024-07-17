@@ -1,11 +1,28 @@
-//
-//  NotificationScreen.swift
-//  Shlves-Library
-//
-//  Created by Mohit Kumar Gupta on 17/07/24.
-//
-
 import SwiftUI
+import Combine
+
+class NotificationViewModel: ObservableObject {
+    @Published var notifications: [Notification] = []
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+
+
+    func fetchNotifications() {
+        isLoading = true
+        DataController.shared.fetchNotifications { [weak self] result in
+            DispatchQueue.main.async {
+                self?.isLoading = false
+                switch result {
+                case .success(let notifications):
+                    self?.notifications = notifications
+                case .failure(let error):
+                    self?.errorMessage = error.localizedDescription
+                }
+            }
+        }
+    }
+}
+
 
 struct NotificationCard: View {
     var title: String
@@ -28,7 +45,11 @@ struct NotificationCard: View {
     }
 }
 
+import SwiftUI
+
 struct NotificationScreen: View {
+    @StateObject private var viewModel = NotificationViewModel()
+
     var body: some View {
         NavigationView {
             VStack {
@@ -38,21 +59,24 @@ struct NotificationScreen: View {
 
                 ScrollView {
                     VStack(spacing: 10) {
-                        NotificationCard(title: "Dummy Notification", message: "This is a dummy notification message.")
-                        NotificationCard(title: "Another Notification", message: "This is another dummy notification message.")
-                        // Add more NotificationCard views as needed
+                        ForEach(viewModel.notifications) { notification in
+                            NotificationCard(title: notification.title, message: notification.message)
+                        }
                     }
                     .padding()
                 }
             }
-            
             .navigationBarItems(trailing: Button("Done") {
                 // Dismiss the modal
                 UIApplication.shared.windows.first?.rootViewController?.dismiss(animated: true, completion: nil)
             })
+            .onAppear {
+                viewModel.fetchNotifications()
+            }
         }
     }
 }
+
 
 struct NotificationScreen_Previews: PreviewProvider {
     static var previews: some View {
