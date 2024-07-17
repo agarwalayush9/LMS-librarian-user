@@ -61,15 +61,16 @@ struct LibrarianDashboard: View {
                             Spacer()
                             BookCirculationCard(minHeight: 160, title: "Book Circulation")
                                 .padding([.leading, .trailing], 64)
+                                
 
-                            HStack {
+                            HStack(alignment: .top) {
                                 VStack {
                                     //overDueBooksDetailData()
-                                    UpcomingEventsData()
+                                    UpcomingEventListView()
                                         .padding(.top, 80)
                                 }
                                 .background(
-                                    BookCirculationCard(minHeight: 160, title: "Overdue Book Details")
+                                    BookCirculationCard(minHeight: 200, title: "Upcoming Events")
                                         .padding(.bottom, 16)
                                 )
 
@@ -81,12 +82,13 @@ struct LibrarianDashboard: View {
                                         .padding(.top, 80)
                                 }
                                 .background(
-                                    BookCirculationCard(minHeight: 160, title: "Newly Arrived Books")
+                                    BookCirculationCard(minHeight: 200, title: "Newly Arrived Books")
                                         .padding(.bottom, 16)
                                 )
                             }
                             .padding([.leading, .trailing], 64)
                             .padding(.bottom, 85)
+                            Spacer()
                         }
                     }
                 }
@@ -380,6 +382,4 @@ struct circleCancleButton : View {
     LibrarianDashboard()
 }
 
-#Preview {
-    LibrarianDashboard()
-}
+

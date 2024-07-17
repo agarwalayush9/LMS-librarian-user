@@ -40,31 +40,7 @@ class UpcomingEventViewModel: ObservableObject {
 // MARK: - UserFormViewModel
 
 //MARK: struct for creation of Custom Form field 1
-struct customFormField1: View {
-    var title: String
-    var placeholder: String
-    var width: Double
-    @Binding var text: String
 
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text(title)
-                .font(Font.custom("DM Sans", size: 20).weight(.bold))
-                .padding(.bottom, 10)
-            
-            TextField(placeholder, text: $text)
-                .padding(.leading)
-                .frame(maxWidth: 585, minHeight: width)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .inset(by: -2)
-                        .stroke(Color("CustomButtonColor"), lineWidth: 4)
-                )
-                .background(Color("textFormFieldBg"))
-                .padding(.bottom, 20)
-        }
-    }
-}
 
 
 // MARK: - CreateUserForm
@@ -334,73 +310,6 @@ struct overDueBooksDetailData : View {
     }
 }
 
-//MARK: Upcoming Event Detail Data
-//struct UpcomingEventDetailView: View {
-//    @StateObject private var viewModel = UpcomingEventViewModel()
-//
-//    var body: some View {
-//        VStack {
-//            ForEach(viewModel.upcomingEvents) { event in
-//                UpcomingEventView(event: event)
-//                    .padding(.top, 8)
-//            }
-//        }
-//        .onAppear {
-//            print("UpcomingEventDetailView appeared")
-//            viewModel.fetchUpcomingEvents()
-//        }
-//        .onDisappear {
-//            print("UpcomingEventDetailView disappeared")
-//        }
-//    }
-//}
-
-
-//struct UpcomingEventView: View {
-//    var event: UpcomingEvent
-//
-//    var body: some View {
-//        
-//        var name = event.name
-//        var host = event.host
-//        var date = event.date
-//        var time = event.time
-//        var address = event.address
-//        var duration = event.duration
-//        var description = event.description
-//        var registeredMembers = event.registeredMembers
-//        var tickets = event.tickets
-//        var imageName = event.imageName
-//        var fees = event.fees
-//        var revenue = event.revenue
-//        var status = event.status
-//        
-//        VStack {
-//            HStack{
-//                eventInfo(eventName: name,
-//                          eventDate: date,
-//                          ticketPrice: fees,
-//                          imageName: imageName,
-//                          status: status)
-//                .padding()
-//            }
-//        }
-//        
-//        
-//    }
-//
-//    private var formattedDate: String {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = .medium
-//        return dateFormatter.string(from: event.date)
-//    }
-//
-//    private var formattedTime: String {
-//        let timeFormatter = DateFormatter()
-//        timeFormatter.timeStyle = .short
-//        return timeFormatter.string(from: event.time)
-//    }
-//}
 
 
 //struct for eventInfo
@@ -852,13 +761,18 @@ struct NewlyArrivedBooksQuantityInfo : View {
             VStack{
                 Text("Arrived Date")
                     .padding()
+                    .foregroundColor(.customButton)
                 Text("\(ArrivedDate) ")
+                    .foregroundStyle(.black)
             }
             Spacer()
             VStack{
                 Text("Quantity")
                     .padding()
+                    .foregroundColor(.customButton)
                 Text("\(Quantity) units")
+                    .foregroundStyle(.black)
+                
             }
         }
     }
@@ -874,7 +788,7 @@ struct bookInfo : View {
         HStack(spacing : 20){
         Rectangle()
             .foregroundColor(.clear)
-            .frame(width: 79, height: 125)
+            .frame(width: 100, height: 100)
             .background(
                 Image(imageName)
                     .resizable()
@@ -883,7 +797,7 @@ struct bookInfo : View {
                     .clipped()
             )
             .padding(.bottom, 12)
-        VStack{
+            VStack(alignment: .leading){
             Rectangle()
                 .frame(width: 90, height: 25)
                 .clipShape(RoundedRectangle(cornerRadius: 14))
@@ -899,17 +813,17 @@ struct bookInfo : View {
             
             Text(bookTitle)
                 .font(
-                    Font.custom("DM Sans", size: 25)
+                    Font.custom("DM Sans", size: 20)
                         .weight(.medium)
                 )
-                .foregroundColor(.black)
+                .foregroundColor(.customButton)
             Text(authorName)
-            //Text("by Shshank")
+            
                 .font(
                     Font.custom("DM Sans", size: 17)
                         .weight(.medium)
                 )
-                .foregroundColor(Color("AuthorNameColor"))
+                .foregroundColor(.black)
             
         }
     }
