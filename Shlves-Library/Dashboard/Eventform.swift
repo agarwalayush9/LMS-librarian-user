@@ -134,7 +134,7 @@ struct EventFormView: View {
                 .frame(maxWidth: .infinity, maxHeight: 20)
                 .padding()
                 .font(.system(size: 18))
-                .background(Color(.blue))
+                .background(Color(.customButton))
                 .foregroundColor(.white)
                 .cornerRadius(8)
                 //.padding()

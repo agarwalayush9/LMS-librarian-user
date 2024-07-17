@@ -52,17 +52,16 @@ struct Sections : Identifiable{
     static var section : [Sections]{
         [
             Sections(sectionHeader: "OverView", menuItem: [
-                MenuItem(optionIcon: "Library", option: "Dashboard", destination: AnyView(LibrarianDashboard()), isClickable: true),
-                MenuItem(optionIcon: "Complaints", option: "Complaints", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "ManageEvents", option: "Events Dashboard", destination: AnyView(EventsDashboard()), isClickable: true),
-                MenuItem(optionIcon: "MakePayouts", option: "Make Payouts", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "UserQueries", option: "User Queries", destination: AnyView(EmptyView()), isClickable: false),
+                MenuItem(optionIcon: "majesticons_library-line", option: "Dashboard", destination: AnyView(LibrarianDashboard()), isClickable: true),
+                MenuItem(optionIcon: "complaint", option: "Complaints", destination: AnyView(EmptyView()), isClickable: false),
+                MenuItem(optionIcon: "events", option: "Events Dashboard", destination: AnyView(EventsDashboard()), isClickable: true),
+                MenuItem(optionIcon: "payBills", option: "Make Payouts", destination: AnyView(EmptyView()), isClickable: false),
             ]),
             Sections(sectionHeader: "Books", menuItem: [
-                MenuItem(optionIcon: "BooksCatalogue", option: "Books Catalogue", destination: AnyView(BooksCatalogue( )), isClickable: true),
-                MenuItem(optionIcon: "BooksCirculation", option: "Books Circulation", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "BookOverdues", option: "Books Overdues/Fines", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "FineManagement", option: "Fine Management", destination: AnyView(EmptyView()), isClickable: false)
+                MenuItem(optionIcon: "books", option: "Books Catalogue", destination: AnyView(BooksCatalogue( )), isClickable: true),
+                MenuItem(optionIcon: "bookshelf", option: "Books Circulation", destination: AnyView(EmptyView()), isClickable: false),
+                MenuItem(optionIcon: "overdue", option: "Books Overdues/Fines", destination: AnyView(EmptyView()), isClickable: false),
+                MenuItem(optionIcon: "bill", option: "Fine Management", destination: AnyView(EmptyView()), isClickable: false)
             ])
                 ]
     }
