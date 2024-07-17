@@ -111,7 +111,7 @@ class DataController: ObservableObject {
 
     func saveBookToDatabase(_ book: Book, completion: @escaping (Result<Void, Error>) -> Void) {
         let ref = Database.database().reference()
-        let bookRef = ref.child("books").child(book.id.uuidString)
+        let bookRef = ref.child("books").child(book.bookCode)
 
         // Convert book to dictionary
         let bookData: [String: Any] = [
