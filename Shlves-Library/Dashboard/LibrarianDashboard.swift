@@ -15,6 +15,8 @@ struct LibrarianDashboard: View {
     @State private var isRequestBooks = false
     @State private var isReturnBooks = false
     @State private var isAddEventPressed = false
+    @State private var showModal = false
+
     
     var body: some View {
         NavigationStack {
@@ -179,32 +181,24 @@ struct LibrarianDashboard: View {
                     HStack{
                                             Button(action: {
                                                 // Add action for books vertical button
-                                                navigateToBookCatalogue = true
+                                                showModal.toggle()
                                                 
                                             }, label: {
-                                                Image(systemName: "books.vertical")
+                                                Image(systemName: "bell")
                                                     .foregroundColor(Color.black)
                                             })
-                                            Button(action: {
-                                                // Add action for books vertical button
-                                                //navigateToBookCatalogue = true
-                                                navigateToUserRecord = true
-                                                
-                                            }, label: {
-                                                Image(systemName: "person.3.fill")
-                                                    .foregroundColor(Color.black)
-                                            })
+                        
+                                          
                                         }
                     //end here
                 }
             }
             //enter destinations here
-            .navigationDestination(isPresented: $navigateToBookCatalogue) {
-                                        BooksCatalogue()
-                                    }
-                        .navigationDestination(isPresented: $navigateToUserRecord){
-                            UsersCatalogue()
+            .sheet(isPresented: $showModal) {
+                            NotificationScreen()
                         }
+
+                        
             
         }
         
