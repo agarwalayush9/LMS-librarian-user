@@ -71,12 +71,14 @@ struct sideMenu: View {
     
     var body: some View {
         ZStack {
-            GeometryReader { _ in
-                EmptyView()
-            }
-            .background(Color.gray.ignoresSafeArea().opacity(0.25))
-            .onTapGesture {
-                toggleMenu()
+            if menuOpened {
+                GeometryReader { _ in
+                    EmptyView()
+                }
+                .background(Color.gray.ignoresSafeArea().opacity(0.0000005))
+                .onTapGesture {
+                    toggleMenu()
+                }
             }
             
             HStack {
@@ -84,6 +86,7 @@ struct sideMenu: View {
                     .frame(width: width)
                     .offset(x: menuOpened ? 0 : -width)
                     .animation(.default, value: menuOpened)
+                    .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 5)
                 Spacer()
             }
         }
