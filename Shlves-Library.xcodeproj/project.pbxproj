@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		444512922C467A660081665D /* book overdue and fine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444512912C467A660081665D /* book overdue and fine.swift */; };
+		444512922C467A660081665D /* BookOverdueAndFine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444512912C467A660081665D /* BookOverdueAndFine.swift */; };
 		737170712C3B465F009A3B05 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737170702C3B465F009A3B05 /* UserRecord.swift */; };
 		73BCEC0B2C4648A400F7D3D4 /* ComplaintsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */; };
 		73E886892C3FF892000687DD /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886862C3FF892000687DD /* BookDetailView.swift */; };
@@ -48,7 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		444512912C467A660081665D /* book overdue and fine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "book overdue and fine.swift"; sourceTree = "<group>"; };
+		444512912C467A660081665D /* BookOverdueAndFine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookOverdueAndFine.swift; sourceTree = "<group>"; };
 		737170702C3B465F009A3B05 /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
 		73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsPage.swift; sourceTree = "<group>"; };
 		73E886862C3FF892000687DD /* BookDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
@@ -133,7 +133,6 @@
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,
 				B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */,
 				B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */,
-				444512912C467A660081665D /* book overdue and fine.swift */,
 				D0EDBE872C37260300EC06AB /* BookCatalogue.swift */,
 				737170702C3B465F009A3B05 /* UserRecord.swift */,
 				D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */,
@@ -161,6 +160,7 @@
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
 				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
 				73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */,
+				444512912C467A660081665D /* BookOverdueAndFine.swift */,
 				73E8868F2C4062B8000687DD /* Fonts */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				73E8868E2C405835000687DD /* ISBNfiles */,
@@ -300,7 +300,7 @@
 				73E886892C3FF892000687DD /* BookDetailView.swift in Sources */,
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
 				D0DC6C502C41378D000C90F0 /* CheckBoxView.swift in Sources */,
-				444512922C467A660081665D /* book overdue and fine.swift in Sources */,
+				444512922C467A660081665D /* BookOverdueAndFine.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
 				D0DC6C522C4268D0000C90F0 /* ImageLoader.swift in Sources */,
