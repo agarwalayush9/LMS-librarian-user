@@ -99,7 +99,7 @@ class eventRevenueViewModel: ObservableObject {
                 self.events = eventDatas
             }
         }
-    }
+}
 
 struct EventAreaGraphView: View {
     @StateObject private var viewModel = eventRevenueViewModel()
@@ -234,15 +234,22 @@ class EventTicketSalesData: ObservableObject {
     }
     
     func fetchData() {
-        tickets = [
-            TicketData(day: "Mon", ticketsSold: 150, ticketsAvailable: 80),
-            TicketData(day: "Tue", ticketsSold: 120, ticketsAvailable: 60),
-            TicketData(day: "Wed", ticketsSold: 170, ticketsAvailable: 50),
-            TicketData(day: "Thu", ticketsSold: 100, ticketsAvailable: 45),
-            TicketData(day: "Fri", ticketsSold: 130, ticketsAvailable: 50),
-            TicketData(day: "Sat", ticketsSold: 140, ticketsAvailable: 70),
-            TicketData(day: "Sun", ticketsSold: 160, ticketsAvailable: 90)
-        ]
+        DataController.shared.fetchUpcomingEvents { [weak self] result in
+                    switch result {
+                    case .success(let events):
+                        self?.tickets = events.prefix(4).enumerated().map { index, event in
+                            let ticketsSold = event.registeredMembers.count
+                            let ticketsAvailable = event.tickets - ticketsSold
+                            let day = DateFormatter.localizedString(from: event.date, dateStyle: .short, timeStyle: .none)
+                            return TicketData(day: day, ticketsSold: ticketsSold, ticketsAvailable: ticketsAvailable)
+                        }
+                        
+                    case .failure(let error):
+                        print("Failed to fetch upcoming events: \(error.localizedDescription)")
+                        // Handle error as needed
+                    }
+                }
+        
     }
 }
 
@@ -318,7 +325,7 @@ import SwiftUI
 struct TicketStatus: Identifiable {
     let id = UUID()
     let category: String
-    let value: Double
+    var value: Double
     let color: Color
 }
 
@@ -335,8 +342,43 @@ class TicketViewModel: ObservableObject {
             TicketStatus(category: "Remaining", value: 200, color: .librarianDashboardTabBar),
             TicketStatus(category: "Cancelled", value: 100, color: .pieLesser)
         ]
+        
+        DataController.shared.fetchRegisteredMembersOfNearestEvent { result in
+                    switch result {
+                    case .success(let registeredMemberCount):
+                        // Assuming events.tickets gives total tickets, modify this logic if needed
+                        let totalTickets = 100 // Replace with actual total tickets logic if available
+                        let remainingTickets = Double(totalTickets - registeredMemberCount)
+                        
+                        // Update Availed and Remaining tickets
+                        DispatchQueue.main.async {
+                            self.updateTicketStatus(registeredMembers: registeredMemberCount, remainingTickets: remainingTickets)
+                        }
+                        
+                    case .failure(let error):
+                        print("Failed to fetch registered members: \(error.localizedDescription)")
+                        // Handle error as needed
+                    }
+                
     }
 }
+    
+    private func updateTicketStatus(registeredMembers: Int, remainingTickets: Double) {
+           // Update Availed ticket count
+           if let availedIndex = tickets.firstIndex(where: { $0.category == "Availed" }) {
+               tickets[availedIndex].value = Double(registeredMembers)
+           }
+           
+           // Update Remaining ticket count
+           if let remainingIndex = tickets.firstIndex(where: { $0.category == "Remaining" }) {
+               tickets[remainingIndex].value = remainingTickets
+           }
+           
+           // Publish updates to SwiftUI views
+           objectWillChange.send()
+       }
+   }
+
 
 struct PieSliceView: View {
     var startAngle: Angle

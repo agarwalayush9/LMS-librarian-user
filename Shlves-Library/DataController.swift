@@ -20,6 +20,25 @@ class DataController: ObservableObject {
 
     private init() {
         //addDummyEventsToFirebase()
+        fetchUpcomingEvents { result in
+            switch result {
+            case .success(let events):
+                // Handle the fetched events
+                print("Fetched upcoming events: \(events)")
+                
+                // Example: Display or process the fetched events
+                for event in events {
+                    print("Event Name: \(event.name)")
+                    print("Event Date: \(event.date)")
+                    print("Event Host: \(event.host)")
+                    // Add more properties as needed
+                }
+                
+            case .failure(let error):
+                // Handle error
+                print("Failed to fetch upcoming events: \(error.localizedDescription)")
+            }
+        }
         
     }
 
@@ -27,6 +46,22 @@ class DataController: ObservableObject {
     
     func generateDummyEvents() -> [Event] {
         let users = [
+            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
+        ]
+        
+        let users1 = [
+            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
+            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
+        ]
+        
+        let users2 = [
+            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
+            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210),
             User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
             User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
         ]
@@ -55,7 +90,7 @@ class DataController: ObservableObject {
                 address: "456 Startup Street, Innovation Town",
                 duration: "2 hours",
                 description: "A meetup for aspiring entrepreneurs.",
-                registeredMembers: users,
+                registeredMembers: users1,
                 tickets: 80,
                 imageName: "startup_meetup",
                 fees: 30,
@@ -70,7 +105,7 @@ class DataController: ObservableObject {
                 address: "789 Code Avenue, Developer City",
                 duration: "4 hours",
                 description: "A workshop for developers to learn new skills.",
-                registeredMembers: users,
+                registeredMembers: users2,
                 tickets: 50,
                 imageName: "developer_workshop",
                 fees: 100,
@@ -100,7 +135,7 @@ class DataController: ObservableObject {
                 address: "789 Art Avenue, Creative City",
                 duration: "3 hours",
                 description: "Showcasing contemporary art pieces.",
-                registeredMembers: users,
+                registeredMembers: users2,
                 tickets: 60,
                 imageName: "art_exhibition",
                 fees: 40,
@@ -115,7 +150,7 @@ class DataController: ObservableObject {
                 address: "555 Music Street, Entertainment Village",
                 duration: "2 days",
                 description: "Celebrating music with live performances.",
-                registeredMembers: users,
+                registeredMembers: users1,
                 tickets: 200,
                 imageName: "music_festival",
                 fees: 150,
@@ -410,30 +445,6 @@ class DataController: ObservableObject {
         }
     
     
-    
-//    func fetchTotalRevenue(completion: @escaping (Result<Int, Error>) -> Void) {
-//            database.child("events").observeSingleEvent(of: .value) { snapshot in
-//                guard let eventsDict = snapshot.value as? [String: [String: Any]] else {
-//                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
-//                    return
-//                }
-//
-//                var totalRevenue: Int = 0
-//
-//                for (_, dict) in eventsDict {
-//                    guard let revenue = dict["revenue"] as? Int else {
-//                        print("Failed to parse event revenue.")
-//                        continue
-//                    }
-//
-//                    totalRevenue += revenue
-//                }
-//
-//                print("Total revenue: \(totalRevenue)")
-//                completion(.success(totalRevenue))
-//            }
-//        }
-    
     func fetchEventRevenue(completion: @escaping (Result<[Int], Error>) -> Void) {
            fetchAllEvents { result in
                switch result {
@@ -472,6 +483,8 @@ class DataController: ObservableObject {
             }
         }
     }
+    
+    
 
     
     func fetchEventTickets(completion: @escaping (Result<[Int], Error>) -> Void) {
@@ -570,24 +583,45 @@ class DataController: ObservableObject {
         }
     }
     
-    
     func fetchUpcomingEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
-        database.child("events")
-            .queryOrdered(byChild: "date")
-            .queryLimited(toLast: 4)
-            .observeSingleEvent(of: .value) { snapshot in
-                guard let eventsDict = snapshot.value as? [String: [String: Any]] else {
-                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
+        fetchAllEvents { result in
+            switch result {
+            case .success(let events):
+                // Sort events by date and time ascending
+                let sortedEvents = events.sorted { event1, event2 in
+                    if event1.date == event2.date {
+                        return event1.time < event2.time
+                    }
+                    return event1.date < event2.date
+                }
+                
+                // Limit to the nearest 4 events
+                let nearestEvents = Array(sortedEvents.prefix(4))
+                
+                completion(.success(nearestEvents))
+                
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    func fetchRegisteredMembersOfNearestEvent(completion: @escaping (Result<Int, Error>) -> Void) {
+        fetchUpcomingEvents { result in
+            switch result {
+            case .success(let events):
+                guard let nearestEvent = events.first else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No upcoming events found."])))
                     return
                 }
-
-                do {
-                    let events = try self.parseEvents(from: eventsDict)
-                    completion(.success(events))
-                } catch {
-                    completion(.failure(error))
-                }
+                
+                let registeredMemberCount = nearestEvent.registeredMembers.count
+                completion(.success(registeredMemberCount))
+                
+            case .failure(let error):
+                completion(.failure(error))
             }
+        }
     }
 
     
@@ -669,20 +703,20 @@ class DataController: ObservableObject {
     }
 
 
-    private func parseEvents(from eventsDict: [String: [String: Any]]) throws -> [Event] {
-        var events: [Event] = []
-
-        for (_, dict) in eventsDict {
-            if let event = try parseEvent(from: dict) {
-                events.append(event)
-            }
-        }
-
-        // Sort events by date and time descending
-        events.sort { $0.date > $1.date || ($0.date == $1.date && $0.time > $1.time) }
-
-        return events
-    }
+//    private func parseEvents(from eventsDict: [String: [String: Any]]) throws -> [Event] {
+//        var events: [Event] = []
+//
+//        for (_, dict) in eventsDict {
+//            if let event = try parseEvent(from: dict) {
+//                events.append(event)
+//            }
+//        }
+//
+//        // Sort events by date and time descending
+//        events.sort { $0.date < $1.date || ($0.date == $1.date && $0.time < $1.time) }
+//
+//        return events
+//    }
 
     
     func fetchLastFourBooks(completion: @escaping (Result<[Book], Error>) -> Void) {
