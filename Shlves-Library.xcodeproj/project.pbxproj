@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		444512922C467A660081665D /* book overdue and fine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444512912C467A660081665D /* book overdue and fine.swift */; };
 		737170712C3B465F009A3B05 /* UserRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737170702C3B465F009A3B05 /* UserRecord.swift */; };
+		73BCEC0B2C4648A400F7D3D4 /* ComplaintsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */; };
 		73E886892C3FF892000687DD /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886862C3FF892000687DD /* BookDetailView.swift */; };
 		73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886872C3FF892000687DD /* BarCodeScannerView.swift */; };
 		73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E886882C3FF892000687DD /* BookDetails.swift */; };
@@ -47,7 +49,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		444512912C467A660081665D /* book overdue and fine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "book overdue and fine.swift"; sourceTree = "<group>"; };
 		737170702C3B465F009A3B05 /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
+		73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsPage.swift; sourceTree = "<group>"; };
 		73E886862C3FF892000687DD /* BookDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		73E886872C3FF892000687DD /* BarCodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeScannerView.swift; sourceTree = "<group>"; };
 		73E886882C3FF892000687DD /* BookDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetails.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,
 				B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */,
 				B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */,
+				444512912C467A660081665D /* book overdue and fine.swift */,
 				D0EDBE872C37260300EC06AB /* BookCatalogue.swift */,
 				737170702C3B465F009A3B05 /* UserRecord.swift */,
 				D0DC6C4B2C4135B0000C90F0 /* AddBookDetailsView.swift */,
@@ -158,6 +163,7 @@
 			children = (
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
 				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
+				73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */,
 				73E8868F2C4062B8000687DD /* Fonts */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				73E8868E2C405835000687DD /* ISBNfiles */,
@@ -297,6 +303,7 @@
 				73E886892C3FF892000687DD /* BookDetailView.swift in Sources */,
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
 				D0DC6C502C41378D000C90F0 /* CheckBoxView.swift in Sources */,
+				444512922C467A660081665D /* book overdue and fine.swift in Sources */,
 				B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */,
 				D0EDBE7A2C36A38500EC06AB /* DataController.swift in Sources */,
 				D0DC6C522C4268D0000C90F0 /* ImageLoader.swift in Sources */,
@@ -308,6 +315,7 @@
 				D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */,
 				73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
+				73BCEC0B2C4648A400F7D3D4 /* ComplaintsPage.swift in Sources */,
 				737170712C3B465F009A3B05 /* UserRecord.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -442,7 +450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
-				DEVELOPMENT_TEAM = KH6FV7B5AZ;
+				DEVELOPMENT_TEAM = 458RNVZ66L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Shlves-Library/Info.plist";
@@ -475,7 +483,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Shlves-Library/Preview Content\"";
-				DEVELOPMENT_TEAM = KH6FV7B5AZ;
+				DEVELOPMENT_TEAM = 458RNVZ66L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Shlves-Library/Info.plist";

@@ -84,7 +84,7 @@ struct Sections : Identifiable{
         [
             Sections(sectionHeader: "OverView", menuItem: [
                 MenuItem(optionIcon: "Library", option: "Dashboard", destination: AnyView(LibrarianDashboard()), isClickable: true),
-                MenuItem(optionIcon: "Complaints", option: "Complaints", destination: AnyView(EmptyView()), isClickable: false),
+                MenuItem(optionIcon: "Complaints", option: "Complaints", destination: AnyView(ComplaintsView()), isClickable: true),
                 MenuItem(optionIcon: "ManageEvents", option: "Events Dashboard", destination: AnyView(EventsDashboard()), isClickable: true),
                 MenuItem(optionIcon: "MakePayouts", option: "Make Payouts", destination: AnyView(EmptyView()), isClickable: false),
                 MenuItem(optionIcon: "UserQueries", option: "User Queries", destination: AnyView(EmptyView()), isClickable: false),
@@ -92,8 +92,8 @@ struct Sections : Identifiable{
             Sections(sectionHeader: "Books", menuItem: [
                 MenuItem(optionIcon: "BooksCatalogue", option: "Books Catalogue", destination: AnyView(BooksCatalogue( )), isClickable: true),
                 MenuItem(optionIcon: "BooksCirculation", option: "Books Circulation", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "BookOverdues", option: "Books Overdues/Fines", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "FineManagement", option: "Fine Management", destination: AnyView(EmptyView()), isClickable: false)
+                MenuItem(optionIcon: "BookOverdues", option: "Books Overdues/Fines", destination: AnyView(BookOverduesView()), isClickable: true),
+               
             ])
                 ]
     }

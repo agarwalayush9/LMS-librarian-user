@@ -1,5 +1,7 @@
 import SwiftUI
 
+
+
 struct SearchBar: UIViewRepresentable {
     @Binding var text: String
 
@@ -19,7 +21,8 @@ struct SearchBar: UIViewRepresentable {
         return Coordinator(text: $text)
     }
 
-    func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UISearchBar {
+    func makeUIView(context: UIViewRepresentableContext<SearchBar>) -> UIView {
+        let containerView = UIView()
         let searchBar = UISearchBar(frame: .zero)
         searchBar.delegate = context.coordinator
         searchBar.backgroundImage = UIImage() // Removes the top and bottom lines
@@ -27,7 +30,6 @@ struct SearchBar: UIViewRepresentable {
         // Set background color
         searchBar.barTintColor = UIColor(red: 255/255, green: 246/255, blue: 227/255, alpha: 1.0)
         searchBar.searchTextField.backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 227/255, alpha: 1.0)
-
         
         searchBar.placeholder = "Search by Book Code, Book or Author"
         
@@ -43,14 +45,30 @@ struct SearchBar: UIViewRepresentable {
             searchTextField.layer.cornerRadius = 10.0
             searchTextField.layer.masksToBounds = true
         }
+        
+        containerView.addSubview(searchBar)
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: containerView.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            searchBar.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
 
-        return searchBar
+        // Set containerView height
+        containerView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+
+        return containerView
     }
 
-    func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
-        uiView.text = text
+    func updateUIView(_ uiView: UIView, context: UIViewRepresentableContext<SearchBar>) {
+        if let searchBar = uiView.subviews.first as? UISearchBar {
+            searchBar.text = text
+        }
     }
 }
+
+
 
 
 struct EditBookDetailView: View {
@@ -143,22 +161,57 @@ struct BooksCatalogue: View {
     @State private var isLoading = false
     @State private var selectedBook: Book?
     @State private var searchText = ""
+    @State private var selectedGenre: Genre? = nil
 
     var filteredBooks: [Book] {
-        if searchText.isEmpty {
-            return books
-        } else {
-            return books.filter { $0.bookTitle.contains(searchText) || $0.author.contains(searchText) || $0.bookCode.contains(searchText) }
+        var filtered = books
+        
+        // Apply genre filter if selected
+        if let genre = selectedGenre {
+            filtered = filtered.filter { $0.genre == genre }
         }
+        
+        // Apply search text filter
+        if !searchText.isEmpty {
+            filtered = filtered.filter {
+                $0.bookTitle.localizedCaseInsensitiveContains(searchText) ||
+                $0.author.localizedCaseInsensitiveContains(searchText) ||
+                $0.bookCode.localizedCaseInsensitiveContains(searchText)
+            }
+        }
+        
+        return filtered
     }
 
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
-                    SearchBar(text: $searchText)
-                        .padding(.horizontal)
-
+                    HStack {
+                        SearchBar(text: $searchText)
+                            .padding(.horizontal)
+                            .frame(height: 70)
+                        
+                        // Genre filter dropdown
+                        Menu {
+                            Button("Clear Filter") {
+                                selectedGenre = nil
+                            }
+                            Divider()
+                            ForEach(Genre.allCases, id: \.self) { genre in
+                                Button(genre.rawValue.capitalized) {
+                                    selectedGenre = genre
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "line.horizontal.3.decrease.circle")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30)
+                        }
+                        .padding(.trailing, 20)
+                        .foregroundColor(Color(red: 0.32, green: 0.23, blue: 0.06))
+                    }
                     ZStack {
                         backgroundView()
                             .blur(radius: menuOpened ? 10 : 0)
@@ -226,14 +279,6 @@ struct BooksCatalogue: View {
                             .foregroundColor(.black)
                     }
                 }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        // Add action for books vertical button
-                    }) {
-                        Image(systemName: "books.vertical")
-                            .foregroundColor(.black)
-                    }
-                }
             }
             .onAppear {
                 Task {
@@ -252,6 +297,8 @@ struct BooksCatalogue: View {
         }
         .frame(maxWidth: .infinity)
     }
+
+
 
     private func headerRow() -> some View {
         HStack {
