@@ -19,12 +19,145 @@ class DataController: ObservableObject {
     private let database = Database.database().reference()
 
     private init() {
-        loadDummyBooks()
+        //addDummyEventsToFirebase()
+        
     }
 
-    func loadDummyBooks() {
-        // Add your dummy books here...
+   
+    
+    func generateDummyEvents() -> [Event] {
+        let users = [
+            User(name: "John", lastName: "Doe", email: "john.doe@example.com", phoneNumber: 1234567890),
+            User(name: "Jane", lastName: "Smith", email: "jane.smith@example.com", phoneNumber: 9876543210)
+        ]
+        
+        let events = [
+            Event(
+                name: "Tech Conference 2024",
+                host: "Tech Corp",
+                date: randomDate(daysAhead: 10), // Example: Random date 10 days ahead
+                time: randomTime(),
+                address: "123 Tech Lane, Tech City",
+                duration: "3 hours",
+                description: "An exciting tech conference with industry leaders.",
+                registeredMembers: users,
+                tickets: 100,
+                imageName: "tech_conference",
+                fees: 50,
+                revenue: 5000,
+                status: "Upcoming"
+            ),
+            Event(
+                name: "Startup Meetup",
+                host: "Startup Inc",
+                date: randomDate(daysAhead: 15), // Example: Random date 15 days ahead
+                time: randomTime(),
+                address: "456 Startup Street, Innovation Town",
+                duration: "2 hours",
+                description: "A meetup for aspiring entrepreneurs.",
+                registeredMembers: users,
+                tickets: 80,
+                imageName: "startup_meetup",
+                fees: 30,
+                revenue: 2400,
+                status: "Upcoming"
+            ),
+            Event(
+                name: "Developer Workshop",
+                host: "Code Academy",
+                date: randomDate(daysAhead: 20), // Example: Random date 20 days ahead
+                time: randomTime(),
+                address: "789 Code Avenue, Developer City",
+                duration: "4 hours",
+                description: "A workshop for developers to learn new skills.",
+                registeredMembers: users,
+                tickets: 50,
+                imageName: "developer_workshop",
+                fees: 100,
+                revenue: 5000,
+                status: "Upcoming"
+            ),
+            Event(
+                name: "Business Summit",
+                host: "Business Insights",
+                date: randomDate(daysAhead: 25), // Example: Random date 25 days ahead
+                time: randomTime(),
+                address: "10 Business Boulevard, Corporate Town",
+                duration: "5 hours",
+                description: "An annual gathering of business leaders.",
+                registeredMembers: users,
+                tickets: 120,
+                imageName: "business_summit",
+                fees: 80,
+                revenue: 9600,
+                status: "Upcoming"
+            ),
+            Event(
+                name: "Art Exhibition",
+                host: "Artistry Gallery",
+                date: randomDate(daysAhead: 30), // Example: Random date 30 days ahead
+                time: randomTime(),
+                address: "789 Art Avenue, Creative City",
+                duration: "3 hours",
+                description: "Showcasing contemporary art pieces.",
+                registeredMembers: users,
+                tickets: 60,
+                imageName: "art_exhibition",
+                fees: 40,
+                revenue: 2400,
+                status: "Upcoming"
+            ),
+            Event(
+                name: "Music Festival",
+                host: "Harmony Productions",
+                date: randomDate(daysAhead: 40), // Example: Random date 40 days ahead
+                time: randomTime(),
+                address: "555 Music Street, Entertainment Village",
+                duration: "2 days",
+                description: "Celebrating music with live performances.",
+                registeredMembers: users,
+                tickets: 200,
+                imageName: "music_festival",
+                fees: 150,
+                revenue: 30000,
+                status: "Upcoming"
+            )
+        ]
+        
+        return events
     }
+
+    // Function to generate a random date in the future
+    func randomDate(daysAhead: Int) -> Date {
+        let randomOffset = Int.random(in: 1...daysAhead)
+        let calendar = Calendar.current
+        return calendar.date(byAdding: .day, value: randomOffset, to: Date()) ?? Date()
+    }
+
+    // Function to generate a random time for the same day
+    func randomTime() -> Date {
+        let calendar = Calendar.current
+        let hour = Int.random(in: 0...23)
+        let minute = Int.random(in: 0...59)
+        return calendar.date(bySettingHour: hour, minute: minute, second: 0, of: Date()) ?? Date()
+    }
+
+    
+    func addDummyEventsToFirebase() {
+        let dummyEvents = generateDummyEvents()
+        
+        for event in dummyEvents {
+            addEvent(event) { result in
+                switch result {
+                case .success:
+                    print("Event '\(event.name)' added to Firebase.")
+                case .failure(let error):
+                    print("Failed to add event '\(event.name)' to Firebase: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
 
     func isEmailAlreadyInUse(email: String, completion: @escaping (Bool) -> Void) {
         Auth.auth().fetchSignInMethods(forEmail: email) { methods, error in
@@ -238,26 +371,148 @@ class DataController: ObservableObject {
     }
     
     
-    func fetchTotalRevenue(completion: @escaping (Result<Int, Error>) -> Void) {
+    
+    func fetchAllEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
             database.child("events").observeSingleEvent(of: .value) { snapshot in
                 guard let eventsDict = snapshot.value as? [String: [String: Any]] else {
                     completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
                     return
                 }
 
-                var totalRevenue: Int = 0
+                var events: [Event] = []
 
                 for (_, dict) in eventsDict {
-                    guard let revenue = dict["revenue"] as? Int else {
-                        print("Failed to parse event revenue.")
-                        continue
+                    do {
+                        if let event = try self.parseEvent(from: dict) {
+                            events.append(event)
+                        }
+                    } catch {
+                        print("Failed to parse event data: \(error.localizedDescription)")
                     }
-
-                    totalRevenue += revenue
                 }
 
+                print("Fetched \(events.count) events.")
+                completion(.success(events))
+            }
+        }
+
+    func fetchEventFees(completion: @escaping (Result<[Int], Error>) -> Void) {
+            fetchAllEvents { result in
+                switch result {
+                case .success(let events):
+                    let fees = events.map { $0.fees }
+                    print("Fetched fees: \(fees)")
+                    completion(.success(fees))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    
+    
+    
+//    func fetchTotalRevenue(completion: @escaping (Result<Int, Error>) -> Void) {
+//            database.child("events").observeSingleEvent(of: .value) { snapshot in
+//                guard let eventsDict = snapshot.value as? [String: [String: Any]] else {
+//                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
+//                    return
+//                }
+//
+//                var totalRevenue: Int = 0
+//
+//                for (_, dict) in eventsDict {
+//                    guard let revenue = dict["revenue"] as? Int else {
+//                        print("Failed to parse event revenue.")
+//                        continue
+//                    }
+//
+//                    totalRevenue += revenue
+//                }
+//
+//                print("Total revenue: \(totalRevenue)")
+//                completion(.success(totalRevenue))
+//            }
+//        }
+    
+    func fetchEventRevenue(completion: @escaping (Result<[Int], Error>) -> Void) {
+           fetchAllEvents { result in
+               switch result {
+               case .success(let events):
+                   let revenue = events.map { $0.revenue }
+                   print("Fetched revenue: \(revenue)")
+                   completion(.success(revenue))
+               case .failure(let error):
+                   completion(.failure(error))
+               }
+           }
+       }
+    
+    func fetchTotalRevenue(completion: @escaping (Result<Int, Error>) -> Void) {
+        fetchEventRevenue { result in
+            switch result {
+            case .success(let revenues):
+                let totalRevenue = revenues.reduce(0, +)
                 print("Total revenue: \(totalRevenue)")
                 completion(.success(totalRevenue))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    func fetchEventDateTime(completion: @escaping (Result<[Date], Error>) -> Void) {
+        fetchAllEvents { result in
+            switch result {
+            case .success(let events):
+                let eventDates = events.map { $0.date }
+                print("Fetched event dates and times: \(eventDates)")
+                completion(.success(eventDates))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+
+    
+    func fetchEventTickets(completion: @escaping (Result<[Int], Error>) -> Void) {
+            fetchAllEvents { result in
+                switch result {
+                case .success(let events):
+                    let tickets = events.map { $0.tickets }
+                    print("Fetched tickets: \(tickets)")
+                    completion(.success(tickets))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    
+    func fetchRegisteredMembers(completion: @escaping (Result<[User], Error>) -> Void) {
+            fetchAllEvents { result in
+                switch result {
+                case .success(let events):
+                    var registeredUsers: [User] = []
+                    for event in events {
+                        registeredUsers.append(contentsOf: event.registeredMembers)
+                    }
+                    print("Fetched registered users: \(registeredUsers)")
+                    completion(.success(registeredUsers))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+    
+    func fetchRegisteredMembersCount(completion: @escaping (Result<Int, Error>) -> Void) {
+            fetchRegisteredMembers { result in
+                switch result {
+                case .success(let registeredUsers):
+                    let userCount = registeredUsers.count
+                    print("Total registered users count: \(userCount)")
+                    completion(.success(userCount))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
 

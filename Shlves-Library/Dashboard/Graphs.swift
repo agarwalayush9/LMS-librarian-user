@@ -9,31 +9,97 @@ import SwiftUI
 import Charts
 
 //MARK: for event revenue  data
-struct eventRevenueData: Identifiable {
+struct EventRevenueData: Identifiable {
     var id = UUID()
     var date: Date
-    var ticketCount: Int
-    var ticketPrice: Int
+    var RegisteredMemberCount: Int
+    var fees: Int
+    var revenue: Int
 }
 
 class eventRevenueViewModel: ObservableObject {
-    @Published var events = [eventRevenueData]()
+    @Published var events = [EventRevenueData]()
     
     init() {
         fetchData()
     }
     
     func fetchData() {
-        // Generate sample data
-        events = [
-            eventRevenueData(date: Date(), ticketCount: 100, ticketPrice: 50),
-            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 1, to: Date())!, ticketCount: 150, ticketPrice: 60),
-            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 2, to: Date())!, ticketCount: 200, ticketPrice: 70),
-            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 3, to: Date())!, ticketCount: 120, ticketPrice: 55),
-            eventRevenueData(date: Calendar.current.date(byAdding: .day, value: 4, to: Date())!, ticketCount: 180, ticketPrice: 65)
-        ]
+            var eventDates: [Date] = []
+            var tickets: [Int] = []
+            var revenue: [Int] = []
+            var registeredMemberCount: Int = 0
+            
+            let dispatchGroup = DispatchGroup()
+            
+            // Fetch event dates
+            dispatchGroup.enter()
+            DataController.shared.fetchEventDateTime { result in
+                defer { dispatchGroup.leave() }
+                switch result {
+                case .success(let dates):
+                    eventDates = dates
+                case .failure(let error):
+                    print("Failed to fetch event dates: \(error.localizedDescription)")
+                }
+            }
+            
+            // Fetch event tickets
+            dispatchGroup.enter()
+            DataController.shared.fetchEventTickets { result in
+                defer { dispatchGroup.leave() }
+                switch result {
+                case .success(let ticketCounts):
+                    tickets = ticketCounts
+                case .failure(let error):
+                    print("Failed to fetch event tickets: \(error.localizedDescription)")
+                }
+            }
+            
+            // Fetch event revenue
+            dispatchGroup.enter()
+            DataController.shared.fetchEventRevenue { result in
+                defer { dispatchGroup.leave() }
+                switch result {
+                case .success(let eventRevenue):
+                    revenue = eventRevenue
+                case .failure(let error):
+                    print("Failed to fetch event revenue: \(error.localizedDescription)")
+                }
+            }
+            
+            // Fetch registered member count
+            dispatchGroup.enter()
+            DataController.shared.fetchRegisteredMembersCount { result in
+                defer { dispatchGroup.leave() }
+                switch result {
+                case .success(let count):
+                    registeredMemberCount = count
+                case .failure(let error):
+                    print("Failed to fetch registered member count: \(error.localizedDescription)")
+                }
+            }
+            
+            // Notify when all data fetching is complete
+            dispatchGroup.notify(queue: .main) {
+                var eventDatas: [EventRevenueData] = []
+                
+                // Ensure all arrays are of the same count
+                let count = min(eventDates.count, tickets.count, revenue.count)
+                
+                // Create EventRevenueData instances
+                for index in 0..<count {
+                    let eventData = EventRevenueData(date: eventDates[index],
+                                                     RegisteredMemberCount: registeredMemberCount,
+                                                     fees: tickets[index],
+                                                     revenue: revenue[index])
+                    eventDatas.append(eventData)
+                }
+                
+                self.events = eventDatas
+            }
+        }
     }
-}
 
 struct EventAreaGraphView: View {
     @StateObject private var viewModel = eventRevenueViewModel()
@@ -43,7 +109,7 @@ struct EventAreaGraphView: View {
             Chart(viewModel.events) { event in
                 AreaMark(
                     x: .value("Date", event.date),
-                    y: .value("Revenue", event.ticketCount * event.ticketPrice)
+                    y: .value("Revenue", event.RegisteredMemberCount * event.fees)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.linearGradient(colors: [.librarianDashboardTabBar.opacity(0.8), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom))
