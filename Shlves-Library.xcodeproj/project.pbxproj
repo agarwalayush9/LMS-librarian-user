@@ -27,6 +27,7 @@
 		B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */; };
 		B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */; };
 		B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */; };
+		B1759FA12C47D45B00F75FB8 /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1759FA02C47D45B00F75FB8 /* EventList.swift */; };
 		B1BEB4112C359FB300ED5C01 /* sideMenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */; };
 		B1E339F42C452F6D00CF1E27 /* Graphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E339F32C452F6D00CF1E27 /* Graphs.swift */; };
 		C4358B752C358168006824DC /* LoginPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4358B742C358168006824DC /* LoginPageView.swift */; };
@@ -69,6 +70,7 @@
 		B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardAnalyticsData.swift; sourceTree = "<group>"; };
 		B174F3512C36678E003D1ABD /* LibrarianDashboardStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboardStructs.swift; sourceTree = "<group>"; };
 		B174F3532C36683A003D1ABD /* LibrarianDashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarianDashboard.swift; sourceTree = "<group>"; };
+		B1759FA02C47D45B00F75FB8 /* EventList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
 		B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sideMenuBar.swift; sourceTree = "<group>"; };
 		B1E339F32C452F6D00CF1E27 /* Graphs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphs.swift; sourceTree = "<group>"; };
 		C4358B742C358168006824DC /* LoginPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPageView.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				D0DC6C512C4268D0000C90F0 /* ImageLoader.swift */,
 				B164E01E2C451FB200EF50AB /* Eventform.swift */,
 				B1E339F32C452F6D00CF1E27 /* Graphs.swift */,
+				B1759FA02C47D45B00F75FB8 /* EventList.swift */,
 			);
 			name = Dashboard;
 			path = "Shlves-Library/Dashboard";
@@ -290,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1759FA12C47D45B00F75FB8 /* EventList.swift in Sources */,
 				FD87DC862C356BFC00553DC0 /* Shlves_LibraryApp.swift in Sources */,
 				FDBC5E9D2C451F69004F0890 /* AuthManager.swift in Sources */,
 				B174F3522C36678E003D1ABD /* LibrarianDashboardStructs.swift in Sources */,

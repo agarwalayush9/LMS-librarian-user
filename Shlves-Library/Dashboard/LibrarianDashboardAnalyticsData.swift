@@ -152,9 +152,7 @@ struct UpcomingEvent: Identifiable {
     }
 }
 
-//from here
-
-import SwiftUI
+//MARK: upcoming events -: call on the librarian dashboard
 
 struct UpcomingEventListView: View {
     @State private var events: [UpcomingEvent] = []
@@ -163,21 +161,56 @@ struct UpcomingEventListView: View {
         VStack {
             ForEach(events) { event in
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(event.name)
-                        .font(.headline)
-                    Text("Host: \(event.host)")
-                        .font(.subheadline)
-                    Text("Date: \(formattedDate(event.date))")
-                        .font(.subheadline)
-                    Text("Image: \(event.imageName)")
-                        .font(.subheadline)
-                    Text("Ticket Price: $\(event.fees)")
-                        .font(.subheadline)
-                    Text("Status: \(event.status)")
-                        .font(.subheadline)
+                    HStack(alignment: .center) {
+                        Image(event.imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .background(.customButton)
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(8)
+                            
+                        
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(event.name)
+                                .font(.headline)
+                                .foregroundColor(.customButton)
+                            
+                            Text(event.host)
+                                .font(.subheadline)
+                                .foregroundColor(.black)
+                        }
+                        .frame(maxWidth: 145)
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .leading) {
+                            Text("Date")
+                                .font(.headline)
+                                .foregroundColor(.customButton)
+                            
+                            Text(formattedDate(event.date)) // Format date correctly
+                                .font(.subheadline)
+                                .foregroundColor(.black)
+                        }.frame(maxWidth: 85)
+                        
+                        Spacer()
+                        
+                        VStack(alignment: .leading) {
+                            Text("Price")
+                                .font(.headline)
+                                .foregroundColor(.customButton)
+                            
+                            Text("\(event.fees)") // Display price correctly
+                                .font(.subheadline)
+                                .foregroundColor(.black)
+                        }.frame(maxWidth: 85)
+                        
+                        Spacer()
+                        
+                    }
                 }
                 .padding()
-                .background(Color.gray.opacity(0.1))
+                .background(.clear)
                 .cornerRadius(8)
                 .padding(.vertical, 4)
             }
@@ -308,3 +341,4 @@ struct NewlyArrivedBooks: Identifiable, Equatable {
         }
     }
 }
+
