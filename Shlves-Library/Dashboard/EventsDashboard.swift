@@ -172,6 +172,7 @@ struct customEventCard: View {
 
 //MARK: skeleton of whole page
 struct EventAnalyticsCard: View {
+    @State private var selectedDate = Date()
     var body: some View {
         ScrollView {
             VStack{
@@ -180,7 +181,7 @@ struct EventAnalyticsCard: View {
                         VStack(alignment: .leading){
                             
                             //Event Revenue Details Card
-                            customGraphCard(width: 740, height: 250)
+                            customGraphCard(width: 740, height: 300)
                                            .overlay(
                                                GeometryReader { geometry in
                                                    VStack(alignment: .leading) {
@@ -196,7 +197,7 @@ struct EventAnalyticsCard: View {
                                                }
                                            )
                                            .frame(width: 740, height: 250)
-                            
+                                           .padding(.bottom, 40)
                             //MARK: Line 2
                             HStack{
                                 // Total Event Visitors Card
@@ -222,7 +223,9 @@ struct EventAnalyticsCard: View {
 //                                customEventCard(width: 275,
 //                                                height: 243)
                                 
-                            }.padding(.top, 20)
+                            }
+                            .padding(.bottom, 25)
+                                
                             //MARK: Line 3
                             
                             
@@ -271,6 +274,7 @@ struct EventAnalyticsCard: View {
                                 )
                             }
                             
+                            
                         }
                         .padding([.leading] ,54)
                         
@@ -283,7 +287,24 @@ struct EventAnalyticsCard: View {
                             //Calender Card
                             customGraphCard(width: 344 ,
                                             height: 285)
-                            .padding([.leading, .trailing])
+                            .overlay(
+                                            VStack {
+                                                DatePicker(
+                                                    "Date",
+                                                    selection: $selectedDate,
+                                                    displayedComponents: [.date]
+                                                )
+                                                .datePickerStyle(GraphicalDatePickerStyle())
+                                                .labelsHidden()
+                                                .accentColor(.customButton)
+                                                .frame(width: 300, height: 200) // Adjust the size as needed
+                                            }
+                                            .padding()
+                                        ).padding([.leading, .trailing])
+                            
+                            
+                            //MARK: Next line
+                            
                             HStack{
                                 Text("Upcoming Events")
                                     .font(
