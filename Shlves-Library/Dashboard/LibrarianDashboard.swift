@@ -9,12 +9,12 @@ import SwiftUI
 
 struct LibrarianDashboard: View {
     @State private var menuOpened = false
-     @State private var AddButtonPressed = false
+    @State private var AddButtonPressed = false
     @State private var navigateToBookCatalogue = false
     @State private var navigateToUserRecord = false
     @State private var isRequestBooks = false
-       @State private var isReturnBooks = false
-    
+    @State private var isReturnBooks = false
+    @State private var isAddEventPressed = false
     
     var body: some View {
         NavigationStack {
@@ -131,7 +131,7 @@ struct LibrarianDashboard: View {
                             }
                             
                             Spacer()
-                            showTabBarButtons(isRequestBooks: $isRequestBooks, isReturnBooks: $isReturnBooks)
+                            showTabBarButtons()
                         }
                         .padding([.top, .leading])
                        // .padding(.leading, 50)
@@ -217,87 +217,77 @@ struct LibrarianDashboard: View {
 
 
 struct showTabBarButtons : View {
-    
-    @Binding var isRequestBooks : Bool
-        @Binding var isReturnBooks : Bool
-    
-    
-    
-    var body: some View {
-        
-        
-        //Add event
-        Button(action: {
-        print("Add Event Pressed")
-            isRequestBooks.toggle()
-    }, label: {
-        NavigationLink(destination: EventFormView()) {
-            CustomButton(systemImage: "",
-                         width: 170,
-                         height: 39,
-                         title: "Add Event",
-                         colorName: "CustomButtonColor")   
-        }
-           })
-        .sheet(isPresented: $isRequestBooks){
-                    
-                    //MARK: make for each here
-                    BookRequest(ISBN: "12345678",
-                                BookImage: "book_cover",
-                                BookTitle: "Soul",
-                                AuthorName: "zek",
-                                UserName: "Abhay",
-                                UserID: "224455",
-                                RequestedDate: "14-Jul-202")
-                }
-        
-        Button(action: {
-        print("Request Book Pressed")
-            isRequestBooks.toggle()
-    }, label: {
-        CustomButton(systemImage: "",
-                     width: 170,
-                     height: 39,
-                     title: "Book Requests",
-                     colorName: "CustomButtonColor")      })
-        .sheet(isPresented: $isRequestBooks){
-                    
-                    //MARK: make for each here
-                    BookRequest(ISBN: "12345678",
-                                BookImage: "book_cover",
-                                BookTitle: "Soul",
-                                AuthorName: "zek",
-                                UserName: "Abhay",
-                                UserID: "224455",
-                                RequestedDate: "14-Jul-202")
-                }
-        
-        
-        Button(action: {
-                print("Return Book Pressed")
-                isReturnBooks.toggle()
-            }, label: {
-                CustomButton(systemImage: "",
-                             width: 180,
-                             height: 39,
-                             title: "Return Requests",
-                             colorName: "CustomButtonColor")      })
-            .sheet(isPresented: $isReturnBooks, content: {
-                //MARK: make foreach here
-                ReturnBook(ISBN: "12345678",
-                            BookImage: "book_cover",
-                            BookTitle: "Soul",
-                            AuthorName: "zek",
-                            UserName: "Abhay",
-                            UserID: "224455",
-                            RequestedDate: "14-Jul-202",
-                           OverDuePeriod: "2",
-                fine: 40)
+    @State private var isRequestBooks = false
+    @State private var isReturnBooks = false
+    @State private var isAddEventPressed = false
 
-            })
-            .padding()
+    var body: some View {
+        VStack {
+            HStack {
+                // Add Event Button
+                Button(action: {
+                    print("Add Event Pressed")
+                    isAddEventPressed.toggle()
+                }, label: {
+                    CustomButton(systemImage: "",
+                                 width: 170,
+                                 height: 39,
+                                 title: "Add Event",
+                                 colorName: "CustomButtonColor")
+                })
+                .sheet(isPresented: $isAddEventPressed) {
+                    EventFormView()
+                }
+
+                // Request Book Button
+                Button(action: {
+                    print("Request Book Pressed")
+                    isRequestBooks.toggle()
+                }, label: {
+                    CustomButton(systemImage: "",
+                                 width: 170,
+                                 height: 39,
+                                 title: "Book Requests",
+                                 colorName: "CustomButtonColor")
+                })
+                .sheet(isPresented: $isRequestBooks) {
+                    BookRequest(ISBN: "12345678",
+                                BookImage: "book_cover",
+                                BookTitle: "Soul",
+                                AuthorName: "zek",
+                                UserName: "Abhay",
+                                UserID: "224455",
+                                RequestedDate: "14-Jul-202")
+                }
+
+                // Return Book Button
+                Button(action: {
+                    print("Return Book Pressed")
+                    isReturnBooks.toggle()
+                }, label: {
+                    CustomButton(systemImage: "",
+                                 width: 180,
+                                 height: 39,
+                                 title: "Return Requests",
+                                 colorName: "CustomButtonColor")
+                })
+                .sheet(isPresented: $isReturnBooks) {
+                    ReturnBook(ISBN: "12345678",
+                               BookImage: "book_cover",
+                               BookTitle: "Soul",
+                               AuthorName: "zek",
+                               UserName: "Abhay",
+                               UserID: "224455",
+                               RequestedDate: "14-Jul-202",
+                               OverDuePeriod: "2",
+                               fine: 40)
+                }
+                .padding()
             }
+            .padding()
         }
+    }
+}
 
 struct showAddBarExtension : View {
     @Binding var AddbuttonPressed : Bool

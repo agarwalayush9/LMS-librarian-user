@@ -32,8 +32,16 @@ struct EventsDashboard: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                //calling main screen struct
-                EventAnalyticsCard()
+                VStack(alignment: .leading){
+                    Text("Manage Events")
+                        .font(
+                        Font.custom("DM Sans", size: 52)
+                        .weight(.medium)
+                        ).padding(.leading, 52)
+                        .padding(.top)
+                    //calling main screen struct
+                    EventAnalyticsCard()
+                }
                 //This is to be the last part of z Stack
                 if menuOpened {
                     sideMenu( width: UIScreen.main.bounds.width * 0.30,
@@ -49,7 +57,7 @@ struct EventsDashboard: View {
             }
             .background(Color("dashboardbg"))
             //navigation Bar Mark ~zek
-            .navigationTitle("Manager Events")
+            .navigationTitle("Lms")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
@@ -97,6 +105,79 @@ struct customGraphCard: View {
             .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 }
+
+
+
+
+//MARK: Custom card for today's event
+struct TodaysEventCustomCard : View{
+    var width : Double
+    var height : Double
+  
+    
+    var body: some View {
+        Rectangle()
+            .frame(width: width, height: height)
+            .foregroundStyle(Color(.white))
+            .clipShape(RoundedRectangle(cornerRadius: 14))
+            .overlay(
+                VStack (alignment: .leading){
+                    Text("Event Name:")
+                        .font(
+                            Font.custom("DMSansBold", size: 12)
+                        )
+                        .foregroundStyle(.gray)
+                        .padding(.leading)
+                    Text("California Art Festival 2023 Dana Point 29-30")
+                        .font(
+                            Font.custom("DM Sans", size: 16)
+                                .weight(.bold)
+                        )
+                        .frame(maxWidth: .infinity,maxHeight: 150)
+                        //.padding()
+                        .lineLimit(2)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .multilineTextAlignment(.leading)
+                    HStack{
+                    
+                        Image("book_cover")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 79, height: 96)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .padding()
+                        VStack(alignment: .leading){
+                            //Event Details
+                            Text("Event Details:")
+                                .foregroundStyle(.gray)
+                            HStack{
+                                Image(systemName: "calendar")
+                                Text("11 JULY 2024")
+                            }
+                            HStack{
+                                Image(systemName: "mappin")
+                                Text("Shelves Library")
+                            }
+                            Text("Host Name")
+                                .foregroundStyle(.gray)
+                            Text("Kaleem Bhaiya")
+                        }
+                       
+                        .font(
+                            Font.custom("DM Sans", size: 16)
+                                .weight(.bold)
+                        )
+                    //End of VStack for Event Details
+                    }//END OF VSTACK
+                }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: 40)
+                //End of VStack
+            )
+    }
+}
+
+
 
 //MARK: Custom Card for event
 struct customEventCard: View {
@@ -162,35 +243,24 @@ struct customEventCard: View {
 }
 
 
-//struct floatingButton : View {
-//    var body: some View {
-//        Rectangle()
-//            .frame(maxWidth: 227, maxHeight: 50)
-//            .background(Color(""))
-//    }
-//}
-
 //MARK: skeleton of whole page
 struct EventAnalyticsCard: View {
+    @State private var selectedDate = Date()
     var body: some View {
         ScrollView {
             VStack{
                 HStack{
                     ScrollView {
                         VStack(alignment: .leading){
-                            Text("Manage Events")
-                                .font(
-                                    Font.custom("DMSans-Medium", size: 52)
-                                )
                             
                             //Event Revenue Details Card
-                            customGraphCard(width: 740, height: 400)
+                            customGraphCard(width: 740, height: 300)
                                            .overlay(
                                                GeometryReader { geometry in
-                                                   VStack {
+                                                   VStack(alignment: .leading) {
                                                        Text("Event Revenue Details")
-                                                           .font(.title)
-                                                           .padding(.top)
+                                                           .font(Font.custom("DMSans_18pt-Medium", size: 32))
+                                                        .padding(.top,20)
                                                        
                                                        EventAreaGraphView()
                                                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
@@ -199,33 +269,88 @@ struct EventAnalyticsCard: View {
                                                    .frame(width: geometry.size.width, height: geometry.size.height)
                                                }
                                            )
-                                           .frame(width: 740, height: 250)
-                            
+                                           .frame(width: 740, height: 300)
+                                           .padding(.bottom, 20)
                             //MARK: Line 2
                             HStack{
                                 // Total Event Visitors Card
                                 customGraphCard(width: 442,
                                                 height: 243)
+                                .overlay(
+                                    GeometryReader{ geometry in
+                                        VStack(alignment: .leading) {
+                                            Text("Number of visitors")
+                                                .font(.title)
+                                                .padding([.top, .bottom])
+                                            
+                                            LineChart()
+                                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
+                                                .padding(.bottom)
+                                        }
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                    }
+                                )
+                                
                                 .padding(.trailing)
                                 //Today's Event Card
-                                customEventCard(width: 275,
+                                TodaysEventCustomCard(width: 295,
                                                 height: 243)
                                 
                             }
+                            .padding(.bottom, 25)
+                                
                             //MARK: Line 3
+                            
+                            
                             HStack{
                                 //Tickets status Card
-                                customGraphCard(width: 275,
+                                customGraphCard(width: 375,
                                                 height: 243)
+                                .overlay(
+                                    GeometryReader{ geometry in
+                                        VStack(alignment: .leading) {
+                                            
+                                            
+                                            PieChartDisplayView()
+                                                .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.7)
+                                                .padding(.bottom)
+                                        }
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                    }
+                                )
+
                                 .padding(.trailing)
                                 
-                                // Total Event Visitors Card
-                                customGraphCard(width: 442,
+                                // Ticket sales
+                                customGraphCard(width: 377,
                                                 height: 243)
+                                .overlay(
+                                    GeometryReader{ geometry in
+                                        VStack(alignment: .leading) {
+                                            VStack(alignment: .leading){
+                                                Text("Tickets Sales")
+                                                    .font(
+                                                        Font.custom("DM Sans", size: 17)
+                                                            .weight(.bold)
+                                                    )
+                                            }
+                                            .padding(.top,20)
+                                            Spacer()
+                                            VStack{
+                                                BarGraph()
+                                                    .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.4)
+                                                    .padding(.bottom)
+                                            }
+                                            
+                                        }
+                                        .frame(width: geometry.size.width, height: geometry.size.height)
+                                    }
+                                )
                             }
                             
+                            
                         }
-                        .padding([.leading,.top] ,54)
+                        .padding([.leading] ,54)
                         
                         
                     }
@@ -236,7 +361,24 @@ struct EventAnalyticsCard: View {
                             //Calender Card
                             customGraphCard(width: 344 ,
                                             height: 285)
-                            .padding([.leading, .trailing])
+                            .overlay(
+                                            VStack {
+                                                DatePicker(
+                                                    "Date",
+                                                    selection: $selectedDate,
+                                                    displayedComponents: [.date]
+                                                )
+                                                .datePickerStyle(GraphicalDatePickerStyle())
+                                                .labelsHidden()
+                                                .accentColor(.customButton)
+                                                .frame(width: 300, height: 200) // Adjust the size as needed
+                                            }
+                                            .padding()
+                                        ).padding([.leading, .trailing])
+                            
+                            
+                            //MARK: Next line
+                            
                             HStack{
                                 Text("Upcoming Events")
                                     .font(
@@ -281,10 +423,10 @@ struct EventAnalyticsCard: View {
                             
                         }
                     }.padding([.leading, .trailing], 30)
-                        .padding(.top, 54)
+                        
                     Spacer()
                 }
-                
+                .padding(.bottom, 40)
                 HStack{
                     BookCirculationCard(minHeight: 200, title: "All Events Listing")
                     BookCirculationCard(minHeight: 200, title: "All Events Registration by Users")
@@ -297,6 +439,7 @@ struct EventAnalyticsCard: View {
         }
     }
 }
+
 
 
 // MARK: Floating Button on Event DashBoard
