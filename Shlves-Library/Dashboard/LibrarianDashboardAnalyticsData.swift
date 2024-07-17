@@ -109,7 +109,7 @@ struct UpcomingEvent: Identifiable {
     var address: String
     var duration: String
     var description: String
-    var registeredMembers: [User]
+    var registeredMembers: [Member]
     var tickets: Int
     var imageName: String
     var fees: Int

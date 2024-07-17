@@ -2,7 +2,7 @@ import Foundation
 
 struct User
 {
-    var name: String
+    var firstName: String
     var lastName: String
     var email: String
     var phoneNumber: Int
@@ -15,7 +15,7 @@ struct User
     
     func toDictionary() -> [String: Any] {
             return [
-                "name": name,
+                "name": firstName,
                 "lastName": lastName,
                 "email": email,
                 "phoneNumber": phoneNumber,
@@ -84,8 +84,49 @@ enum Genre: String, Codable, CaseIterable {
     case Literature
 }
 
+struct Member {
+    var firstName: String
+    var lastName: String
+    var email: String
+    var phoneNumber: Int
+    var subscriptionPlan: String?
+    var registeredEvents: [Event]?
+    var genre: [Genre]?
+
+    // Additional methods or properties as needed
+
+    var safeEmail: String {
+        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
+
+    func toDictionary() -> [String: Any] {
+        var dictionary: [String: Any] = [
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "phoneNumber": phoneNumber
+        ]
+
+        if let subscriptionPlan = subscriptionPlan {
+            dictionary["subscriptionPlan"] = subscriptionPlan
+        }
+
+        if let genre = genre {
+            dictionary["genre"] = genre.map { $0.rawValue }
+        }
+
+        if let registeredEvents = registeredEvents {
+            dictionary["registeredEvents"] = registeredEvents.map { $0.toDictionary() }
+        }
+
+        return dictionary
+    }
+}
+
 struct Event: Identifiable {
-    var id = UUID()
+    var id: String = UUID().uuidString
     var name: String
     var host: String
     var date: Date
@@ -93,7 +134,7 @@ struct Event: Identifiable {
     var address: String
     var duration: String
     var description: String
-    var registeredMembers: [User]
+    var registeredMembers: [Member]
     var tickets: Int
     var imageName: String
     var fees: Int

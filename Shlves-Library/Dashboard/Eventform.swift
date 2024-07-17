@@ -128,7 +128,7 @@ struct EventFormView: View {
             
             Section {
                 Button(action: submitForm) {
-                    Text("Submit")
+                    Text("Ask Permission")
                         .frame(maxWidth: .infinity, maxHeight: 30)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 20)
@@ -159,9 +159,9 @@ struct EventFormView: View {
         print("Number of Tickets: \(numberOfTickets)")
         print("Price of Tickets: \(priceOfTickets)")
         
-        let newEvent = Event(name: eventName, host: hostName, date: eventDate, time: eventTime, address: eventLocation, duration: eventDuration, description: "event description", registeredMembers: [], tickets: numberOfTickets, imageName: "event_image", fees: priceOfTickets, revenue: (priceOfTickets * priceOfTickets), status: "Pending")
+        let newEvent = Event(name: eventName, host: hostName, date: eventDate, time: eventTime, address: eventLocation, duration: eventDuration, description: eventDescription, registeredMembers: [], tickets: numberOfTickets, imageName: "event_image", fees: priceOfTickets, revenue: (priceOfTickets * priceOfTickets), status: "Pending")
         
-        DataController.shared.addEvent(newEvent) { result in
+        DataController.shared.addPendingEvent(newEvent) { result in
             switch result {
             case .success:
                 alertMessage = "Event added successfully."
