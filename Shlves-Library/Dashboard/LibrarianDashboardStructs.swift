@@ -83,7 +83,7 @@ struct card : View {
     var salesDifferencePercentage : Double
     var body: some View {
         Rectangle()
-            .foregroundStyle(.white)
+            .foregroundStyle(.dashboardCardBG)
             .frame(width: 258, height: 160)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .overlay(
@@ -208,7 +208,7 @@ struct cardData : View {
                   .padding(.leading, 19)
                   
             }
-            .foregroundColor(Color(red: 0.16, green: 0.14, blue: 0.14))
+            .foregroundColor(Color(.mainFont))
             .frame(maxWidth: .infinity, alignment: .topLeading)
             
             
@@ -463,7 +463,7 @@ struct BookCirculationCard: View {
             Spacer()
         }
         .padding()
-        .background(Color.white).frame(minHeight: minHeight)
+        .background(Color.dashboardCardBG).frame(minHeight: minHeight)
         .clipShape(RoundedRectangle(cornerRadius: 12))
 
     }
@@ -761,7 +761,7 @@ struct NewlyArrivedBooksQuantityInfo : View {
             VStack{
                 Text("Arrived Date")
                     .padding()
-                    .foregroundColor(.customButton)
+                    .foregroundColor(.mainFont)
                 Text("\(ArrivedDate) ")
                     .foregroundStyle(.mainFont)
             }
@@ -769,7 +769,7 @@ struct NewlyArrivedBooksQuantityInfo : View {
             VStack{
                 Text("Quantity")
                     .padding()
-                    .foregroundColor(.customButton)
+                    .foregroundColor(.mainFont)
                 Text("\(Quantity) units")
                     .foregroundStyle(.mainFont)
                 
@@ -808,7 +808,7 @@ struct bookInfo : View {
                             Font.custom("DM Sans", size: 14)
                                 .weight(.medium)
                         )
-                        .foregroundColor(.mainFont)
+                        .foregroundColor(.isbnNumber)
                 )
             
             Text(bookTitle)
@@ -816,7 +816,7 @@ struct bookInfo : View {
                     Font.custom("DM Sans", size: 20)
                         .weight(.medium)
                 )
-                .foregroundColor(.customButton)
+                .foregroundColor(.mainFont)
             Text(authorName)
             
                 .font(

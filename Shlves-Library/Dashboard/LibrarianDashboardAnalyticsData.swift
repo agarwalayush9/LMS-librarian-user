@@ -173,7 +173,7 @@ struct UpcomingEventListView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(event.name)
                                 .font(.headline)
-                                .foregroundColor(.customButton)
+                                .foregroundColor(.mainFont)
                             
                             Text(event.host)
                                 .font(.subheadline)
@@ -186,7 +186,7 @@ struct UpcomingEventListView: View {
                         VStack(alignment: .leading) {
                             Text("Date")
                                 .font(.headline)
-                                .foregroundColor(.customButton)
+                                .foregroundColor(.mainFont)
                             
                             Text(formattedDate(event.date)) // Format date correctly
                                 .font(.subheadline)
@@ -198,7 +198,7 @@ struct UpcomingEventListView: View {
                         VStack(alignment: .leading) {
                             Text("Price")
                                 .font(.headline)
-                                .foregroundColor(.customButton)
+                                .foregroundColor(.mainFont)
                             
                             Text("\(event.fees)") // Display price correctly
                                 .font(.subheadline)
