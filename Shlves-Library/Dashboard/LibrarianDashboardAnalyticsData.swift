@@ -91,8 +91,9 @@ struct Sections : Identifiable{
             Sections(sectionHeader: "Books", menuItem: [
                 MenuItem(optionIcon: "books", option: "Books Catalogue", destination: AnyView(BooksCatalogue( )), isClickable: true),
                 MenuItem(optionIcon: "bookshelf", option: "Books Circulation", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "overdue", option: "Books Overdues/Fines", destination: AnyView(EmptyView()), isClickable: false),
-                MenuItem(optionIcon: "bill", option: "Fine Management", destination: AnyView(EmptyView()), isClickable: false)
+                MenuItem(optionIcon: "overdue", option: "Books Overdues/Fines", destination: AnyView(BookOverduesView()), isClickable: true),
+                MenuItem(optionIcon: "bill", option: "Fine Management", destination: AnyView(EmptyView()), isClickable: false),
+                MenuItem(optionIcon: "bill", option: "User Record", destination: AnyView(UsersCatalogue()), isClickable: true)
             ])
                 ]
     }
