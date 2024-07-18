@@ -297,7 +297,7 @@ struct BarGraph: View {
                     Circle()
                         .fill(Color.customButton)
                         .frame(width: 15, height: 15)
-                    Text("200 Ticket Sold")
+                    Text("Ticket Sold")
                         .font(.caption2)
                 }
                 
@@ -305,7 +305,7 @@ struct BarGraph: View {
                     Circle()
                         .fill(Color.librarianDashboardTabBar)
                         .frame(width: 15, height: 15)
-                    Text("330 Ticket Available")
+                    Text("Ticket Available")
                         .font(.caption2)
                 }
             }

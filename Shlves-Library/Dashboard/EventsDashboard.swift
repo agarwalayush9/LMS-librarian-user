@@ -429,7 +429,7 @@ struct EventAnalyticsCard: View {
                 .padding(.bottom, 40)
                 HStack{
                     BookCirculationCard(minHeight: 200, title: "All Events Listing")
-                    BookCirculationCard(minHeight: 200, title: "All Events Registration by Users")
+                    
                 }.padding([.leading, .trailing],54)
                 Spacer()
                     
@@ -476,23 +476,4 @@ struct floatingEventButtonView: View {
 }
 
 
-
-
-//MARK: User form for 1st Page
-
-//MARK: User Form for 2nd Page
-
-// MARK: final button struct
-
-// MARK: CreateFinalUserForm
-
-//MARK: struct for creation of Custom Form field
-
-//MARK: timing Details ie. below text fields
-
-//MARK: customize current date
-
-//MARK: current date
-
-//MARK: current time
 
