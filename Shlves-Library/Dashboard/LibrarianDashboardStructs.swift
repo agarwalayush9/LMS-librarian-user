@@ -463,7 +463,7 @@ struct BookCirculationCard: View {
             Spacer()
         }
         .padding()
-        .background(Color.white).frame(minHeight: minHeight)
+        .background(Color.graphBG).frame(minHeight: minHeight)
         .clipShape(RoundedRectangle(cornerRadius: 12))
 
     }
