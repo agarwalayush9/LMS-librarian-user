@@ -10,7 +10,7 @@ import SwiftUI
 struct LibrarianDashboard: View {
     @State private var menuOpened = false
     @State private var AddButtonPressed = false
-    @State private var navigateToBookCatalogue = false
+    @State private var navigateToNotificationScreen = false
     @State private var navigateToUserRecord = false
     @State private var isRequestBooks = false
     @State private var isReturnBooks = false
@@ -161,33 +161,20 @@ struct LibrarianDashboard: View {
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    // start here
-//                    Button(action: {
-//                        // Add action for books vertical button
-//                        navigateToUserRecord = true
-//                    }, label: {
-//                        Image(systemName: "books.vertical")
-//                            .foregroundColor(Color.mainFont)
-//                    })
+                   
                     HStack{
                                             Button(action: {
                                                 // Add action for books vertical button
-                                                navigateToBookCatalogue = true
+                                                navigateToNotificationScreen = true
                                                 
                                             }, label: {
-                                                Image(systemName: "books.vertical")
+                                                Image(systemName: "bell")
                                                     .foregroundColor(Color.mainFont)
                                             })
-                                            Button(action: {
-                                                // Add action for books vertical button
-                                                //navigateToBookCatalogue = true
-                                                navigateToUserRecord = true
-                                                
-                                            }, label: {
-                                                Image(systemName: "person.3.fill")
-                                                    .foregroundColor(Color.librarianDashboardTabBar)
+                                            .sheet(isPresented: $navigateToNotificationScreen, content: {
+                                                NotificationScreen()
                                             })
-                                        }
+                    }
                     //end here
                 }
             }
@@ -195,9 +182,6 @@ struct LibrarianDashboard: View {
             .sheet(isPresented: $showModal) {
                             NotificationScreen()
                         }
-
-                        
-            
         }
         
     }
