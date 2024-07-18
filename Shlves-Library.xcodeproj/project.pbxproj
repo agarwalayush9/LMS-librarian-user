@@ -18,6 +18,9 @@
 		73E886972C4064A9000687DD /* DMSans_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886962C4064A9000687DD /* DMSans_18pt-Bold.ttf */; };
 		73E886992C406572000687DD /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E886982C406572000687DD /* DMSans-Bold.ttf */; };
 		73E8869B2C406629000687DD /* DMSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 73E8869A2C406629000687DD /* DMSans-ExtraBold.ttf */; };
+		94668E542C48319700467A69 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94668E532C48319700467A69 /* MainScreen.swift */; };
+		94668E562C4831B300467A69 /* NotificationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94668E552C4831B300467A69 /* NotificationScreen.swift */; };
+		94D3B0522C47B0E50015460A /* EventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94D3B0512C47B0E50015460A /* EventListView.swift */; };
 		B14A30E72C43E65B004B36AD /* EventsDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30E62C43E65B004B36AD /* EventsDashboard.swift */; };
 		B14A30EB2C43E879004B36AD /* FinalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30EA2C43E879004B36AD /* FinalButton.swift */; };
 		B14A30ED2C43E88B004B36AD /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14A30EC2C43E88B004B36AD /* NextButton.swift */; };
@@ -58,6 +61,9 @@
 		73E886962C4064A9000687DD /* DMSans_18pt-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans_18pt-Bold.ttf"; sourceTree = "<group>"; };
 		73E886982C406572000687DD /* DMSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		73E8869A2C406629000687DD /* DMSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DMSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		94668E532C48319700467A69 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
+		94668E552C4831B300467A69 /* NotificationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreen.swift; sourceTree = "<group>"; };
+		94D3B0512C47B0E50015460A /* EventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListView.swift; sourceTree = "<group>"; };
 		B14A30E62C43E65B004B36AD /* EventsDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsDashboard.swift; sourceTree = "<group>"; };
 		B14A30EA2C43E879004B36AD /* FinalButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalButton.swift; sourceTree = "<group>"; };
 		B14A30EC2C43E88B004B36AD /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -140,6 +146,9 @@
 				D0DC6C4F2C41378D000C90F0 /* CheckBoxView.swift */,
 				D0DC6C512C4268D0000C90F0 /* ImageLoader.swift */,
 				B164E01E2C451FB200EF50AB /* Eventform.swift */,
+				94D3B0512C47B0E50015460A /* EventListView.swift */,
+				94668E532C48319700467A69 /* MainScreen.swift */,
+				94668E552C4831B300467A69 /* NotificationScreen.swift */,
 				B1E339F32C452F6D00CF1E27 /* Graphs.swift */,
 			);
 			name = Dashboard;
@@ -290,9 +299,11 @@
 				73E8868A2C3FF892000687DD /* BarCodeScannerView.swift in Sources */,
 				D0EDBE7C2C36A3E000EC06AB /* DataModel.swift in Sources */,
 				B14A30ED2C43E88B004B36AD /* NextButton.swift in Sources */,
+				94668E542C48319700467A69 /* MainScreen.swift in Sources */,
 				B1E339F42C452F6D00CF1E27 /* Graphs.swift in Sources */,
 				D0DC6C4C2C4135B0000C90F0 /* AddBookDetailsView.swift in Sources */,
 				C4358B752C358168006824DC /* LoginPageView.swift in Sources */,
+				94668E562C4831B300467A69 /* NotificationScreen.swift in Sources */,
 				73E8868D2C3FF89D000687DD /* ContentView.swift in Sources */,
 				73E886892C3FF892000687DD /* BookDetailView.swift in Sources */,
 				B174F3542C36683A003D1ABD /* LibrarianDashboard.swift in Sources */,
@@ -305,6 +316,7 @@
 				B14A30E72C43E65B004B36AD /* EventsDashboard.swift in Sources */,
 				B14A30EB2C43E879004B36AD /* FinalButton.swift in Sources */,
 				B164E01F2C451FB200EF50AB /* Eventform.swift in Sources */,
+				94D3B0522C47B0E50015460A /* EventListView.swift in Sources */,
 				D0DC6C4E2C4136FF000C90F0 /* AddBookOptionsView.swift in Sources */,
 				73E8868B2C3FF892000687DD /* BookDetails.swift in Sources */,
 				B174F34E2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift in Sources */,
