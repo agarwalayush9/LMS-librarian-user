@@ -19,7 +19,9 @@ struct User
                 "lastName": lastName,
                 "email": email,
                 "phoneNumber": phoneNumber,
-
+                "status": "Approval Pending",
+                "userId": "******",
+                "Password": "******"
             ]
         }
 }
@@ -101,13 +103,10 @@ struct Member {
 
     func toDictionary() -> [String: Any] {
         var dictionary: [String: Any] = [
-            "name": firstName,
+            "firstName": firstName,
             "lastName": lastName,
             "email": email,
-            "phoneNumber": phoneNumber,
-            "status": "Approval Pending",
-            "userId": "******",
-            "Password": "******"
+            "phoneNumber": phoneNumber
         ]
 
         if let subscriptionPlan = subscriptionPlan {
