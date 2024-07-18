@@ -133,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				B14A30EC2C43E88B004B36AD /* NextButton.swift */,
+				73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */,
 				B14A30EA2C43E879004B36AD /* FinalButton.swift */,
 				B14A30E62C43E65B004B36AD /* EventsDashboard.swift */,
 				B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */,
@@ -166,7 +167,6 @@
 			children = (
 				FD87DC932C356C2A00553DC0 /* gitignore.txt */,
 				D0B9B10B2C35A567009521D5 /* GoogleService-Info.plist */,
-				73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */,
 				73E8868F2C4062B8000687DD /* Fonts */,
 				B1BEB40E2C359FB300ED5C01 /* Dashboard */,
 				73E8868E2C405835000687DD /* ISBNfiles */,
