@@ -19,6 +19,8 @@ struct EventRevenueData: Identifiable {
 
 class eventRevenueViewModel: ObservableObject {
     @Published var events = [EventRevenueData]()
+    @Published var upcomingEvents = [Event]()
+    @Published var registeredMemberCount = [Int]()
     
     init() {
         fetchData()
@@ -29,8 +31,31 @@ class eventRevenueViewModel: ObservableObject {
             var tickets: [Int] = []
             var revenue: [Int] = []
             var registeredMemberCount: Int = 0
-            
             let dispatchGroup = DispatchGroup()
+        
+        
+        
+        dispatchGroup.enter()
+        DataController.shared.fetchUpcomingEvents { result in
+            defer { dispatchGroup.leave() }
+            switch result {
+            case .success(let events):
+                self.upcomingEvents = events
+            case .failure(let error):
+                print("Failed to fetch upcoming events: \(error.localizedDescription)")
+            }
+        }
+        
+        dispatchGroup.enter()
+                DataController.shared.fetchRegisteredMembersCountForAllEvents { result in
+                    defer { dispatchGroup.leave() }
+                    switch result {
+                    case .success(let counts):
+                        self.registeredMemberCounts = counts
+                    case .failure(let error):
+                        print("Failed to fetch registered member count: \(error.localizedDescription)")
+                    }
+                }
             
             // Fetch event dates
             dispatchGroup.enter()
@@ -99,6 +124,23 @@ class eventRevenueViewModel: ObservableObject {
                 self.events = eventDatas.sorted(by: { $0.date < $1.date })
             }
         }
+    
+    func getFirstUpcomingEvent() -> Event? {
+            return upcomingEvents.first
+        }
+    
+    func getSecondUpcomingEvent() -> Event? {
+        // Check if the array has at least two events
+        guard upcomingEvents.count > 1 else {
+            return nil
+        }
+        return upcomingEvents[1]
+    }
+    
+    func getFirstRegisteredMemberCount() -> Int? {
+            return registeredMemberCount
+        }
+
 }
 
 struct EventAreaGraphView: View {
@@ -200,6 +242,7 @@ struct VisitorLineChartView: View {
 
 struct LineChart: View {
     @ObservedObject var eventVisitorViewData = EventVisitorViewData()
+    @StateObject private var viewModel = eventRevenueViewModel()
     
     var body: some View {
         VStack {

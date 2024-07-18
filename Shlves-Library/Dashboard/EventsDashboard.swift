@@ -106,14 +106,37 @@ struct customGraphCard: View {
     }
 }
 
+extension Event {
+    static var defaultEvent: Event {
+        return Event(
+            id: UUID().uuidString,
+            name: "Default Event",
+            host: "Unknown Host",
+            date: Date(),
+            time: Date(),
+            address: "Unknown Location",
+            duration: "Unknown Duration",
+            description: "No Description",
+            registeredMembers: [],
+            tickets: 0,
+            imageName: "default_image",
+            fees: 0,
+            revenue: 0,
+            status: "Upcoming"
+        )
+    }
+}
+
 
 
 
 //MARK: Custom card for today's event
-struct TodaysEventCustomCard : View{
-    var width : Double
-    var height : Double
-  
+struct TodaysEventCustomCard: View {
+    var width: Double
+    var height: Double
+    @StateObject private var viewModel = eventRevenueViewModel()
+    // Accessing the first upcoming event with a default value
+    
     
     var body: some View {
         Rectangle()
@@ -121,58 +144,63 @@ struct TodaysEventCustomCard : View{
             .foregroundStyle(Color(.graphBG))
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
-                VStack (alignment: .leading){
+                VStack(alignment: .leading) {
+                    
+                    var event: Event = viewModel.getFirstUpcomingEvent() ?? Event.defaultEvent
+
                     Text("Event Name:")
                         .font(
                             Font.custom("DMSansBold", size: 12)
                         )
                         .foregroundStyle(.gray)
                         .padding(.leading)
-                    Text("California Art Festival 2023 Dana Point 29-30")
+                    
+                    Text(event.name)  // Use event name
                         .font(
                             Font.custom("DM Sans", size: 16)
                                 .weight(.bold)
                         )
-                        .frame(maxWidth: .infinity,maxHeight: 150)
-                        //.padding()
+                        .frame(maxWidth: .infinity, maxHeight: 150)
                         .lineLimit(2)
                         .fixedSize(horizontal: false, vertical: true)
                         .multilineTextAlignment(.leading)
-                    HStack{
                     
+                    HStack {
+                        // Placeholder image; you can replace this with image from URL if needed
                         Image("book_cover")
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 79, height: 96)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .padding()
-                        VStack(alignment: .leading){
-                            //Event Details
+                        
+                        VStack(alignment: .leading) {
+                            // Event Details
                             Text("Event Details:")
                                 .foregroundStyle(.gray)
-                            HStack{
+                            
+                            HStack {
                                 Image(systemName: "calendar")
-                                Text("11 JULY 2024")
+                                Text(event.date, style: .date)  // Display event date
                             }
-                            HStack{
+                            
+                            HStack {
                                 Image(systemName: "mappin")
-                                Text("Shelves Library")
+                                Text(event.address)  // Display event address
                             }
+                            
                             Text("Host Name")
                                 .foregroundStyle(.gray)
-                            Text("Kaleem Bhaiya")
+                            Text(event.host)  // Display event host
                         }
-                       
                         .font(
                             Font.custom("DM Sans", size: 16)
                                 .weight(.bold)
                         )
-                    //End of VStack for Event Details
-                    }//END OF VSTACK
+                    }
                 }
-                    .padding()
-                    .frame(maxWidth: .infinity, maxHeight: 40)
-                //End of VStack
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: 40)
             )
     }
 }
@@ -183,6 +211,7 @@ struct TodaysEventCustomCard : View{
 struct customEventCard: View {
     var width : Double
     var height : Double
+    @StateObject private var viewModel = eventRevenueViewModel()
   
     
     var body: some View {
@@ -199,6 +228,9 @@ struct customEventCard: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .padding()
                     VStack(alignment: .leading){
+                        
+                        var event: Event = viewModel.getSecondUpcomingEvent() ?? Event.defaultEvent
+
                         //event name
                         Text("Event Name:")
                             .font(
@@ -206,7 +238,7 @@ struct customEventCard: View {
                             )
                             .foregroundStyle(.gray)
                         
-                        Text("California Art Festival 2023 Dana Point 29-30")
+                        Text(event.name)
                             .font(
                                 Font.custom("DM Sans", size: 16)
                                     .weight(.bold)
@@ -221,15 +253,15 @@ struct customEventCard: View {
                             .foregroundStyle(.gray)
                         HStack{
                             Image(systemName: "calendar")
-                            Text("11 JULY 2024")
+                            Text(event.date, style: .date) 
                         }
                         HStack{
                             Image(systemName: "mappin")
-                            Text("Shelves Library")
+                            Text(event.address)
                         }
                         Text("Host Name")
                             .foregroundStyle(.gray)
-                        Text("Kaleem Bhaiya")
+                        Text(event.host)
                     }
                    
                     .font(
@@ -395,7 +427,7 @@ struct EventAnalyticsCard: View {
                             
                             //Probably i'll make this a list
                                 VStack(alignment: .leading){
-                                Text("Tomorrow")
+                                Text("Next Event")
                                     .font(
                                         Font.custom("DMSansBold", size: 16)
                                     )
@@ -478,21 +510,4 @@ struct floatingEventButtonView: View {
 
 
 
-//MARK: User form for 1st Page
-
-//MARK: User Form for 2nd Page
-
-// MARK: final button struct
-
-// MARK: CreateFinalUserForm
-
-//MARK: struct for creation of Custom Form field
-
-//MARK: timing Details ie. below text fields
-
-//MARK: customize current date
-
-//MARK: current date
-
-//MARK: current time
 

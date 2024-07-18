@@ -440,7 +440,6 @@ class DataController: ObservableObject {
    
     
     
-    
     func fetchAllEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
         database.child("events").observeSingleEvent(of: .value) { snapshot in
             print("Snapshot value: \(snapshot.value ?? "No data")")
@@ -475,6 +474,9 @@ class DataController: ObservableObject {
         }
     }
 
+    
+    
+    
     
     
     func fetchEventFees(completion: @escaping (Result<[Int], Error>) -> Void) {
@@ -564,6 +566,7 @@ class DataController: ObservableObject {
         }
     }
 
+   
     
     func fetchRegisteredMembersCount(completion: @escaping (Result<Int, Error>) -> Void) {
             fetchRegisteredMembers { result in
