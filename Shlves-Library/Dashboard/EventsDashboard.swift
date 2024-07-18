@@ -101,7 +101,7 @@ struct customGraphCard: View {
         //            .frame(width: width, height: height)
             .frame(minHeight: height)
             .frame(maxWidth: width)
-            .foregroundStyle(Color(.white))
+            .foregroundStyle(Color(.graphBG))
             .clipShape(RoundedRectangle(cornerRadius: 14))
     }
 }
@@ -118,7 +118,7 @@ struct TodaysEventCustomCard : View{
     var body: some View {
         Rectangle()
             .frame(width: width, height: height)
-            .foregroundStyle(Color(.white))
+            .foregroundStyle(Color(.graphBG))
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
                 VStack (alignment: .leading){
@@ -188,7 +188,7 @@ struct customEventCard: View {
     var body: some View {
         Rectangle()
             .frame(width: width, height: height)
-            .foregroundStyle(Color(.white))
+            .foregroundStyle(Color(.graphBG))
             .clipShape(RoundedRectangle(cornerRadius: 14))
             .overlay(
                 HStack{

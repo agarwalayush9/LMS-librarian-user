@@ -7,7 +7,7 @@ struct menuContent: View {
     
     var body: some View {
         ZStack {
-            Color(.white)
+            Color(.graphBG)
             
             VStack(alignment: .leading, spacing: 0) {
                 Text("Librarian")
