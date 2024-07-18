@@ -247,10 +247,10 @@ struct UsersCatalogue: View {
         
         NavigationStack {
             ZStack {
-//                backgroundView()
-//                    .ignoresSafeArea(.all)
-//                    .blur(radius: menuOpened ? 10 : 0)
-//                    .animation(.easeInOut(duration: 0.25), value: menuOpened)
+                //                backgroundView()
+                //                    .ignoresSafeArea(.all)
+                //                    .blur(radius: menuOpened ? 10 : 0)
+                //                    .animation(.easeInOut(duration: 0.25), value: menuOpened)
                 VStack {
                     ScrollView {
                         LazyVStack(alignment: .leading) {
@@ -363,37 +363,40 @@ struct UsersCatalogue: View {
                 }
                 
                 // Floating Button
-                VStack {
-                    Spacer()
-                    HStack {
+                ZStack{
+                    
+                    VStack {
                         Spacer()
-                        Button(action: {
-                            showingAddUserDetails.toggle()
-                        }) {
-                            HStack {
-                                Image(systemName: "person.fill")
-                                    .foregroundColor(.white)
-                                Text("Add a User")
-                                    .foregroundColor(.white)
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                showingAddUserDetails.toggle()
+                            }) {
+                                HStack {
+                                    Image(systemName: "person.fill")
+                                        .foregroundColor(.white)
+                                    Text("Add a User")
+                                        .foregroundColor(.white)
+                                }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 14)
+                                        .fill(Color(red: 0.32, green: 0.23, blue: 0.06))
+                                        .stroke(Color(red: 1, green: 0.74, blue: 0.28), lineWidth: 4)
+                                        .shadow(color: .gray, radius: 5, x: 0, y: 2)
+                                )
                             }
-                            .padding()
-                            .background(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .fill(Color(red: 0.32, green: 0.23, blue: 0.06))
-                                    .stroke(Color(red: 1, green: 0.74, blue: 0.28), lineWidth: 4)
-                                    .shadow(color: .gray, radius: 5, x: 0, y: 2)
-                            )
-                        }
-                        .padding(.trailing, 20)
-                        .padding(.bottom, 20)
-                        .sheet(isPresented: $showingAddUserDetails) {
-                            AddUserDetailsView { newUser in
-                                users.append(newUser)
+                            .padding(.trailing, 20)
+                            .padding(.bottom, 20)
+                            .sheet(isPresented: $showingAddUserDetails) {
+                                AddUserDetailsView { newUser in
+                                    users.append(newUser)
+                                }
                             }
                         }
                     }
                 }
-            }
+            
             .navigationTitle("User's data")
             .onAppear {
                 // Fetch complaints when view appears
@@ -421,11 +424,12 @@ struct UsersCatalogue: View {
                     }
                 }, label: {
                     Image(systemName: "sidebar.left")
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(Color.mainFont)
                 })
             }
         }
     }
+}
     func toggleMenu() {
         withAnimation(.easeInOut){
             menuOpened.toggle()
