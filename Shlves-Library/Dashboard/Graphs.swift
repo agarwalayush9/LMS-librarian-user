@@ -340,7 +340,7 @@ class TicketViewModel: ObservableObject {
         tickets = [
             TicketStatus(category: "Availed", value: 500, color: .customButton),
             TicketStatus(category: "Remaining", value: 200, color: .librarianDashboardTabBar),
-            TicketStatus(category: "Cancelled", value: 100, color: .pieLesser)
+//            TicketStatus(category: "Cancelled", value: 100, color: .pieLesser)
         ]
         
         DataController.shared.fetchRegisteredMembersOfNearestEvent { result in
