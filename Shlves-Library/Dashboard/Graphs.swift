@@ -480,11 +480,7 @@ struct PieChartDisplayView: View {
 
 
 
-// Preview provider for the main view
+
 #Preview("bar graph"){
     BarGraph()
 }
-
-//#Preview(){
-//    EventsDashboard()
-//}

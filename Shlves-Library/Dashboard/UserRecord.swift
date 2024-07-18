@@ -231,35 +231,26 @@ struct LibraryUser: Identifiable {
 }
 
 struct UsersCatalogue: View {
+    @State private var menuOpened = false
     @State private var selectedUsers = Set<Int>()
     @State private var showingAddUserDetails = false
     @State private var showingEditUserDetails = false
     @State private var userToEdit: LibraryUser?
-
+    
     @State private var users = [
         LibraryUser(id: 1, username: "John Doe", emailID: "john@example.com", membership: "Gold", phoneNumber: "0123456789", lastIssuedBook: "Harry Potter", charges: "Rs 0", memberSince: "2022-01-01"),
         LibraryUser(id: 2, username: "Jane Smith", emailID: "jane@example.com", membership: "Silver", phoneNumber: "0123456789", lastIssuedBook: "The Hobbit", charges: "Rs 5", memberSince: "2023-02-02"),
         // Add more users here
     ]
-
+    
     var body: some View {
-        NavigationView {
-            List {
-                NavigationLink(destination: UsersCatalogue()) {
-                    Label("Khvaab Library", systemImage: "books.vertical")
-                        .font(.title)
-                        .foregroundColor(.brown)
-                }
-                NavigationLink(destination: UsersCatalogue()) {
-                    Label("User Catalogues", systemImage: "person")
-                        .font(.title2)
-                        .foregroundColor(.brown)
-                }
-            }
-            .listStyle(SidebarListStyle())
-            .navigationTitle("Khvaab Library")
-
+        
+        NavigationStack {
             ZStack {
+//                backgroundView()
+//                    .ignoresSafeArea(.all)
+//                    .blur(radius: menuOpened ? 10 : 0)
+//                    .animation(.easeInOut(duration: 0.25), value: menuOpened)
                 VStack {
                     ScrollView {
                         LazyVStack(alignment: .leading) {
@@ -277,7 +268,7 @@ struct UsersCatalogue: View {
                                     )
                                 )
                                 .frame(width: 50, alignment: .center)
-
+                                
                                 Text("User ID")
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 Text("Username")
@@ -299,9 +290,9 @@ struct UsersCatalogue: View {
                             }
                             .font(.headline)
                             .padding(.horizontal)
-
+                            
                             Divider()
-
+                            
                             ForEach(users) { user in
                                 HStack {
                                     CheckBoxView(
@@ -317,7 +308,7 @@ struct UsersCatalogue: View {
                                         )
                                     )
                                     .frame(width: 50, alignment: .center)
-
+                                    
                                     Text("\(user.id)")
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     Text(user.username)
@@ -334,7 +325,7 @@ struct UsersCatalogue: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     Text(user.memberSince)
                                         .frame(maxWidth: .infinity, alignment: .leading)
-
+                                    
                                     HStack {
                                         Button(action: {
                                             userToEdit = user
@@ -343,7 +334,7 @@ struct UsersCatalogue: View {
                                             Image(systemName: "pencil")
                                                 .foregroundColor(.blue)
                                         }
-
+                                        
                                         Button(action: {}) {
                                             Image(systemName: "ellipsis")
                                                 .foregroundColor(.blue)
@@ -370,7 +361,7 @@ struct UsersCatalogue: View {
                         .frame(maxWidth: .infinity, alignment: .center) // Center the table
                     }
                 }
-
+                
                 // Floating Button
                 VStack {
                     Spacer()
@@ -403,19 +394,46 @@ struct UsersCatalogue: View {
                     }
                 }
             }
-            .navigationTitle("User's Data")
+            .navigationTitle("User's data")
+            .onAppear {
+                // Fetch complaints when view appears
+                //                fetchComplaints()
+            }
+            .navigationViewStyle(StackNavigationViewStyle()) // Ensure sidebar is removed
+            
+            
+            if menuOpened {
+                sideMenu(width: UIScreen.main.bounds.width * 0.30,
+                         menuOpened: menuOpened,
+                         toggleMenu: toggleMenu)
+                .ignoresSafeArea()
+                .toolbar(.hidden, for: .navigationBar)
+                .transition(.offset(x: menuOpened ? -UIScreen.main.bounds.width : 0))
+                
+            }
         }
-        .navigationViewStyle(DoubleColumnNavigationViewStyle())
-        .sheet(item: $userToEdit) { user in
-            EditUserDetailsView(user: user) { updatedUser in
-                if let index = users.firstIndex(where: { $0.id == updatedUser.id }) {
-                    users[index] = updatedUser
-                }
+        .navigationViewStyle(StackNavigationViewStyle()) // Ensure sidebar is removed
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button(action: {
+                    withAnimation{
+                        menuOpened.toggle()
+                    }
+                }, label: {
+                    Image(systemName: "sidebar.left")
+                        .foregroundStyle(Color.black)
+                })
             }
         }
     }
+    func toggleMenu() {
+        withAnimation(.easeInOut){
+            menuOpened.toggle()
+        }
+        
+    }
+    
 }
-
 struct ContentVieww_Previews: PreviewProvider {
     static var previews: some View {
         UsersCatalogue()
