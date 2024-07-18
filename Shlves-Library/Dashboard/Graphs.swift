@@ -109,7 +109,7 @@ struct EventAreaGraphView: View {
             Chart(viewModel.events) { event in
                 AreaMark(
                     x: .value("Date", event.date),
-                    y: .value("Revenue", event.revenue)
+                    y: .value("Revenue", event.RegisteredMemberCount * event.fees)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.linearGradient(colors: [.librarianDashboardTabBar.opacity(0.8), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom))
