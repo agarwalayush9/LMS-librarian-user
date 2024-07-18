@@ -111,7 +111,7 @@ struct EventRow: View {
                 .foregroundColor(.gray)
         }
         .padding()
-        .background(Color(.systemBackground))
+        .background(Color(.dashboardCardBG))
         .cornerRadius(12)
         .shadow(radius: 4)
         .padding(.horizontal)

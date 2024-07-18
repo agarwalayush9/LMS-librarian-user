@@ -31,9 +31,9 @@ struct EventFormView: View {
     var body: some View {
         Form {
             Section(header: Text("Enter Event Details")
-                .font(Font.custom("DMSans_18pt-Black", size: 32)
+                .font(Font.custom("DMSans_18pt-mainFont", size: 32)
                     .bold())
-                    .foregroundColor(.black)
+                    .foregroundColor(.mainFont)
                     .padding()) {
                 TextField("Event Name", text: $eventName)
                     .frame(maxWidth: .infinity, maxHeight: 20)
