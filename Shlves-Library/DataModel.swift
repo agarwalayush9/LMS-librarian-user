@@ -91,8 +91,7 @@ struct Member {
     var phoneNumber: Int
     var subscriptionPlan: String?
     var genre: [Genre]?
-
-    // Additional methods or properties as needed
+    var registeredEvents: [Event]? // This should be [Event] since it's an array of events
 
     var safeEmail: String {
         var safeEmail = email.replacingOccurrences(of: ".", with: "-")
@@ -115,11 +114,16 @@ struct Member {
         if let genre = genre {
             dictionary["genre"] = genre.map { $0.rawValue }
         }
-
-
+        
+        if let registeredEvents = registeredEvents {
+            // Convert each event to dictionary
+            dictionary["registeredEvents"] = registeredEvents.map { $0.toDictionary() }
+        }
         return dictionary
     }
 }
+
+
 
 struct Event: Identifiable {
     var id: String = UUID().uuidString

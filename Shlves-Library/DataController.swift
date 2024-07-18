@@ -442,29 +442,41 @@ class DataController: ObservableObject {
     
     
     func fetchAllEvents(completion: @escaping (Result<[Event], Error>) -> Void) {
-            database.child("events").observeSingleEvent(of: .value) { snapshot in
-                guard let eventsDict = snapshot.value as? [String: [String: Any]] else {
-                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
-                    return
-                }
-
-                var events: [Event] = []
-
-                for (_, dict) in eventsDict {
-                    do {
-                        if let event = try self.parseEvent(from: dict) {
-                            events.append(event)
-                        }
-                    } catch {
-                        print("Failed to parse event data: \(error.localizedDescription)")
-                    }
-                }
-
-                print("Fetched \(events.count) events.")
-                completion(.success(events))
+        database.child("events").observeSingleEvent(of: .value) { snapshot in
+            print("Snapshot value: \(snapshot.value ?? "No data")")
+            
+            guard let eventsSnapshot = snapshot.children.allObjects as? [DataSnapshot] else {
+                print("Failed to cast snapshot value to DataSnapshot array.")
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No data found or failed to cast snapshot value."])))
+                return
             }
+            
+            var events: [Event] = []
+            
+            for eventSnapshot in eventsSnapshot {
+                guard let eventDict = eventSnapshot.value as? [String: Any] else {
+                    print("Failed to parse event data for event with ID: \(eventSnapshot.key)")
+                    continue
+                }
+                
+                print("Event dictionary: \(eventDict)")
+                
+                do {
+                    if let event = try self.parseEvent(from: eventDict, eventId: eventSnapshot.key) {
+                        events.append(event)
+                    }
+                } catch {
+                    print("Failed to parse event data: \(error.localizedDescription)")
+                }
+            }
+            
+            print("Fetched \(events.count) events.")
+            completion(.success(events))
         }
+    }
 
+    
+    
     func fetchEventFees(completion: @escaping (Result<[Int], Error>) -> Void) {
             fetchAllEvents { result in
                 switch result {
@@ -535,20 +547,23 @@ class DataController: ObservableObject {
         }
     
     func fetchRegisteredMembers(completion: @escaping (Result<[Member], Error>) -> Void) {
-            fetchAllEvents { result in
-                switch result {
-                case .success(let events):
-                    var registeredUsers: [Member] = []
-                    for event in events {
-                        registeredUsers.append(contentsOf: event.registeredMembers)
-                    }
-                    print("Fetched registered users: \(registeredUsers)")
-                    completion(.success(registeredUsers))
-                case .failure(let error):
-                    completion(.failure(error))
+        fetchAllEvents { result in
+            switch result {
+            case .success(let events):
+                var registeredUsers: [Member] = []
+                for event in events {
+                    registeredUsers.append(contentsOf: event.registeredMembers)
                 }
+                print("Fetched registered users: \(registeredUsers)")
+                print("Total registered users count: \(registeredUsers.count)")
+                completion(.success(registeredUsers))
+            case .failure(let error):
+                print("Failed to fetch events: \(error.localizedDescription)")
+                completion(.failure(error))
             }
         }
+    }
+
     
     func fetchRegisteredMembersCount(completion: @escaping (Result<Int, Error>) -> Void) {
             fetchRegisteredMembers { result in
@@ -660,8 +675,7 @@ class DataController: ObservableObject {
 
     
    
-    private func parseEvent(from dict: [String: Any]) throws -> Event? {
-        // Extract values with conditional binding
+    private func parseEvent(from dict: [String: Any], eventId: String) throws -> Event? {
         guard
             let name = dict["name"] as? String,
             let host = dict["host"] as? String,
@@ -676,23 +690,7 @@ class DataController: ObservableObject {
             let revenue = dict["revenue"] as? Int,
             let status = dict["status"] as? String
         else {
-            // Print missing or invalid keys
-            let keyMissing = [
-                "name": dict["name"],
-                "host": dict["host"],
-                "dateInterval": dict["dateInterval"],
-                "timeInterval": dict["timeInterval"],
-                "address": dict["address"],
-                "duration": dict["duration"],
-                "description": dict["description"],
-                "tickets": dict["tickets"],
-                "imageName": dict["imageName"],
-                "fees": dict["fees"],
-                "revenue": dict["revenue"],
-                "status": dict["status"]
-            ]
-            
-            print("Failed to parse event data. Missing or invalid key/value: \(keyMissing)")
+            print("Failed to parse event data. Missing or invalid key.")
             return nil
         }
 
@@ -700,26 +698,29 @@ class DataController: ObservableObject {
         let date = Date(timeIntervalSince1970: dateInterval)
         let time = Date(timeIntervalSince1970: timeInterval)
 
-        // Parse registered members if available
+        // Parse registered members
         var registeredMembers: [Member] = []
         if let registeredMembersArray = dict["registeredMembers"] as? [[String: Any]] {
             for memberDict in registeredMembersArray {
+                print("Member dictionary: \(memberDict)")
+                
                 guard
-                    let name = memberDict["name"] as? String,
-                    let email = memberDict["email"] as? String,
+                    let firstName = memberDict["firstName"] as? String,
                     let lastName = memberDict["lastName"] as? String,
+                    let email = memberDict["email"] as? String,
                     let phoneNumber = memberDict["phoneNumber"] as? Int
                 else {
                     print("Failed to parse registered member data.")
                     continue
                 }
-                let user = Member(firstName: name, lastName: lastName, email: email, phoneNumber: phoneNumber)
-                registeredMembers.append(user)
+                let member = Member(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber)
+                registeredMembers.append(member)
             }
         }
 
         // Return Event object
-        return Event(
+        let event = Event(
+            id: eventId,
             name: name,
             host: host,
             date: date,
@@ -734,6 +735,10 @@ class DataController: ObservableObject {
             revenue: revenue,
             status: status
         )
+        
+        print("Parsed event: \(event)")
+        
+        return event
     }
 
 
