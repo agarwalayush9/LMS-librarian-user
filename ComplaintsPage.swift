@@ -77,7 +77,7 @@ struct ComplaintsView: View {
                     }
                 }, label: {
                     Image(systemName: "sidebar.left")
-                        .foregroundStyle(Color.black)
+                        .foregroundStyle(Color.mainFont)
                 })
             }
         }
