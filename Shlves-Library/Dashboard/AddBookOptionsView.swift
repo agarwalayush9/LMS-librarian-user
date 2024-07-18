@@ -27,11 +27,11 @@ struct AddBookOptionsView: View {
                             VStack {
                                 Image(systemName: "barcode.viewfinder")
                                     .font(.system(size: 65))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.mainFont)
                                     .padding(.bottom)
                                 Text("Using ISBN Code Scanning")
                                     .font(.custom("DMSans-Bold", size: 20))
-                                    .foregroundColor(.black)
+                                    .foregroundColor(.mainFont)
                             }
                             .padding(.all, 20)
                             .frame(maxWidth: .infinity)
@@ -44,11 +44,11 @@ struct AddBookOptionsView: View {
                         VStack {
                             Image(systemName: "square.and.arrow.up")
                                 .font(.system(size: 65))
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                                 .padding(.bottom)
                             Text("Batch Upload (CSV, Spreadsheet)")
                                 .font(.custom("DMSans-Bold", size: 20))
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }
                         .padding(.all, 20)
                         .frame(maxWidth: .infinity)
@@ -66,11 +66,11 @@ struct AddBookOptionsView: View {
                         VStack {
                             Image(systemName: "pencil")
                                 .font(.system(size: 65))
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                                 .padding(.bottom)
                             Text("Enter Details Manually")
                                 .font(.custom("DMSans-Bold", size: 20))
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }
                         .padding(.all, 20)
                         .frame(maxWidth: .infinity)

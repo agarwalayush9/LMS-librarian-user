@@ -276,7 +276,7 @@ struct BooksCatalogue: View {
                         }
                     }) {
                         Image(systemName: "sidebar.left")
-                            .foregroundColor(.black)
+                            .foregroundColor(.mainFont)
                     }
                 }
             }

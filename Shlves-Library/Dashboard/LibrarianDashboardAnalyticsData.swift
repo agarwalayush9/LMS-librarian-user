@@ -177,7 +177,7 @@ struct UpcomingEventListView: View {
                             
                             Text(event.host)
                                 .font(.subheadline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }
                         .frame(maxWidth: 145)
                         
@@ -190,7 +190,7 @@ struct UpcomingEventListView: View {
                             
                             Text(formattedDate(event.date)) // Format date correctly
                                 .font(.subheadline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }.frame(maxWidth: 85)
                         
                         Spacer()
@@ -202,7 +202,7 @@ struct UpcomingEventListView: View {
                             
                             Text("\(event.fees)") // Display price correctly
                                 .font(.subheadline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }.frame(maxWidth: 85)
                         
                         Spacer()

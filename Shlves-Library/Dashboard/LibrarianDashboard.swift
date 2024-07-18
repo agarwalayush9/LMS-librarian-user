@@ -164,7 +164,7 @@ struct LibrarianDashboard: View {
                         }
                     }, label: {
                         Image(systemName: "sidebar.left")
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color.mainFont)
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -174,7 +174,7 @@ struct LibrarianDashboard: View {
 //                        navigateToUserRecord = true
 //                    }, label: {
 //                        Image(systemName: "books.vertical")
-//                            .foregroundColor(Color.black)
+//                            .foregroundColor(Color.mainFont)
 //                    })
                     HStack{
                                             Button(action: {
@@ -183,7 +183,7 @@ struct LibrarianDashboard: View {
                                                 
                                             }, label: {
                                                 Image(systemName: "books.vertical")
-                                                    .foregroundColor(Color.black)
+                                                    .foregroundColor(Color.mainFont)
                                             })
                                             Button(action: {
                                                 // Add action for books vertical button
@@ -192,7 +192,7 @@ struct LibrarianDashboard: View {
                                                 
                                             }, label: {
                                                 Image(systemName: "person.3.fill")
-                                                    .foregroundColor(Color.black)
+                                                    .foregroundColor(Color.librarianDashboardTabBar)
                                             })
                                         }
                     //end here

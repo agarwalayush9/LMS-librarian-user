@@ -71,7 +71,7 @@ struct userName : View {
                   Font.custom("DM Sans", size: 48)
                     .weight(.medium)
                 )
-                .foregroundColor(.black)
+                .foregroundColor(.mainFont)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }
@@ -253,7 +253,7 @@ struct todayDateAndTime : View {
             Font.custom("DM Sans", size: 24)
               .weight(.medium)
           )
-          .foregroundColor(.black)
+          .foregroundColor(.mainFont)
           .frame(maxWidth: .infinity, alignment: .topLeading)
     }
 }
@@ -267,7 +267,7 @@ struct AnalyticHeader : View {
             Font.custom("DM Sans", size: 20)
               .weight(.medium)
           )
-          .foregroundColor(.black)
+          .foregroundColor(.mainFont)
           .frame(maxWidth: .infinity, alignment: .topLeading)
           .padding([.leading], 64)
     }
@@ -763,7 +763,7 @@ struct NewlyArrivedBooksQuantityInfo : View {
                     .padding()
                     .foregroundColor(.customButton)
                 Text("\(ArrivedDate) ")
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.mainFont)
             }
             Spacer()
             VStack{
@@ -771,7 +771,7 @@ struct NewlyArrivedBooksQuantityInfo : View {
                     .padding()
                     .foregroundColor(.customButton)
                 Text("\(Quantity) units")
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.mainFont)
                 
             }
         }
@@ -808,7 +808,7 @@ struct bookInfo : View {
                             Font.custom("DM Sans", size: 14)
                                 .weight(.medium)
                         )
-                        .foregroundColor(.black)
+                        .foregroundColor(.mainFont)
                 )
             
             Text(bookTitle)
@@ -823,7 +823,7 @@ struct bookInfo : View {
                     Font.custom("DM Sans", size: 17)
                         .weight(.medium)
                 )
-                .foregroundColor(.black)
+                .foregroundColor(.mainFont)
             
         }
     }
