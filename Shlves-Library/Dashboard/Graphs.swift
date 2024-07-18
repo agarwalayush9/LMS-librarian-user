@@ -96,7 +96,7 @@ class eventRevenueViewModel: ObservableObject {
                     eventDatas.append(eventData)
                 }
                 
-                self.events = eventDatas
+                self.events = eventDatas.sorted(by: { $0.date < $1.date })
             }
         }
 }
@@ -109,7 +109,7 @@ struct EventAreaGraphView: View {
             Chart(viewModel.events) { event in
                 AreaMark(
                     x: .value("Date", event.date),
-                    y: .value("Revenue", event.RegisteredMemberCount * event.fees)
+                    y: .value("Revenue", event.revenue)
                 )
                 .interpolationMethod(.catmullRom)
                 .foregroundStyle(.linearGradient(colors: [.librarianDashboardTabBar.opacity(0.8), .white.opacity(0.2)], startPoint: .top, endPoint: .bottom))
