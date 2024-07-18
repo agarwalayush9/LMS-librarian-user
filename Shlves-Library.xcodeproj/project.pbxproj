@@ -52,7 +52,7 @@
 		444512912C467A660081665D /* BookOverdueAndFine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookOverdueAndFine.swift; sourceTree = "<group>"; };
 		732DC2932C48405700C62471 /* NotificationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreen.swift; sourceTree = "<group>"; };
 		737170702C3B465F009A3B05 /* UserRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecord.swift; sourceTree = "<group>"; };
-		73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplaintsPage.swift; sourceTree = "<group>"; };
+		73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ComplaintsPage.swift; path = "Shlves-Library/Dashboard/ComplaintsPage.swift"; sourceTree = "<group>"; };
 		73E886862C3FF892000687DD /* BookDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		73E886872C3FF892000687DD /* BarCodeScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeScannerView.swift; sourceTree = "<group>"; };
 		73E886882C3FF892000687DD /* BookDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookDetails.swift; sourceTree = "<group>"; };
@@ -130,9 +130,6 @@
 		B1BEB40E2C359FB300ED5C01 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				B14A30EC2C43E88B004B36AD /* NextButton.swift */,
-				73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */,
-				B14A30EA2C43E879004B36AD /* FinalButton.swift */,
 				B14A30E62C43E65B004B36AD /* EventsDashboard.swift */,
 				B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */,
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,
