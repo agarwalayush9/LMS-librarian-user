@@ -105,7 +105,7 @@ struct AddBookDetailsView: View {
             }
         }
         .padding()
-        .background(Color.white)
+        .background(Color.dashboardCardBG)
         .cornerRadius(20)
         .frame(maxWidth: 500) // Limit the width of the pop-up
         .alert(isPresented: $showAlert) {
