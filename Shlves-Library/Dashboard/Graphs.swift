@@ -46,17 +46,7 @@ class eventRevenueViewModel: ObservableObject {
             }
         }
         
-        dispatchGroup.enter()
-                DataController.shared.fetchRegisteredMembersCountForAllEvents { result in
-                    defer { dispatchGroup.leave() }
-                    switch result {
-                    case .success(let counts):
-                        self.registeredMemberCounts = counts
-                    case .failure(let error):
-                        print("Failed to fetch registered member count: \(error.localizedDescription)")
-                    }
-                }
-            
+        
             // Fetch event dates
             dispatchGroup.enter()
             DataController.shared.fetchEventDateTime { result in
@@ -137,9 +127,7 @@ class eventRevenueViewModel: ObservableObject {
         return upcomingEvents[1]
     }
     
-    func getFirstRegisteredMemberCount() -> Int? {
-            return registeredMemberCount
-        }
+    
 
 }
 
