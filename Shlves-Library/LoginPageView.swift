@@ -41,20 +41,20 @@ struct LoginPageView: View {
                         Text("Shelves")
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                            .foregroundColor(Color.loginPage)
                     }
                     
                     Text("Librarian Log in")
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                        .foregroundColor(Color.loginPage)
                     
                     Text("Welcome back Librarian! Please enter your details.")
-                        .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                        .foregroundColor(Color.loginPage)
                     
                     // Email field
                     Text("Email")
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(Color.mainFont)
                     TextField("Enter your email", text: $email)
                         .padding()
                         .background(Color(UIColor.systemGray6))
@@ -72,7 +72,7 @@ struct LoginPageView: View {
                     
                     // Password field
                     Text("Password")
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(Color.mainFont)
                     SecureField("Enter your password", text: $password)
                         .padding()
                         .background(Color(UIColor.systemGray6))

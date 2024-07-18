@@ -56,20 +56,20 @@ struct RegisterPage: View {
                             Text("Shelves")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                                .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                                .foregroundColor(Color.loginPage)
                         }
                         
                         Text("Librarian Registration")
                             .font(.title)
                             .fontWeight(.bold)
-                            .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                            .foregroundColor(Color.loginPage)
                         
                         Text("Please enter your details.")
-                            .foregroundColor(Color(red: 0.4, green: 0.2, blue: 0.1))
+                            .foregroundColor(Color.loginPage)
                         
                         // First Name field
                         Text("First Name")
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.mainFont)
                         TextField("Enter your First Name", text: $name)
                             .padding()
                             .background(Color(UIColor.systemGray6))
@@ -86,7 +86,7 @@ struct RegisterPage: View {
                         
                         // Last Name field
                         Text("Last Name")
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.mainFont)
                         TextField("Enter your Last Name", text: $lastName)
                             .padding()
                             .background(Color(UIColor.systemGray6))
@@ -103,7 +103,7 @@ struct RegisterPage: View {
                         
                         // Email field
                         Text("Email")
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.mainFont)
                         TextField("Enter your email", text: $email)
                             .padding()
                             .background(Color(UIColor.systemGray6))
@@ -120,7 +120,7 @@ struct RegisterPage: View {
                         
                         // Phone Number field
                         Text("Phone Number")
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.mainFont)
                         TextField("Enter your number", text: $phoneNumber)
                             .padding()
                             .background(Color(UIColor.systemGray6))

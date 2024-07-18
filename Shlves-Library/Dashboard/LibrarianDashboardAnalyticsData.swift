@@ -173,11 +173,11 @@ struct UpcomingEventListView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(event.name)
                                 .font(.headline)
-                                .foregroundColor(.customButton)
+                                .foregroundColor(.mainFont)
                             
                             Text(event.host)
                                 .font(.subheadline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }
                         .frame(maxWidth: 145)
                         
@@ -186,11 +186,11 @@ struct UpcomingEventListView: View {
                         VStack(alignment: .leading) {
                             Text("Date")
                                 .font(.headline)
-                                .foregroundColor(.customButton)
+                                .foregroundColor(.mainFont)
                             
                             Text(formattedDate(event.date)) // Format date correctly
                                 .font(.subheadline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }.frame(maxWidth: 85)
                         
                         Spacer()
@@ -198,11 +198,11 @@ struct UpcomingEventListView: View {
                         VStack(alignment: .leading) {
                             Text("Price")
                                 .font(.headline)
-                                .foregroundColor(.customButton)
+                                .foregroundColor(.mainFont)
                             
                             Text("\(event.fees)") // Display price correctly
                                 .font(.subheadline)
-                                .foregroundColor(.black)
+                                .foregroundColor(.mainFont)
                         }.frame(maxWidth: 85)
                         
                         Spacer()

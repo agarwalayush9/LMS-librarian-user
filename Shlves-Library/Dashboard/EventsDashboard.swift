@@ -68,7 +68,7 @@ struct EventsDashboard: View {
                         }
                     }, label: {
                         Image(systemName: "sidebar.left")
-                            .foregroundStyle(Color.black)
+                            .foregroundStyle(Color.mainFont)
                     })
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -76,7 +76,7 @@ struct EventsDashboard: View {
                         // Add action for books vertical button
                     }, label: {
                         Image(systemName: "books.vertical")
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color.mainFont)
                     })
                 }
                 
