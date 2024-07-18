@@ -128,6 +128,9 @@
 		B1BEB40E2C359FB300ED5C01 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				B14A30EC2C43E88B004B36AD /* NextButton.swift */,
+				73BCEC0A2C4648A400F7D3D4 /* ComplaintsPage.swift */,
+				B14A30EA2C43E879004B36AD /* FinalButton.swift */,
 				B14A30E62C43E65B004B36AD /* EventsDashboard.swift */,
 				B1BEB40D2C359FB300ED5C01 /* sideMenuBar.swift */,
 				B174F34D2C360313003D1ABD /* LibrarianDashboardAnalyticsData.swift */,

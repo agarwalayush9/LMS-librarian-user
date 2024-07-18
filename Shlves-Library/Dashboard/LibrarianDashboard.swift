@@ -35,61 +35,52 @@ struct LibrarianDashboard: View {
                         }
                         .padding(.trailing, 462)
 
-                        VStack {
-                            // Inside this write BookCirculation
-                            VStack(alignment: .leading, spacing: 20) {
-                                AnalyticHeader(title: "Main Analytics Below")
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 20) {
-                                        DashboardAnalytics()
-                                    }
-                                    .padding(.leading, 64)
-                                }
+                         ScrollView{
+                            VStack {
+                                // Inside this write BookCirculation
                                 VStack(alignment: .leading, spacing: 20) {
                                     AnalyticHeader(title: "Main Analytics Below")
-                                    ScrollView(.horizontal, showsIndicators: false) 
-                                    {
+                                    ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: 20) {
                                             DashboardAnalytics()
                                         }
                                         .padding(.leading, 64)
                                     }
+                                    //MARK: 2nd line of Librarian
                                 }
-                                .padding([.bottom], 16)
+                                .padding([.top, .bottom], 16)
                                 Spacer()
-                            }
-                            .padding([.top, .bottom], 16)
-                            Spacer()
-                            BookCirculationCard(minHeight: 160, title: "Book Circulation")
-                                .padding([.leading, .trailing], 64)
-                                
-
-                            HStack(alignment: .top) {
-                                VStack {
-                                    //overDueBooksDetailData()
-                                    UpcomingEventListView()
-                                        .padding(.top, 80)
-                                }
-                                .background(
-                                    BookCirculationCard(minHeight: 200, title: "Upcoming Events")
-                                        .padding(.bottom, 16)
-                                )
-
-                                Spacer()
-
-                                VStack {
+                                BookCirculationCard(minHeight: 160, title: "Book Circulation")
+                                    .padding([.leading, .trailing], 64)
                                     
-                                    NewlyArrivedBooksDetailData()
-                                        .padding(.top, 80)
+
+                                HStack(alignment: .top) {
+                                    VStack {
+                                        //overDueBooksDetailData()
+                                        UpcomingEventListView()
+                                            .padding(.top, 80)
+                                    }
+                                    .background(
+                                        BookCirculationCard(minHeight: 200, title: "Upcoming Events")
+                                            .padding(.bottom, 16)
+                                    )
+
+                                    Spacer()
+
+                                    VStack {
+                                        
+                                        NewlyArrivedBooksDetailData()
+                                            .padding(.top, 80)
+                                    }
+                                    .background(
+                                        BookCirculationCard(minHeight: 200, title: "Newly Arrived Books")
+                                            .padding(.bottom, 16)
+                                    )
                                 }
-                                .background(
-                                    BookCirculationCard(minHeight: 200, title: "Newly Arrived Books")
-                                        .padding(.bottom, 16)
-                                )
+                                .padding([.leading, .trailing], 64)
+                                .padding(.bottom, 85)
+                                Spacer()
                             }
-                            .padding([.leading, .trailing], 64)
-                            .padding(.bottom, 85)
-                            Spacer()
                         }
                     }
                 }
