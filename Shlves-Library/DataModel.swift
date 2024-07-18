@@ -15,11 +15,15 @@ struct User
     
     func toDictionary() -> [String: Any] {
             return [
-                "name": firstName,
-                "lastName": lastName,
                 "email": email,
+                "lastName": lastName,
+                
+                "name": firstName,
+                "password": "******",
                 "phoneNumber": phoneNumber,
-
+                "status": "Approval Pending",
+                "userId": "******",
+                
             ]
         }
 }
