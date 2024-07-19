@@ -39,7 +39,7 @@ struct NotificationCard: View {
             Divider()
         }
         .padding()
-        .background(Color.white)
+        .background(Color.dashboardbg)
         .cornerRadius(10)
         .shadow(radius: 5)
     }
