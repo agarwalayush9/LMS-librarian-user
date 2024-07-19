@@ -17,6 +17,7 @@ import SwiftUI
 
 import SwiftUI
 import Combine
+import FirebaseDatabaseInternal
 
 class UpcomingEventViewModel: ObservableObject {
     @Published var upcomingEvents: [UpcomingEvent] = []
@@ -485,7 +486,7 @@ struct showingDetailsForOverDueDetails : View {
 
                 bookInfo(bookTitle: BookTitle,
                          authorName: AuthorName,
-                         ISBN: ISBN,
+                         ISBN: ISBN, email: "",
                          imageName: imageName)
                 .padding()
                 userInfo(userName: userName,
@@ -536,7 +537,7 @@ struct showingDetailsForNewlyArrivedBooks : View {
 
                 bookInfo(bookTitle: BookTitle,
                          authorName: AuthorName,
-                         ISBN: ISBN,
+                         ISBN: ISBN, email: "",
                          imageName: imageName)
                 .padding()
                 NewlyArrivedBooksQuantityInfo(ArrivedDate: ArivedDate, Quantity: Quantity)
@@ -554,40 +555,94 @@ struct BookRequest : View {
     var AuthorName : String
     var UserName : String
     var UserID : String
+    var email : String
     var RequestedDate : String
+    @ObservedObject var bookModel = BookModel()
     
     var body: some View {
         NavigationStack {
             //Ebter for each here
             VStack {
-                HStack {
-                    bookInfo(bookTitle: BookTitle,
-                             authorName: AuthorName,
-                             ISBN: ISBN,
-                             imageName: BookImage)
+                
+                // Loop Starts for book request
+                ScrollView(){
+                    ForEach(bookModel.borrowedBooks) { book in
+                        HStack {
+                            bookInfo(bookTitle: book.title,
+                                     authorName: book.author,
+                                     ISBN: "",
+                                     email: book.email, imageName: book.imageName)
+                            .padding(.leading)
+                            Spacer()
+                            VStack {
+                                if(book.status == "Requested"){
+                                    AorDCustomButton(
+                                        width: 120,
+                                        height: 28,
+                                        title: "Approve",
+                                        colorName: "ApproveButton",
+                                        fontColor: "ApproveFontColor")
+                                    .padding(.bottom)
+                                    .onTapGesture{
+                                        let sanitizedEmail = (book.email).replacingOccurrences(of: "@", with: "-").replacingOccurrences(of: ".", with: "-")
+                                        let ref = Database.database().reference().child("issue-book").child(sanitizedEmail).child(book.isbn)
+                                        let librarianData: [String: Any] = [
+                                            "status": "Approved",
+                                        ]
+                                        
+                                        ref.updateChildValues(librarianData) { error, _ in
+                                            if let error = error {
+                                                print("Error updating status: \(error.localizedDescription)")
+                                            } else {
+                                                print("Status updated successfully")
+                                            }
+                                        }
+                                    }
+                                    AorDCustomButton(
+                                        width: 120,
+                                        height: 28,
+                                        title: "Decline",
+                                        colorName: "DeclineButton",
+                                        fontColor: "DeclineFontColor")
+                                    .onTapGesture{
+                                        let sanitizedEmail = (book.email).replacingOccurrences(of: "@", with: "-").replacingOccurrences(of: ".", with: "-")
+                                        let ref = Database.database().reference().child("issue-book").child(sanitizedEmail).child(book.isbn)
+                                        let librarianData: [String: Any] = [
+                                            "status": "Declined",
+                                        ]
+                                        
+                                        ref.updateChildValues(librarianData) { error, _ in
+                                            if let error = error {
+                                                print("Error updating status: \(error.localizedDescription)")
+                                            } else {
+                                                print("Status updated successfully")
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+                                    Text(book.status)
+                                }
+                            }
+                            .padding(.leading, 50)
+                            .padding(.trailing, 50)
+                        }
+                        .padding(.top)
                         .padding(.leading)
-                    BookRequestCard(userName: UserName, RequestedDate: RequestedDate)
-                        .padding(.leading)
-                    VStack {
-                        AorDCustomButton(
-                            width: 120,
-                            height: 28,
-                            title: "Approve",
-                            colorName: "ApproveButton",
-                            fontColor: "ApproveFontColor")
-                        .padding(.bottom)
-                        AorDCustomButton(
-                            width: 120,
-                            height: 28,
-                            title: "Decline",
-                            colorName: "DeclineButton",
-                            fontColor: "DeclineFontColor")
+                        .padding(.trailing)
+                        .frame(maxWidth: .infinity, maxHeight: 140)
+                        Divider()
                     }
                 }
-                .padding(.top)
-                .frame(maxWidth: .infinity, maxHeight: 140)
-                                Spacer()
-                            }
+                .onAppear {
+                    bookModel.fetchBorrowedBooks()
+                }
+                // Loop Ends for book request
+                Spacer()
+            }
+                
+                
+            }
                             .toolbar {
                                 ToolbarItem(placement: .navigationBarTrailing) {
                                     Button(action: {
@@ -601,7 +656,7 @@ struct BookRequest : View {
                             .padding(.top) // Add padding to the parent NavigationStack
                         }
                     }
-                }
+
 
 
 
@@ -623,7 +678,7 @@ struct ReturnBook : View {
                 HStack {
                     bookInfo(bookTitle: BookTitle,
                              authorName: AuthorName,
-                             ISBN: ISBN,
+                             ISBN: ISBN, email: "",
                              imageName: BookImage)
                         .padding(.leading)
                     BookReturnCard(userName: UserName, RequestedDate: RequestedDate)
@@ -663,21 +718,6 @@ struct ReturnBook : View {
             
 
 //MARK: book request Data
-struct BookRequestCard : View {
-    var userName : String
-    var RequestedDate: String
-    var body: some View {
-        HStack{
-            Text(userName)
-
-            VStack{
-                Text("Requested \n On")
-                    .padding()
-                Text("\(RequestedDate)")
-            }
-        }
-    }
-}
 
 //MARK: book return  Data
 struct BookReturnCard : View {
@@ -783,47 +823,60 @@ struct bookInfo : View {
     var bookTitle : String
     var authorName : String
     var ISBN : String
+    var email: String
     var imageName : String
     var body: some View {
         HStack(spacing : 20){
-        Rectangle()
-            .foregroundColor(.clear)
-            .frame(width: 100, height: 100)
-            .background(
-                Image(imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 79, height: 125)
-                    .clipped()
-            )
-            .padding(.bottom, 12)
+            if let url = URL(string: imageName) {
+                           AsyncImage(url: url) { phase in
+                               switch phase {
+                               case .empty:
+                                   ProgressView()
+                                       .frame(width: 79, height: 125)
+                               case .success(let image):
+                                   image
+                                       .resizable()
+                                       .aspectRatio(contentMode: .fill)
+                                       .frame(width: 79, height: 125)
+                                       .clipped()
+                               case .failure:
+                                   Image(systemName: "photo")
+                                       .resizable()
+                                       .aspectRatio(contentMode: .fit)
+                                       .frame(width: 79, height: 125)
+                                       .foregroundColor(.gray)
+                               @unknown default:
+                                   EmptyView()
+                               }
+                           }
+                           .frame(width: 79, height: 125)
+                           .cornerRadius(8)
+                           .padding(.trailing)
+                       }
             VStack(alignment: .leading){
-            Rectangle()
-                .frame(width: 90, height: 25)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-                .foregroundStyle(Color("ISBNContainerColor"))
-                .overlay(
-                    Text(ISBN)
-                        .font(
-                            Font.custom("DM Sans", size: 14)
-                                .weight(.medium)
-                        )
-                        .foregroundColor(.isbnNumber)
-                )
+           
             
             Text(bookTitle)
                 .font(
-                    Font.custom("DM Sans", size: 20)
-                        .weight(.medium)
+                    Font.custom("DM Sans", size: 26)
+                        
                 )
                 .foregroundColor(.mainFont)
-            Text(authorName)
+                
+               
+                Text(authorName)
             
                 .font(
-                    Font.custom("DM Sans", size: 17)
-                        .weight(.medium)
+                    Font.custom("DM Sans", size: 20)
+                        
                 )
                 .foregroundColor(.mainFont)
+                Spacer()
+                Text("User ~ \(email)")
+                    .font(
+                        Font.custom("DM Sans", size: 20)
+                            .weight(.light))
+                Spacer()
             
         }
     }

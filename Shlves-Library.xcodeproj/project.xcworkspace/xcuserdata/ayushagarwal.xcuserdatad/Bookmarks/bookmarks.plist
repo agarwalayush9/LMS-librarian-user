@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>top-level-items</key>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>199</string>
+					<key>StartingColumnNumber</key>
+					<string>45</string>
+					<key>StartingLineNumber</key>
+					<string>198</string>
+					<key>Timestamp</key>
+					<string>743030544.522406</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>Shlves-Library/Dashboard/LibrarianDashboard.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>
+</string>
+				<key>leading</key>
+				<string>
+struct showTabBarButtons : View {
+    @State private var isRequestBooks = false</string>
+				<key>trailing</key>
+				<string>    @State private var isReturnBooks = false
+    @State private var isAddEventPressed = false
+
+</string>
+			</dict>
+			<key>title</key>
+			<string>isRequestBooks</string>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>551</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>550</string>
+					<key>Timestamp</key>
+					<string>743048574.8375649</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>Shlves-Library/Dashboard/LibrarianDashboardStructs.swift</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>    @Environment(\.presentationMode) var presentationMode
+</string>
+				<key>leading</key>
+				<string>
+struct BookRequest : View {
+</string>
+				<key>trailing</key>
+				<string>    var ISBN : String
+    var BookImage : String
+    var BookTitle : String
+</string>
+			</dict>
+			<key>title</key>
+			<string>BookRequest</string>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
+</dict>
+</plist>
