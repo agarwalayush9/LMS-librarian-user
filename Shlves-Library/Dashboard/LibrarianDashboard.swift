@@ -30,7 +30,7 @@ struct LibrarianDashboard: View {
                     VStack {
                         HStack(spacing: 0) {
                             VStack(alignment: .leading, spacing: 16) {
-                                userName(userName: "User")
+                                userName(userName: "Librarian")
                                 todayDateAndTime()
                             }
                             .padding(.all, 64)

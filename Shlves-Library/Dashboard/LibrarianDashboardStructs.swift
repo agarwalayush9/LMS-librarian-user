@@ -426,7 +426,7 @@ struct CustomButton : View {
                 .foregroundStyle(Color.white)
             Text(title)
                 .font(
-                Font.custom("DM Sans", size: 20)
+                Font.custom("DM Sans", size: 17)
                 .weight(.bold)
                 )
                 .foregroundColor(.white)
